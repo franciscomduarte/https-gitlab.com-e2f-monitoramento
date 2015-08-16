@@ -66,31 +66,45 @@ if ($acao == "a"){
 				</div>
 			</div>
 
+			<div class="row" style="margin: 5px">
+				<div class="input-group col-xs-8 col-md-6">
+					<span class="input-group-addon">&nbsp;&nbsp;Descri&ccedil;&atilde;o&nbsp;&nbsp;</span> 
+						<textarea name="descricao" rows="3" cols="230" class="form-control" style="text-align: inherit;" maxlength="150" required >
+						<?php echo $descricao?>
+						</textarea>
+				</div>
+			</div>
+			
+			
+			
 			<div class="row" style="margin: 5px;">
 				<span class="input-group-btn">
 					<div class="input-group col-xs-8 col-md-4">
-						<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;Cidade&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<select name="cidade_id" class="form-control" style="width: 400px"
+						<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Local&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<select name="local_id" class="form-control" style="width: 400px"
 							required>
-							<option value='' selected>-- Escolha uma cidade --</option>
+							<option value='' selected>-- Escolha um local --</option>
 							<?php 
 
-							$sqlCidade = "select c.id, c.nome, u.sigla
-										from cidade c, uf u
-										where c.uf_id = u.id
-										order by id";
-							$rsCidade = mysqli_query($conexao, $sqlCidade);
-							while($linha=mysqli_fetch_array($rsCidade)){
-                              			if ($linha['id'] == $cidade_id){
-                              				$escolhido = "selected";
-                              			}else{
-                              				$escolhido = "";
-                              			}
-                              			$opcao = "<option value='".$linha['id']."' ".$escolhido.">".$linha['nome']."-".$linha['sigla']."</option>";
-                              			echo $opcao;
-                              		}
+							$sqlLocal = "select lc.id,lc.nome as nome_local,
+										 c.nome as nome_cidade, u.sigla
+										 from local lc, cidade c, uf u
+										 where lc.cidade_id = c.id
+										 and  c.uf_id = u.id order by lc.nome asc";
+							$rsLocal = mysqli_query($conexao, $sqlLocal);
+
+							while($linha=mysqli_fetch_array($rsLocal)){
+								$nome_local = $linha['nome_local']." - ".$linha['nome_cidade']."/".$linha['sigla'];
+                              	if ($linha['id'] == $local_id){
+                           			$escolhido = "selected";
+                       			}else{
+                       				$escolhido = "";
+                       			}
+                              		$opcao = "<option value='".$linha['id']."' ".$escolhido.">".$nome_local."</option>";
+                              		echo $opcao;
+                            }
                               		 
-                              		?>
+                           ?>
 						</select>
 				
 				</span>

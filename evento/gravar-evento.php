@@ -1,6 +1,7 @@
 <?php 
 	include '../conexao/conn.php';
 	
+	session_start();
 	
 	$acao  = $_REQUEST['acao'];
 	$id	   = $_REQUEST['id'];
@@ -10,22 +11,38 @@
 	$data_inicio  = $_REQUEST['data_inicio'];
 	$data_fim     = $_REQUEST['data_fim'];
 	$descricao    = $_REQUEST['descricao'];
-	$local        = $_REQUEST['descricao'];
-	
+	$local_id     = $_REQUEST['local_id'];
+	$id_usuario   = $_SESSION['id_usuario'];
 	
 	#condiç£¯ que verifica se uma das açµ¥s foram passadas
 	if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		if ($acao == "n"){
-			$sql = "INSERT INTO local VALUES(null, '$nome', '$endereco','$cidade_id')";
+			$sql = "INSERT INTO evento VALUES
+					(null, '$nome', '$data_inicio','$data_fim','$descricao','$local_id','$id_usuario')";
 		}elseif ($acao == "e"){
 			//Esta a nÃ£o exclui apenas inativa.
-			echo "<script>alert('A exclusÃ£o de local nÃ£o Ã© permitida.');history.go(-1);</script>";
-			exit();
+			$sqlTotal="select count(*) as total 
+					   from convidado where evento_id=$id";			
+			$rsTotal = mysqli_query($conexao, $sqlTotal);
+			
+			$linha = mysqli_fetch_assoc($rsTotal);
+			
+			exit(); 		
+			$total = mysqli_num_rows($linha);
+			if ($total > 0){
+				echo "<script>alert('Não é possível exclir Evento que possuí Convidados.');history.go(-1);</script>";
+				exit();
+			}else{
+				$sql = "DELETE from evento where id = $id";
+			}
+			
 		}elseif ($acao == "a"){
-			$sql = "UPDATE local set 
+			$sql = "UPDATE evento set 
 					 nome = '$nome',
-					 endereco = '$endereco',
-					 cidade_id = '$cidade_id'
+					 data_inicio = '$data_inicio',
+					 data_fim = '$data_fim',
+					 descricao = '$descricao',
+					 local_id = '$local_id'
 					where id = $id";
 		}
 		
@@ -33,7 +50,7 @@
 	}else{
 		#colocar um erro... 
 	}
-	header("Location: ../index.php?pg=7");
+	header("Location: ../index.php?pg=13");
 	
 
 ?>

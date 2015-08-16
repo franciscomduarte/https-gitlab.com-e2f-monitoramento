@@ -69,8 +69,8 @@
 <script src="js/paginacao.js"></script>
 <script>
 	function excluir(id){
-		var pag = "local/gravar-local.php?acao=e&id="+id;
-		if (confirm("Tem certeza que deseja excluir este local?")){
+		var pag = "evento/gravar-evento.php?acao=e&id="+id;
+		if (confirm("Tem certeza que deseja excluir este evento?")){
 			location.href = pag;
 		}
 	}
