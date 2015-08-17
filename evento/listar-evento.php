@@ -12,8 +12,8 @@
 						<th>#</th>
 						<th>C&oacute;digo</th>
 						<th>Nome</th>
-						<th>Início</th>
-						<th>Fim</th>
+						<th>Periodo</th>
+						<th>Convidados</th>
 						<th>Descrição</th>
 						<th>Local</th>
 						<th>Usuário</th>
@@ -25,7 +25,9 @@
 
 					require_once 'conexao/conn.php';
                     
-					$sql = "select e.id, e.nome, e.data_inicio, e.data_fim, e.descricao,
+					$sql = "select e.id, e.nome, date_format(e.data_inicio,'%d/%m/%Y %H:%i') as data_inicio, 
+							date_format(e.data_fim,'%d/%m/%Y %H:%i') as data_fim,
+							e.descricao, (select count(*) from convidado where evento_id = e.id) as total,
 					        concat(l.nome,'<br>' ,l.endereco,' - ',c.nome,' - ',u.sigla) as nome_local,
 					        us.nome as nome_usuario
 							from evento e, local l, cidade c, uf u, usuario us
@@ -33,7 +35,7 @@
 							and   l.cidade_id = c.id
 							and   u.id = c.uf_id
 							and   us.id = e.usuario_cadastro_id
-							order by nome";
+							order by data_inicio desc";
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 
@@ -44,14 +46,15 @@
 						<td><?php echo $num?></td>
 						<td><?php echo $linha['id']?></td>
 						<td><?php echo $linha['nome']?></td>
-						<td><?php echo $linha['data_inicio']?></td>
-						<td><?php echo $linha['data_fim']?></td>
+						<td style="font-size: 12px"><?php echo $linha['data_inicio']."<br/>".$linha['data_fim']?></td>
+						<td align="right"><?php echo $linha['total']?></td>
 						<td><?php echo $linha['descricao']?></td>
-						<td><?php echo $linha['nome_local']?></td>
-						<td><?php echo $linha['nome_usuario']?></td>
+						<td style="font-size: 11px"><?php echo $linha['nome_local']?></td>
+						<td style="font-size: 11px"><?php echo $linha['nome_usuario']?></td>
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=13&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+							<button onclick="excluir(<?php echo $linha['id']?>)" 
+									<?php echo $linha['total'] > 0 ? "disabled title='Evento possui convidados.'" : ""?>>Excluir</button>
+							<button onclick="location.href='index.php?pg=14&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
 						</td>
 					</tr>
 
@@ -82,7 +85,7 @@
 		  pagerSelector:'#myPager',
 		  showPrevNext:true,
 		  hidePageNumbers:false,
-		  perPage:5,
+		  perPage:10,
 		  totalPages:5
 		 }); 
 	  

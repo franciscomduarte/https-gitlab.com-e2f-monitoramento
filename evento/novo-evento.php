@@ -6,14 +6,19 @@ $acao   = $_REQUEST['acao'];
 
 if ($acao == "a"){
 
-	$sql = "select * from evento where id = $id";
+	$sql = "select e.id, e.nome, 
+			date_format(e.data_inicio,'%Y-%m-%d') as data_inicio, 
+			date_format(e.data_fim,'%Y-%m-%d') as data_fim, 
+			trim(e.descricao) as descricao, e.local_id, e.usuario_cadastro_id 
+			from evento e 
+			where id = $id";
 	$rs = mysqli_query($conexao, $sql);
 
 	while ($linha = mysqli_fetch_array($rs)) {
 		$nome                  = $linha['nome'];
 		$data_inicio           = $linha['data_inicio'];
 		$data_fim              = $linha['data_fim'];
-		$descricao             = $linha['descricao'];
+		$descricao             = trim($linha['descricao']);
 		$local_id              = $linha['local_id'];
 		$usuario_cadastro_id   = $linha['usuario_cadastro_id'];
 	}
@@ -62,16 +67,14 @@ if ($acao == "a"){
 					<span class="input-group-addon">Data Evento</span> <input
 						type="date" name="data_inicio" value="<?php echo $data_inicio?>"
 						class="form-control" required> <input type="date" name="data_fim"
-						value="<?php echo $data_fim?>" class="form-control" required>
+						value="<?php echo $data_fim?>" class="form-control">
 				</div>
 			</div>
 
 			<div class="row" style="margin: 5px">
 				<div class="input-group col-xs-8 col-md-6">
 					<span class="input-group-addon">&nbsp;&nbsp;Descri&ccedil;&atilde;o&nbsp;&nbsp;</span> 
-						<textarea name="descricao" rows="3" cols="230" class="form-control" style="text-align: inherit;" maxlength="150" required >
-						<?php echo $descricao?>
-						</textarea>
+						<textarea name="descricao" rows="3" cols="230" class="form-control" style="text-align: inherit;" maxlength="150" required><?php echo $descricao?></textarea>
 				</div>
 			</div>
 			

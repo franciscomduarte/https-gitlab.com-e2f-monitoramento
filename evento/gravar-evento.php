@@ -12,23 +12,28 @@
 	$data_fim     = $_REQUEST['data_fim'];
 	$descricao    = $_REQUEST['descricao'];
 	$local_id     = $_REQUEST['local_id'];
-	$id_usuario   = $_SESSION['id_usuario'];
+	$id_usuario   = $_SESSION['id_usuario'];	
 	
 	#condiç£¯ que verifica se uma das açµ¥s foram passadas
 	if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		if ($acao == "n"){
-			$sql = "INSERT INTO evento VALUES
-					(null, '$nome', '$data_inicio','$data_fim','$descricao','$local_id','$id_usuario')";
+			
+			if ($data_fim){
+				$sql = "INSERT INTO evento VALUES
+						(null, '$nome', '$data_inicio','$data_fim','$descricao','$local_id','$id_usuario')";
+			}else{
+				$sql = "INSERT INTO evento VALUES
+					   (null, '$nome', '$data_inicio',null,'$descricao','$local_id','$id_usuario')";
+			}
 		}elseif ($acao == "e"){
 			//Esta a nÃ£o exclui apenas inativa.
 			$sqlTotal="select count(*) as total 
 					   from convidado where evento_id=$id";			
 			$rsTotal = mysqli_query($conexao, $sqlTotal);
-			
+
 			$linha = mysqli_fetch_assoc($rsTotal);
 			
-			exit(); 		
-			$total = mysqli_num_rows($linha);
+			$total = $linha['total'];
 			if ($total > 0){
 				echo "<script>alert('Não é possível exclir Evento que possuí Convidados.');history.go(-1);</script>";
 				exit();
@@ -37,13 +42,23 @@
 			}
 			
 		}elseif ($acao == "a"){
-			$sql = "UPDATE evento set 
-					 nome = '$nome',
-					 data_inicio = '$data_inicio',
-					 data_fim = '$data_fim',
-					 descricao = '$descricao',
-					 local_id = '$local_id'
-					where id = $id";
+			if ($data_fim){
+				$sql = "UPDATE evento set 
+						 nome = '$nome',
+						 data_inicio = '$data_inicio',
+						 data_fim = '$data_fim',
+						 descricao = '$descricao',
+						 local_id = '$local_id'
+						where id = $id";
+			}else{
+				$sql = "UPDATE evento set
+				nome = '$nome',
+				data_inicio = '$data_inicio',
+				data_fim = null,
+				descricao = '$descricao',
+				local_id = '$local_id'
+				where id = $id";
+			}
 		}
 		
 		mysqli_query($conexao, $sql);
