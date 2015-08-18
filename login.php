@@ -3,7 +3,7 @@
 ?>
 
 	<div align="center">
-		<img src="img/scc.fw.png" alt="SCC" align="middle">
+		<img src="img/logo_maior.fw.png" alt="SCC" align="middle">
 	</div>
     <div class="container">
 

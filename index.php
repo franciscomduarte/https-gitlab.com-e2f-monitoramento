@@ -36,10 +36,10 @@ switch ($_REQUEST['pg']) {
 		include 'posto-graduacao/novo-posto-graduacao.php';
 		break;
 	case 10:
-		include 'cliente/listar-cliente.php';
+		include 'pessoa/listar-pessoa.php';
 		break;
 	case 11:
-		include 'cliente/detalhar-cliente.php';
+		include 'pessoa/nova-pessoa.php';
 		break;
 	case 12:
 		include 'local/novo-local.php';
