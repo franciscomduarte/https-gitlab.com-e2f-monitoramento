@@ -52,10 +52,26 @@
 		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
-			
+				
+				<div class="form-group">
+				    <label for="inputFile">Incluir Arquivo</label>
+				    <input type="file" id="inputFile"
+				    ata-fv-file="true"
+                	data-fv-file-extension="jpeg,png"
+                	data-fv-file-type="image/jpeg,image/png"
+                	data-fv-file-maxsize="2097152"
+                	data-fv-file-message="The selected file is not valid" 
+				    
+				    >
+				    
+				    
+				    
+				    <p class="help-block">Escolha um arquivo do tipo imagem. </p>
+				 </div>
+				
 				<div class="input-group">
 					<span class="input-group-addon">Foto</span> 
-					<input type="text" name="foto" value="<?php echo $foto?>" class="form-control" placeholder="Foto" required>
+					<input type="file" name="foto" class="form-control" placeholder="Foto">
 				</div>
 				
 				<div class="input-group">
