@@ -1,3 +1,12 @@
+<?php 
+require_once 'conexao/conn.php';
+session_start();
+if ($_SESSION['evento'] != $_REQUEST['id'])
+	$_SESSION['evento'] = $_REQUEST['id'];
+
+#Pegar dados do Evento e colocar em cima da lista
+
+?>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 		<div class="table-responsive">
@@ -8,8 +17,7 @@
 						<div class="col-lg-6">
 
 							<span class="input-group-btn">
-								<button class="btn btn-info" type="button"
-									onclick="location.href='index.php?pg=11'">Criar Novo</button>
+								Dados do Evento: <?php echo $_SESSION['evento']?>
 							</span>
 
 						</div>
@@ -39,6 +47,9 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 		<div class="table-responsive">
+
+			
+
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -54,12 +65,20 @@
 				</thead>
 				<tbody id="myTable">
 					<?php
-					require_once 'conexao/conn.php';
 				
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
 								p.posto_graduacao_id, 
-								f.nome as nome_funcao, pp.nome as nome_poder
+								f.nome as nome_funcao, pp.nome as nome_poder,
+								(select count(*) from convidado c 
+								 where c.evento_id='".$_SESSION['evento']."'
+								 and c.pessoa_id = p.id) as total,
+								(select count(*) from convidado c 
+								 where c.evento_id='".$_SESSION['evento']."'
+								 and c.pessoa_id = p.id and c.nominata is true) as total_nominata,
+								(select count(*) from convidado c 
+								 where c.evento_id='".$_SESSION['evento']."'
+								 and c.pessoa_id = p.id and c.pre_nominata is true) as total_prenominata	
 								from pessoa p, funcao f, poder pp
 								where p.funcao_id = f.id
 								and pp.id = f.poder_id ";
@@ -111,8 +130,9 @@
 						</td>
 						
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=11&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+							<button class="btn btn-default" onclick="location.href='convidado/gravar-convidado.php?acao=convidar&id=<?php echo $linha['id']?>'" <?php echo $linha['total'] > 0 ? "disabled":""?>>Convidar</button>
+							<button class="btn btn-info" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
+							<button class="btn btn-primary" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Nominata</button>
 						</td>
 			
 					</tr>

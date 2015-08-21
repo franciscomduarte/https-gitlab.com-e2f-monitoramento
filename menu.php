@@ -19,8 +19,8 @@
 			<li><a href="index.php?pg=2">Função</a></li>
 			<li><a href="index.php?pg=7">Local</a></li>
 			<li><a href="index.php?pg=13">Eventos</a></li>
-			<li><a href="index.php?pg=8">####</a></li>
 			<li><a href="index.php?pg=10">Pessoas</a></li>
+			<li><a href="index.php?pg=15">Convidados</a></li>
 			<li><a href="sair.php">Sair</a></li>
 			</ul>
 		</div><!-- /.nav-collapse -->

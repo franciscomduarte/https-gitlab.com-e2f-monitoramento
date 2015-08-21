@@ -45,11 +45,17 @@ switch ($_REQUEST['pg']) {
 		include 'local/novo-local.php';
 		break;
 	case 13:
-	    include 'evento/listar-evento.php';
-	    break;
+		include 'evento/listar-evento.php';
+		break;
 	case 14:
-	    include 'evento/novo-evento.php';
-	    break;
+		include 'evento/novo-evento.php';
+		break;
+	case 15:
+		include 'convidado/listar-convidado-evento.php';
+		break;
+	case 16:
+		include 'convidado/listar-convidado.php';
+		break;
 	case 80:
 		include 'colecao/sucesso.php';
 		break;
