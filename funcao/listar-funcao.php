@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-default btn-lg" onclick="location.href='index.php?pg=4'">
+			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=4'">
 				Nova Função
 			</button>
 
@@ -39,8 +39,9 @@
 						<td><?php echo $linha['nome']?></td>
 						<td><?php echo $linha['nome_poder']?></td>
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=4&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+							<button onclick="location.href='index.php?pg=4&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-edit" title="Editar"></span>
+							</button>
 						</td>
 					</tr>
 

@@ -1,8 +1,11 @@
 <?php 
 	include 'conexao/conn.php';
 	
-	$id 	= $_REQUEST['id'];
-	$acao   = $_REQUEST['acao'];
+	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
+	$ordem    = "";
+	$nome     = "";
+	$poder_id = "";
 	
 	if ($acao == "a"){
 		
@@ -45,17 +48,17 @@
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
 				
-				<div class="input-group">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Ordem</span> 
 					<input type="text" name="ordem" value="<?php echo $ordem?>" class="form-control" placeholder="Digite a ordem" required size='5' maxlength='5'>
 				</div>
 				
-				<div class="input-group">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Nome</span> 
 					<input type="text" name="nome" value="<?php echo $nome?>" class="form-control" placeholder="Digite o Nome da Função" required>
 				</div>
 				
-				<div class="row" style="margin-left: 2px;margin-bottom: 5px;">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">Poder:</span>
@@ -81,9 +84,7 @@
 					</span>
 				</div>
 				
-				<span class="input-group-btn" style="padding-top: 10px">
 					<button class="btn btn-info" type="submit">Cadastrar</button>
-				</span>
 			</div>
 		</form>
 		</p>
