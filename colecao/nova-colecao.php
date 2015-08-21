@@ -1,7 +1,8 @@
 <?php 
-$id 	= $_REQUEST['id'];
-$acao   = $_REQUEST['acao'];
 include 'conexao/conn.php';
+
+	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
 
 if ($acao == "a"){
 	$sql = "select * from agrupador where id = $id";
