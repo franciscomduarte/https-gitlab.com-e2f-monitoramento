@@ -31,10 +31,8 @@
 					<div class="row">
 						<div class="col-lg-6">
 
-							<span class="input-group-btn">
 								<button class="btn btn-info" type="button"
 									onclick="history.go(-1);">Voltar</button>
-							</span>
 
 						</div>
 					</div>
