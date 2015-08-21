@@ -1,8 +1,12 @@
 <?php 
 	include 'conexao/conn.php';
 	
-	$id 	= $_REQUEST['id'];
-	$acao   = $_REQUEST['acao'];
+	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
+	
+	$nome      = "";
+	$endereco  = "";
+	$cidade_id = "";
 	
 	if ($acao == "a"){
 		
@@ -22,39 +26,34 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 		<div class="table-responsive">
+			<form method="post" action="index.php?pg=2">
+				<div class="row">
+					<div class="col-lg-6">
 
-			<fieldset legend="Pesquisar">
-				<form method="post" action="index.php?pg=2">
-					<div class="row">
-						<div class="col-lg-6">
+							<button class="btn btn-info" type="button"
+								onclick="history.go(-1);">Voltar</button>
 
-							<span class="input-group-btn">
-								<button class="btn btn-info" type="button"
-									onclick="history.go(-1);">Voltar</button>
-							</span>
-
-						</div>
 					</div>
-					<!-- /.row -->
-				</form>
-			</fieldset>
+				</div>
+				<!-- /.row -->
+			</form>
 		</div>
 		<p>
 		
 		<form action="local/gravar-local.php?acao=<?php echo $acao?>" method="post">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
-				<div class="input-group">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Nome</span> 
 					<input type="text" name="nome" value="<?php echo $nome?>" class="form-control" placeholder="Digite o Nome do Local" required>
 				</div>
 								
-				<div class="input-group">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Endereço</span>
 					<input type="text" name="endereco" value="<?php echo $endereco?>" class="form-control" placeholder="Digite o endereço" required>
 				</div>
 				
-				<div class="row" style="margin-left: 2px;margin-bottom: 5px;">
+				<div class="input-group" style="margin: 5px">
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">Cidade:</span>
@@ -83,9 +82,7 @@
 					</span>
 				</div>
 				
-				<span class="input-group-btn" style="padding-top: 10px">
 					<button class="btn btn-info" type="submit">Cadastrar</button>
-				</span>
 			</div>
 		</form>
 		</p>

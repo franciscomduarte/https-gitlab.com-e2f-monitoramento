@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-default btn-lg" onclick="location.href='index.php?pg=12'">
+			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=12'">
 				Novo Local
 			</button>
 
