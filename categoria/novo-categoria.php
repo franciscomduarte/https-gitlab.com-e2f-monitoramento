@@ -1,6 +1,6 @@
 <?php 
-	$id 	= $_REQUEST['id'];
-	$acao   = $_REQUEST['acao'];
+	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
 	
 	if ($acao == "a"){
 		include 'conexao/conn.php';
