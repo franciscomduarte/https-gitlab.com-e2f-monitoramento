@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-default btn-lg" onclick="location.href='index.php?pg=5'">
+			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=5'">
 				Novo Usu&aacute;rio
 			</button>
 
@@ -62,9 +62,15 @@
 						    <?php echo $linha['perfil'] == 0 ? 'Administrador' : 'Usuário'?>
 						</td>
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=5&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
-							<button onclick="location.href='usuario/gravar-usuario.php?&acao=as&id=<?php echo $linha['id']?>'">Resetar Senha</button>
+							<button onclick="excluir(<?php echo $linha['id']?>)">
+								<span class="glyphicon glyphicon-trash" title="Excluir"></span>
+							</button>
+							<button onclick="location.href='index.php?pg=5&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-edit" title="Editar"></span>
+							</button>
+							<button onclick="location.href='usuario/gravar-usuario.php?&acao=as&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-wrench" title="Resetar Senha"></span>
+							</button>
 						</td>
 					</tr>
 
