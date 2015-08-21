@@ -49,62 +49,41 @@
 		</div>
 		<p>
 		
-		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post">
+		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
 				
-				<div class="form-group">
-				    <label for="inputFile">Incluir Arquivo</label>
-				    <input type="file" id="inputFile"
-				    ata-fv-file="true"
-                	data-fv-file-extension="jpeg,png"
-                	data-fv-file-type="image/jpeg,image/png"
-                	data-fv-file-maxsize="2097152"
-                	data-fv-file-message="The selected file is not valid" 
-				    
-				    >
-				    
-				    
-				    
-				    <p class="help-block">Escolha um arquivo do tipo imagem. </p>
-				 </div>
-				
-				<div class="input-group">
-					<span class="input-group-addon">Foto</span> 
-					<input type="file" name="foto" class="form-control" placeholder="Foto">
-				</div>
-				
-				<div class="input-group">
-					<span class="input-group-addon">Ordem</span> 
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
 					<input type="text" name="ordem" value="<?php echo $ordem ?>" class="form-control" placeholder="Digite a Ordem" required>
 				</div>
 			
-				<div class="input-group">
-					<span class="input-group-addon">Nome</span> 
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
 					<input type="text" name="nome" value="<?php echo $nome?>" class="form-control" placeholder="Digite o Nome" required>
 				</div>
 				
-				<div class="input-group">
-					<span class="input-group-addon">Email</span> 
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
 					<input type="text" name="email" value="<?php echo $email ?>" class="form-control" placeholder="Digite o Email" required>
 				</div>
 				
-				<div class="input-group">
-					<span class="input-group-addon">Telefone 1</span> 
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telefone 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
 					<input type="text" name="telefone_1" value="<?php echo $telefone_1?>" class="form-control" placeholder="Digite o Telefone 1" required>
 				</div>
 				
-				<div class="input-group">
-					<span class="input-group-addon">Telefone 2</span> 
-					<input type="text" name="telefone_2" value="<?php echo $telefone_2?>" class="form-control" placeholder="Digite o Telefone 2" required>
+				<div class="input-group" style="margin: 5px;">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telefone 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+					<input type="text" name="telefone_2" value="<?php echo $telefone_2?>" class="form-control" placeholder="Digite o Telefone 2">
 				</div>
 								
-				<div class="row" style="margin-left: 2px;margin-bottom: 5px;">
+				<div class="row" style="margin: 5px;">
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">Posto Graduação:</span>
                                <select name="posto_graduacao_id" class="form-control" style="width:400px" required>
-                                  	<option value='' selected>-- Escolha uma cidade --</option>
+                                  	<option value='' selected>-- Escolha um Posto --</option>
                                   	<?php 
                                   		
                                   		$sqlPosto = " select * from posto_graduacao ";
@@ -125,12 +104,12 @@
 					</span>
 				</div>
 				
-				<div class="row" style="margin-left: 2px;margin-bottom: 5px;">
+				<div class="row" style="margin:5px;">
 					<span class="input-group-btn"> 
 							<div class="input-group">
-                               <span class="input-group-addon">Função:</span>
+                               <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Função&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                <select name="funcao_id" class="form-control" style="width:400px" required>
-                                  	<option value='' selected>-- Escolha uma cidade --</option>
+                                  	<option value='' selected>-- Escolha uma função --</option>
                                   	<?php 
                                   		
                                   		$sqlFuncao = " select * from funcao ";
@@ -150,6 +129,21 @@
                             </div>
 					</span>
 				</div>
+				
+				<div class="form-group">
+				    <?php 
+				    if ($foto){
+						echo "<img src='fotos/".$foto."' width='100' height='100'>";
+					}else{
+						echo "<img src='img/icone_perfil.fw.png' width='100' height='100'>";	
+					}
+					?>
+				    
+				    <label for="inputFile">Incluir/Alterar Arquivo</label>
+				    <input type="hidden" name="nome_foto_alterar" value="<?php echo $foto?>">
+				    <input type="file" id="inputFile" name="foto">
+				    <p class="help-block">Escolha um arquivo do tipo imagem. </p>
+				 </div>
 				
 				<span class="input-group-btn" style="padding-top: 10px">
 					<button class="btn btn-info" type="submit">Cadastrar</button>

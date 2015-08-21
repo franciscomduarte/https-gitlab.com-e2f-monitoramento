@@ -3,7 +3,7 @@
 		<div class="table-responsive">
 
 			<fieldset legend="Pesquisar">
-				<form method="post" action="index.php?pg=10">
+				<form method="post" action="index.php?pg=10" name="formulario" id="formulario_busca">
 					<div class="row">
 						<div class="col-lg-6">
 
@@ -16,8 +16,10 @@
 						<!-- /.col-lg-6 -->
 						<div class="col-lg-6">
 							<div class="input-group">
-								<input type="text" class="form-control" name="busca"> <span
-									class="input-group-btn">
+								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
+									   onkeypress="javascript:chamaPesquisa();" placeholder="Digite sua pesquisa..."> 
+								<span
+									class="input-group-btn" >
 									<button class="btn btn-default" type="button">Procurar</button>
 								</span>
 							</div>
@@ -59,6 +61,7 @@
 				
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
+								p.posto_graduacao_id, 
 								f.nome as nome_funcao, pp.nome as nome_poder
 								from pessoa p, funcao f, poder pp
 								where p.funcao_id = f.id
@@ -80,7 +83,9 @@
 						<td>
 							<?php 
 								if ($linha['foto']){
-									echo "<img src='fotos/".$linha['foto']."' width='40' height='40'>";
+									$arrayFoto 	  = explode(".",$linha['foto']);
+									$foto_pequena = $arrayFoto[0]."_tumb".".".$arrayFoto[1];
+									echo "<img src='fotos/".$foto_pequena."' width='40' height='40'>";
 								}else{
 									echo "<img src='img/icone_perfil.fw.png' width='40' height='40'>";	
 								}
@@ -89,9 +94,14 @@
 						</td>
 						<td><?php echo $linha['ordem'] ?></td>
 						<td><?php 
-								
-								
-								echo $linha['nome_pessoa'] 
+								if ($linha['posto_graduacao_id']){
+									$sqlPosto = "select * from posto_graduacao where id = ".$linha['posto_graduacao_id'];
+									$rsPosto  = mysqli_query($conexao, $sqlPosto);
+									if($linha_posto = mysqli_fetch_array($rsPosto)){
+										echo "<i><b>".$linha_posto['nome']."&nbsp;</b></i>";
+									}
+								}
+								echo $linha['nome_pessoa']."<br />(".$linha['nome_funcao'].")"; 
 							?>
 						</td>
 						<td><?php echo $linha['data_cadastro_formatada']?></td>
@@ -119,8 +129,11 @@
 	</div>
 </div>
 
-<div class="col-md-12 text-center">
-	<ul class="pagination" id="myPager"></ul>
+<div class="row">
+	<?php echo mysqli_num_rows($rs)?> Registros encontrados
+	<div class="col-md-12 text-center">
+		<ul class="pagination" id="myPager"></ul>
+	</div>
 </div>
 <script src="js/paginacao.js"></script>
 <script>
@@ -131,6 +144,11 @@
 		}
 	}
 
+	function chamaPesquisa(){
+		$('#formulario_busca').submit();
+		//formulario.submit();
+	}
+	
 	$(document).ready(function(){
 	    		
 	  $('#myTable').pageMe(
@@ -138,7 +156,7 @@
 		  pagerSelector:'#myPager',
 		  showPrevNext:true,
 		  hidePageNumbers:false,
-		  perPage:5,
+		  perPage:10,
 		  totalPages:5
 		 }); 
 	  
