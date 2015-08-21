@@ -3,7 +3,6 @@ require_once 'conexao/conn.php';
 session_start();
 if (!$_SESSION['evento'] && $_REQUEST['id'])
 	$_SESSION['evento'] = $_REQUEST['id'];
-var_dump($_REQUEST);
 #Pegar dados do Evento e colocar em cima da lista
 
 ?>
