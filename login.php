@@ -19,7 +19,7 @@
 
       <?php 
       	
-      	if ($_REQUEST['erro']){
+      	if (isset($_REQUEST['erro'])){
 		  echo "<center>";
 			if ($_REQUEST['erro'] == 1){
 					echo '<div class="alert alert-danger" align="center" style="width: 40%">Usu&aacute;rio os senha inv&aacute;lido, tente novamente.</div>';		

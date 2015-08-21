@@ -11,7 +11,7 @@
 <title>Sistemas de Controle Cerimonial - SCC</title>
 
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrapv3.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="css/offcanvas.css" rel="stylesheet">
