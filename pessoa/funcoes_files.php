@@ -5,9 +5,6 @@ function uploadFotos($foto,$nome_foto,$nome_foto_pequena,$path_foto,$tipo_arquiv
 	$new_width 	= 100;
 	$new_height = 100;
 	
-	var_dump($foto['tmp_name']);
-	exit;
-	
 	if($foto['tmp_name']) {
 		list($width, $height, $type, $attr) = getimagesize($foto['tmp_name']);
 	
