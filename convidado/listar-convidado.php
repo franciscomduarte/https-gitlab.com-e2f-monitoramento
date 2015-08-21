@@ -1,9 +1,7 @@
 <?php 
 require_once 'conexao/conn.php';
-session_start();
-if (!$_SESSION['evento'] && $_REQUEST['id'])
-	$_SESSION['evento'] = $_REQUEST['id'];
-#Pegar dados do Evento e colocar em cima da lista
+
+$evento_id = $_REQUEST['id'];
 
 ?>
 <div class="row row-offcanvas row-offcanvas-right">
@@ -28,11 +26,12 @@ if (!$_SESSION['evento'] && $_REQUEST['id'])
 								<span class="label label-primary"  style="cursor: pointer" onclick="javascript:chamaPesquisa(4);">Nominata</span>
 								<span class="label label-warning"  style="cursor: pointer" onclick="javascript:chamaPesquisa(1);">Todos</span>
 							<div class="input-group" style="padding-top: 5px">
-								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
-									   onkeypress="javascript:chamaPesquisa(1);" placeholder="Digite sua pesquisa..."> 
+								<input type="text" class="form-control" name="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
+									   placeholder="Digite sua pesquisa..."> 
 								<span
 									class="input-group-btn" >
-									<button class="btn btn-default" type="button">Procurar</button>
+									<button class="btn btn-default" type="submit">Procurar</button>
+									<input type="hidden" name="id" value="<?php echo $evento_id?>">
 								</span>
 							</div>
 							<!-- /input-group -->
@@ -49,10 +48,44 @@ if (!$_SESSION['evento'] && $_REQUEST['id'])
 	</div>
 </div>
 <div class="row row-offcanvas row-offcanvas-right">
+	<div class="row" style="margin-top: 10px">
+
+			<?php
+					
+				$sql = "select e.descricao, e.data_fim, e.data_inicio, e.nome, l.nome as local
+						from evento e, local l
+		                where 1=1 and 
+		                      l.id = e.local_id 
+		                      and e.id = '".$evento_id."'";
+				$rs = mysqli_query($conexao, $sql);
+				
+				while ($linha = mysqli_fetch_array($rs)) {
+					
+					$data_inicio  = $linha['data_inicio'];
+					$data_fim     = $linha['data_fim'];
+					$nome         = $linha['nome'];
+					$descricao  = $linha['descricao'];
+					$local  = $linha['local'];
+					
+				}
+			?>
+	
+		<div class="panel panel-default">
+		  <div class="panel-heading"><b>Evento: <?php echo $nome ?></b></div>
+		  <div class="panel-body">
+		  	Local: <?php echo $local ?><br>
+		 	Descrição: <?php echo $descricao ?><br>
+		    Data Inicio: <?php echo $data_inicio ?><br>
+		    Data Fim: <?php echo $data_fim ?>
+		  </div>
+		</div>
+	
+	</div>
+
 	<div class="row">
 		<div class="table-responsive">
 
-			
+
 
 			<table class="table table-hover">
 				<thead>
@@ -75,27 +108,28 @@ if (!$_SESSION['evento'] && $_REQUEST['id'])
 								p.posto_graduacao_id, 
 								f.nome as nome_funcao, pp.nome as nome_poder,
 								(select count(*) from convidado c 
-								 where c.evento_id='".$_SESSION['evento']."'
+								 where c.evento_id='".$evento_id."'
 								 and c.pessoa_id = p.id) as total,
 								(select count(*) from convidado c 
-								 where c.evento_id='".$_SESSION['evento']."'
+								 where c.evento_id='".$evento_id."'
 								 and c.pessoa_id = p.id and c.nominata = 1) as total_nominata,
 								(select count(*) from convidado c 
-								 where c.evento_id='".$_SESSION['evento']."'
+								 where c.evento_id='".$evento_id."'
 								 and c.pessoa_id = p.id and c.pre_nominata = 1) as total_prenominata	
 								from pessoa p, funcao f, poder pp
 								where p.funcao_id = f.id
 								and pp.id = f.poder_id ";
-			
-					if ($_REQUEST['busca'])
-						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
 					
+					if (isset($_REQUEST['busca']))
+						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
+					if(isset($_REQUEST['tipo'])){
 					if ($_REQUEST['tipo'] == 2)
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$_SESSION['evento']."') > 0 ";
-					elseif($_POST['tipo'] == 3)
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.pre_nominata = 1 and c.evento_id='".$_SESSION['evento']."') > 0 ";
-					elseif($_POST['tipo'] == 4){
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.nominata = 1 and c.evento_id='".$_SESSION['evento']."') > 0 ";
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$evento_id."') > 0 ";
+					elseif($_REQUEST['tipo'] == 3)
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.pre_nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
+					elseif($_REQUEST['tipo'] == 4){
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
+					}
 					}
 					
 					$sql.= "order by p.ordem";
@@ -142,9 +176,9 @@ if (!$_SESSION['evento'] && $_REQUEST['id'])
 						</td>
 						
 						<td>
-							<button class="btn btn-default" onclick="location.href='convidado/gravar-convidado.php?acao=convidar&id=<?php echo $linha['id']?>'" <?php echo $linha['total'] > 0 ? "disabled":""?>>Convidar</button>
-							<button class="btn btn-info" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
-							<button class="btn btn-primary" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Nominata</button>
+							<button class="btn btn-default" onclick="location.href='convidado/gravar-convidado.php?acao=convidar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'" <?php echo $linha['total'] > 0 ? "disabled":""?>>Convidar</button>
+							<button class="btn btn-info" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
+							<button class="btn btn-primary" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>&evento_id=<?php echo  $evento_id ?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Nominata</button>
 						</td>
 			
 					</tr>

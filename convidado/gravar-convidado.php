@@ -2,9 +2,10 @@
 include '../conexao/conn.php';
 session_start();
 
+
 $acao  = $_REQUEST['acao'];
 $id	   = $_REQUEST['id'];
-$evento = $_SESSION['evento'];
+$evento =  $_REQUEST['evento_id'];
 #dados do formulario
 
 switch ($acao) {
@@ -29,8 +30,7 @@ switch ($acao) {
 		NULL, '0', '1');";
 		break;
 }
-
-
+exit;
 if ($sql){
 	mysqli_query($conexao, $sql);
 }

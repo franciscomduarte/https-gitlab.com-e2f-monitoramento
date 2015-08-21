@@ -13,11 +13,11 @@
 						<!-- /.col-lg-6 -->
 						<div class="col-lg-6">
 							<div class="input-group">
-								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
-									   onkeypress="javascript:chamaPesquisa();" placeholder="Digite o nome, local ou detalhes do Evento"> 
+								<input type="text" class="form-control" name="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
+									   placeholder="Digite o nome, local ou detalhes do Evento"> 
 								<span
 									class="input-group-btn" >
-									<button class="btn btn-default" type="button">Procurar</button>
+									<button class="btn btn-default" type="submit">Procurar</button>
 								</span>
 							</div>
 							<!-- /input-group -->
@@ -68,7 +68,7 @@
 							and   us.id = e.usuario_cadastro_id 
 							and   e.data_inicio >= curdate() ";
 
-					if ($_REQUEST["busca"]){
+					if (isset($_REQUEST["busca"])){
 						$sql .= "and (e.nome like '%".$_REQUEST['busca']."%' 
 								or e.descricao  like '%".$_REQUEST['busca']."%' 
 								or concat(l.nome,'<br>' ,l.endereco,' - ',c.nome,' - ',u.sigla) like '%".$_REQUEST['busca']."%') ";
