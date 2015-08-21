@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-default btn-lg" onclick="location.href='index.php?pg=14'">
+			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=14'">
 				Novo Evento
 			</button>
 
@@ -17,7 +17,7 @@
 						<th>Descrição</th>
 						<th>Local</th>
 						<th>Usuário</th>
-						<th>Op&ccedil;&otilde;es</th>
+						<th width="190px">Op&ccedil;&otilde;es</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
@@ -53,8 +53,22 @@
 						<td style="font-size: 11px"><?php echo $linha['nome_usuario']?></td>
 						<td>
 							<button onclick="excluir(<?php echo $linha['id']?>)" 
-									<?php echo $linha['total'] > 0 ? "disabled title='Evento possui convidados.'" : ""?>>Excluir</button>
-							<button onclick="location.href='index.php?pg=14&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+									<?php echo $linha['total'] > 0 ? "disabled title='Evento possui convidados.'" : ""?>>
+									<span class="glyphicon glyphicon-trash" title="Excluir"></span>
+							</button>
+							<button onclick="location.href='index.php?pg=14&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-edit" title="Editar"></span>
+							</button>
+							<button onclick="location.href='index.php?pg=17&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-tasks" title="Pr� Nominata"></span>
+							</button>
+							<button onclick="location.href='index.php?pg=18&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-align-justify" title="Nominata"></span>
+							</button>
+							<button onclick="location.href='index.php?pg=19&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-user" title="Convidados"></span>
+							</button>
+							
 						</td>
 					</tr>
 
