@@ -23,9 +23,10 @@ if (!$_SESSION['evento'] && $_REQUEST['id'])
 						</div>
 						<!-- /.col-lg-6 -->
 						<div class="col-lg-6">
-							<span class="label label-default" style="cursor: pointer" onclick="javascript:chamaPesquisa(2);">Convidado</span>
+								<span class="label label-default" style="cursor: pointer" onclick="javascript:chamaPesquisa(2);">Convidado</span>
 								<span class="label label-info"  style="cursor: pointer" onclick="javascript:chamaPesquisa(3);">Pre-nominata</span>
 								<span class="label label-primary"  style="cursor: pointer" onclick="javascript:chamaPesquisa(4);">Nominata</span>
+								<span class="label label-warning"  style="cursor: pointer" onclick="javascript:chamaPesquisa(1);">Todos</span>
 							<div class="input-group" style="padding-top: 5px">
 								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
 									   onkeypress="javascript:chamaPesquisa(1);" placeholder="Digite sua pesquisa..."> 
