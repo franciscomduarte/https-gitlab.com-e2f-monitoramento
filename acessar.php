@@ -1,7 +1,7 @@
 <?php
 
 require_once 'conexao/conn.php';
-include 'conexao/session.php';
+session_start();
 
 $email = $_POST['email'];
 $senha = md5($_POST['senha']);

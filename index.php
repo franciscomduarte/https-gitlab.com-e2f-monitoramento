@@ -1,7 +1,7 @@
 <?php
 
 
-include 'conexao/session.php';
+session_start();
 include_once 'valida.php';
 include_once 'header.php';
 include_once 'menu.php';
