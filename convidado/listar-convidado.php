@@ -1,9 +1,9 @@
 <?php 
 require_once 'conexao/conn.php';
 session_start();
-if ($_SESSION['evento'] != $_REQUEST['id'])
+if (!$_SESSION['evento'] && $_REQUEST['id'])
 	$_SESSION['evento'] = $_REQUEST['id'];
-
+var_dump($_REQUEST);
 #Pegar dados do Evento e colocar em cima da lista
 
 ?>
@@ -12,7 +12,8 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 		<div class="table-responsive">
 
 			<fieldset legend="Pesquisar">
-				<form method="post" action="index.php?pg=10" name="formulario" id="formulario_busca">
+				<form method="post" action="index.php?pg=16" name="formulario" id="formulario_busca">
+					<input type="hidden" name="tipo" id="tipo">
 					<div class="row">
 						<div class="col-lg-6">
 
@@ -23,9 +24,12 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 						</div>
 						<!-- /.col-lg-6 -->
 						<div class="col-lg-6">
-							<div class="input-group">
+							<span class="label label-default" style="cursor: pointer" onclick="javascript:chamaPesquisa(2);">Convidado</span>
+								<span class="label label-info"  style="cursor: pointer" onclick="javascript:chamaPesquisa(3);">Pre-nominata</span>
+								<span class="label label-primary"  style="cursor: pointer" onclick="javascript:chamaPesquisa(4);">Nominata</span>
+							<div class="input-group" style="padding-top: 5px">
 								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
-									   onkeypress="javascript:chamaPesquisa();" placeholder="Digite sua pesquisa..."> 
+									   onkeypress="javascript:chamaPesquisa(1);" placeholder="Digite sua pesquisa..."> 
 								<span
 									class="input-group-btn" >
 									<button class="btn btn-default" type="button">Procurar</button>
@@ -65,7 +69,7 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 				</thead>
 				<tbody id="myTable">
 					<?php
-				
+					
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
 								p.posto_graduacao_id, 
@@ -75,10 +79,10 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 								 and c.pessoa_id = p.id) as total,
 								(select count(*) from convidado c 
 								 where c.evento_id='".$_SESSION['evento']."'
-								 and c.pessoa_id = p.id and c.nominata is true) as total_nominata,
+								 and c.pessoa_id = p.id and c.nominata = 1) as total_nominata,
 								(select count(*) from convidado c 
 								 where c.evento_id='".$_SESSION['evento']."'
-								 and c.pessoa_id = p.id and c.pre_nominata is true) as total_prenominata	
+								 and c.pessoa_id = p.id and c.pre_nominata = 1) as total_prenominata	
 								from pessoa p, funcao f, poder pp
 								where p.funcao_id = f.id
 								and pp.id = f.poder_id ";
@@ -86,8 +90,16 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 					if ($_REQUEST['busca'])
 						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
 					
-					$sql.= "order by p.ordem";
+					if ($_REQUEST['tipo'] == 2)
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$_SESSION['evento']."') > 0 ";
+					elseif($_POST['tipo'] == 3)
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.pre_nominata = 1 and c.evento_id='".$_SESSION['evento']."') > 0 ";
+					elseif($_POST['tipo'] == 4){
+						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.nominata = 1 and c.evento_id='".$_SESSION['evento']."') > 0 ";
+					}
 					
+					$sql.= "order by p.ordem";
+					#echo $sql;
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 			
@@ -131,8 +143,8 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 						
 						<td>
 							<button class="btn btn-default" onclick="location.href='convidado/gravar-convidado.php?acao=convidar&id=<?php echo $linha['id']?>'" <?php echo $linha['total'] > 0 ? "disabled":""?>>Convidar</button>
-							<button class="btn btn-info" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
-							<button class="btn btn-primary" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Nominata</button>
+							<button class="btn btn-info" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
+							<button class="btn btn-primary" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Nominata</button>
 						</td>
 			
 					</tr>
@@ -161,7 +173,9 @@ if ($_SESSION['evento'] != $_REQUEST['id'])
 		}
 	}
 
-	function chamaPesquisa(){
+	function chamaPesquisa(tipo){
+		document.getElementById('tipo').value = tipo;
+		
 		$('#formulario_busca').submit();
 		//formulario.submit();
 	}
