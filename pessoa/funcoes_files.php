@@ -5,8 +5,13 @@ function uploadFotos($foto,$nome_foto,$nome_foto_pequena,$path_foto,$tipo_arquiv
 	$new_width 	= 100;
 	$new_height = 100;
 	
-	list($width, $height, $type, $attr) = getimagesize($foto['tmp_name']);
-		
+	var_dump($foto['tmp_name']);
+	exit;
+	
+	if($foto['tmp_name']) {
+		list($width, $height, $type, $attr) = getimagesize($foto['tmp_name']);
+	
+	
 	$uploadfile 	   = $path_foto.basename($nome_foto);
 	$uploadfilepequena = $path_foto.basename($nome_foto_pequena);
 		
@@ -66,6 +71,7 @@ function uploadFotos($foto,$nome_foto,$nome_foto_pequena,$path_foto,$tipo_arquiv
 		$foto_tumb   = $path_foto.basename($arrayFoto[0]."_tumb.".$arrayFoto[1]);
 		unlink(realpath($foto_normal));
 		unlink(realpath($foto_tumb));
+	}
 	}
 	
 	

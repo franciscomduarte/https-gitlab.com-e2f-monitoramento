@@ -2,25 +2,22 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<fieldset legend="Pesquisar">
 				<form method="post" action="index.php?pg=10" name="formulario" id="formulario_busca">
 					<div class="row">
 						<div class="col-lg-6">
 
-							<span class="input-group-btn">
 								<button class="btn btn-info" type="button"
 									onclick="location.href='index.php?pg=11'">Criar Novo</button>
-							</span>
 
 						</div>
 						<!-- /.col-lg-6 -->
 						<div class="col-lg-6">
 							<div class="input-group">
-								<input type="text" class="form-control" name="busca" value="<?php echo $_POST['busca']?>" 
-									   onkeypress="javascript:chamaPesquisa();" placeholder="Digite sua pesquisa..."> 
+								<input type="text" class="form-control" name="busca" id="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
+									   placeholder="Digite sua pesquisa..."> 
 								<span
 									class="input-group-btn" >
-									<button class="btn btn-default" type="button">Procurar</button>
+									<button class="btn btn-default" type="submit">Procurar</button>
 								</span>
 							</div>
 							<!-- /input-group -->
@@ -30,7 +27,6 @@
 					<!-- /.row -->
 				</form>
 
-			</fieldset>
 
 
 		</div>
@@ -64,7 +60,7 @@
 								where p.funcao_id = f.id
 								and pp.id = f.poder_id ";
 			
-					if ($_REQUEST['busca'])
+					if (isset($_REQUEST['busca']))
 						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
 					
 					$sql.= "order by p.ordem";
@@ -111,8 +107,9 @@
 						</td>
 						
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=11&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+							<button onclick="location.href='index.php?pg=11&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-edit" title="Editar"></span>
+							</button>
 						</td>
 			
 					</tr>
@@ -147,7 +144,6 @@
 	}
 	
 	$(document).ready(function(){
-	    		
 	  $('#myTable').pageMe(
 	    {
 		  pagerSelector:'#myPager',
@@ -156,7 +152,9 @@
 		  perPage:10,
 		  totalPages:5
 		 }); 
-	  
+
+	 
 	  });
+	 
 </script>
 

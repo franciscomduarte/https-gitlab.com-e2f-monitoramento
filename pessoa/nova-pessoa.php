@@ -1,8 +1,18 @@
 <?php 
 	include 'conexao/conn.php';
 	
-	$id 	= $_REQUEST['id'];
-	$acao   = $_REQUEST['acao'];
+	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
+	$foto                = "";
+	$ordem               = "";
+	$nome                = "";
+	$email        		 = "";
+	$telefone_1   		 = "";
+	$telefone_2   		 = "";
+	$data_criacao 		 = "";
+	$posto_graduacao_id  = "";
+	$funcao_id           = "";
+	$usuario_cadastro_id = "";
 	
 	if ($acao == "a"){
 		
@@ -36,10 +46,8 @@
 					<div class="row">
 						<div class="col-lg-6">
 
-							<span class="input-group-btn">
 								<button class="btn btn-info" type="button"
 									onclick="history.go(-1);">Voltar</button>
-							</span>
 
 						</div>
 					</div>
@@ -145,9 +153,7 @@
 				    <p class="help-block">Escolha um arquivo do tipo imagem. </p>
 				 </div>
 				
-				<span class="input-group-btn" style="padding-top: 10px">
 					<button class="btn btn-info" type="submit">Cadastrar</button>
-				</span>
 			</div>
 		</form>
 		</p>

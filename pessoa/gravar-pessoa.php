@@ -1,6 +1,9 @@
 <?php 
 ini_set("memory_limit","256M");
+
 include '../conexao/conn.php';
+session_start();
+
 require_once 'funcoes_files.php';
 
 ob_start();
@@ -21,11 +24,15 @@ $data_criacao 		 = date('Y-m-d');
 $posto_graduacao_id  = $_REQUEST['posto_graduacao_id'];
 $funcao_id           = $_REQUEST['funcao_id'];
 $usuario_cadastro_id = $_SESSION["id_usuario"];
-$tipo_arquivo		 = $foto['type'];
-$tipo_arquivo 		 = explode("/",$tipo_arquivo)[1];
-$nome_foto			 = md5($foto['name'].date('d-m-Y H:m:s'));
-$nome_foto_pequena	 = $nome_foto."_tumb.".$tipo_arquivo;
-$nome_foto			 = $nome_foto.".".$tipo_arquivo;
+$tipo_arquivo		 = isset($foto['type']) ? $foto['type'] : "";
+if($tipo_arquivo) {
+	$tipo_arquivo 		 = explode("/",$tipo_arquivo)[1];
+}
+if($foto){
+	$nome_foto			 = md5($foto['name'].date('d-m-Y H:m:s'));
+	$nome_foto_pequena	 = $nome_foto."_tumb.".$tipo_arquivo;
+	$nome_foto			 = $nome_foto.".".$tipo_arquivo;
+}
 
 $path_foto			 = $_SERVER['DOCUMENT_ROOT']."/scc_cerimonial/fotos/";
 
