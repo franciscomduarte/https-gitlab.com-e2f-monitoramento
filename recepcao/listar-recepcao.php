@@ -69,9 +69,9 @@ while ($linha = mysqli_fetch_array($rs)) {
 				<thead>
 					<tr>
 						<th>#</th>
-						<th width="10%">Foto</th>
+						<th width="12%" colspan="2">Foto</th>
 						<th width="60%">Nome</th>
-						<th width="60%">Data</th>
+						<th width="15%">Data</th>
 						<th>Op&ccedil;&otilde;es</th>
 					</tr>
 				</thead>
@@ -93,7 +93,8 @@ while ($linha = mysqli_fetch_array($rs)) {
 								 and c.pessoa_id = p.id and c.pre_nominata = 1) as total_prenominata	
 								from pessoa p, funcao f, poder pp
 								where p.funcao_id = f.id
-								and pp.id = f.poder_id ";
+								and pp.id = f.poder_id 
+								and p.id in (select pessoa_id from convidado where evento_id = '".$evento_id."') ";
 					
 					if (isset($_REQUEST['busca']))
 						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
@@ -107,7 +108,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 					}
 					}
 					
-					$sql.= "order by p.ordem";
+					$sql.= "order by CAST(p.ordem as SIGNED)";
 					#echo $sql;
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
@@ -126,7 +127,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 			                        $data_convidado = $linha_convidado['data_hora_chegada'];
 			                        
 			                        ?>
-					<tr>
+					<tr <?php echo $data_convidado ? " style='background:#D8F1DA'" : ""?>>
 						<td><?php echo $num ?></td>
 						<td>
 							<?php 
@@ -139,6 +140,17 @@ while ($linha = mysqli_fetch_array($rs)) {
 								}
 			
 							?>
+						</td>
+						<td>
+							<?php 
+								if ($linha['total_nominata'] > 0)
+									echo "<span class='glyphicon glyphicon-th-list' title='Presente na Nominata'></span>";
+								elseif ($linha['total_prenominata'] > 0)
+									echo "<span class='glyphicon glyphicon-list-alt' title='Presente na Pr&eacute; Nominata'></span>";
+								else
+									echo "&nbsp;";
+							?>
+						
 						</td>
 						<td><?php 
 								if ($linha['posto_graduacao_id']){
@@ -157,7 +169,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 						<td>
 							<?php 
 								  if (!$data_convidado) {?>
-									<button class="btn btn-success btn-lg" onclick="location.href='recepcao/gravar-recepcao.php?acao=confirmar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'">Confirmar</button>
+							<button class="btn btn-success btn-lg" onclick="location.href='recepcao/gravar-recepcao.php?acao=confirmar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'">Confirmar</button>
 							<?php } else { ?>
 									<button class="btn btn-danger btn-lg" onclick="location.href='recepcao/gravar-recepcao.php?acao=desconfirmar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'">Desconfirmar</button>
 							<?php } ?>

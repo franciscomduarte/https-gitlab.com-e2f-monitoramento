@@ -57,7 +57,7 @@
 					if (isset($_REQUEST['busca']))
 						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
 					
-					$sql.= "order by p.ordem";
+					$sql.= "order by CAST(p.ordem as SIGNED)";
 					
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
