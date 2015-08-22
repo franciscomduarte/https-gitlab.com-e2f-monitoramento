@@ -10,21 +10,21 @@ $evento =  $_REQUEST['evento_id'];
 
 switch ($acao) {
 	case "convidar":
-		$sql = "INSERT INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
+		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '0', '0');";
 		break;
 
 	case "nominata":
-		$sql = "INSERT INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
+		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '1', '0');";
 		break;
 
 	case "prenominata":
-		$sql = "INSERT INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
+		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '0', '1');";

@@ -1,15 +1,12 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
-
+		<div>
 			<fieldset legend="Pesquisar">
 				<form method="post" action="index.php?pg=15" name="formulario" id="formulario_busca">
 					<div class="row">
-						<div class="col-lg-6">
-
-						</div>
+						
 						<!-- /.col-lg-6 -->
-						<div class="col-lg-6">
+						<div class="col-lg-6" style="float: right">
 							<div class="input-group">
 								<input type="text" class="form-control" name="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
 									   placeholder="Digite o nome, local ou detalhes do Evento"> 
