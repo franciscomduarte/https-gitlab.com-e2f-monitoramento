@@ -67,11 +67,11 @@ if(isset($_REQUEST['pg'])) {
 			include 'colecao/sucesso.php';
 			break;
 		default:
-			include 'usuario/listar-usuario.php';
+			include 'convidado/listar-convidado-evento.php';
 			break;
 	}
 } else {
-	include 'usuario/listar-usuario.php';
+	include 'convidado/listar-convidado-evento.php';
 }
 
 ?>

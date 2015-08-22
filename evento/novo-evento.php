@@ -36,23 +36,20 @@ if ($acao == "a"){
 ?>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
-				<form method="post" action="index.php?pg=2">
-					<div class="row">
-						<div class="col-lg-6">
-								<button class="btn btn-info" type="button"
-									onclick="history.go(-1);">Voltar</button>
+		<div>
+			<form method="post" action="index.php?pg=2">
+				<div class="row">
+					<div class="col-lg-6">
+						<button class="btn btn-info" type="button"
+								onclick="history.go(-1);">Voltar</button>
 
-						</div>
 					</div>
-					<!-- /.row -->
-				</form>
+				</div>
+									<!-- /.row -->
+			</form>
 		</div>
-		<p>
 		
-		
-		<form action="evento/gravar-evento.php?acao=<?php echo $acao?>"
-			method="post">
+		<form action="evento/gravar-evento.php?acao=<?php echo $acao?>" method="post">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 
 			<div class="input-group" style="margin: 5px">
@@ -79,9 +76,7 @@ if ($acao == "a"){
 						<textarea name="descricao" rows="3" cols="230" class="form-control" style="text-align: inherit;" maxlength="150" required><?php echo $descricao?></textarea>
 				</div>
 			</div>
-			
-			
-			
+
 			<div class="row" style="margin: 5px;">
 				<span class="input-group-btn">
 					<div class="input-group col-xs-8 col-md-4">
@@ -122,5 +117,5 @@ if ($acao == "a"){
 	</div>
 
 	</form>
-	</p>
+	
 </div>

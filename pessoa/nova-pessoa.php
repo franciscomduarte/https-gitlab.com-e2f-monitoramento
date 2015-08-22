@@ -90,7 +90,7 @@
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">Posto Graduação:</span>
-                               <select name="posto_graduacao_id" class="form-control" style="width:400px" required>
+                               <select name="posto_graduacao_id" class="form-control" style="width:400px">
                                   	<option value='' selected>-- Escolha um Posto --</option>
                                   	<?php 
                                   		
