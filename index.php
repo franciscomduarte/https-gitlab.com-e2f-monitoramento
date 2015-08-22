@@ -63,6 +63,12 @@ if(isset($_REQUEST['pg'])) {
 		case 19:
 			include 'evento/convidados.php';
 			break;
+		case 20:
+			include 'recepcao/listar-recepcao-evento.php';
+			break;
+		case 21:
+			include 'recepcao/listar-recepcao.php';
+			break;
 		case 80:
 			include 'colecao/sucesso.php';
 			break;
