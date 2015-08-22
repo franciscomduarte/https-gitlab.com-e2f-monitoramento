@@ -116,10 +116,14 @@ while ($linha = mysqli_fetch_array($rs)) {
 			                        $num++;
 			                        
 			                        $id_pessoa = $linha['id'];
-			                        $sqlConvidado = "select * from convidado where pessoa_id = '$id_pessoa' and evento_id = '$evento_id'";
+			                        $sqlConvidado = "select c.id, 
+			                        				date_format(c.data_hora_chegada,'%d/%m/%Y %T') as data_hora_chegada 
+			                        				from convidado c 
+			                        				where pessoa_id = '$id_pessoa' 
+			                        				and evento_id = '$evento_id'";
 			                        $rsConvidado  = mysqli_query($conexao, $sqlConvidado);
 			                        $linha_convidado = mysqli_fetch_array($rsConvidado);
-			                        $data_convidado = $linha_convidado['data_hora_chegada']
+			                        $data_convidado = $linha_convidado['data_hora_chegada'];
 			                        
 			                        ?>
 					<tr>

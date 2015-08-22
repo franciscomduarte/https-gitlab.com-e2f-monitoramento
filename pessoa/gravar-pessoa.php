@@ -54,7 +54,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 						data_criacao,posto_graduacao_id,funcao_id,
 						usuario_cadastro_id)
 						VALUES
-						(null,null,'$ordem','$nome',
+						(null,'$nome_foto','$ordem','$nome',
 						'$email', '$telefone_1',
 						'$telefone_2',now(),
 						'$posto_graduacao_id',
@@ -70,7 +70,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 					data_criacao,posto_graduacao_id,funcao_id,
 					usuario_cadastro_id)
 					VALUES
-					(null,'$nome_foto','$ordem','$nome',
+					(null,null,'$ordem','$nome',
 					'$email', '$telefone_1',
 					'$telefone_2',now(),
 					'$posto_graduacao_id',

@@ -16,8 +16,8 @@
 		
 		<?php 
 			session_start();
-			
-			switch ($_SESSION['perfil']) {
+			$perfil = $_SESSION['perfil'];
+			switch ($perfil) {
 				case 0:
 		?>
 		<div class="collapse navbar-collapse">
@@ -57,19 +57,10 @@
 				</div><!-- /.nav-collapse -->
 		
 		<?php 
-				
+				break;				
 			}
 		
 		?>
-		
-
-		
-		
-		
-		
-		
-		
-		
 		
 		
 	</div><!-- /.container -->

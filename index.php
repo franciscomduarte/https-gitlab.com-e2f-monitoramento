@@ -4,6 +4,17 @@ include_once 'valida.php';
 include_once 'header.php';
 include_once 'menu.php';
 
+function redirecionaPaginaPerfil(){
+	if ($_SESSION['perfil'] == 0)
+		return 'convidado/listar-convidado-evento.php';
+	elseif($_SESSION['perfil'] == 1)
+		return 'convidado/listar-convidado-evento.php';
+	elseif($_SESSION['perfil'] == 2)
+		return 'recepcao/listar-recepcao-evento.php';
+	else 
+		return 'sair.php';
+}
+
 if(isset($_REQUEST['pg'])) {
 	switch ($_REQUEST['pg']) {
 		case 1:
@@ -73,15 +84,14 @@ if(isset($_REQUEST['pg'])) {
 			include 'colecao/sucesso.php';
 			break;
 		default:
-			include 'convidado/listar-convidado-evento.php';
+			include redirecionaPaginaPerfil();
 			break;
 	}
 } else {
-	include 'convidado/listar-convidado-evento.php';
+	include redirecionaPaginaPerfil();
 }
 
 ?>
-
 
 <?php include_once 'footer.php'; ?>
 <script src="js/paginacao.js"></script>

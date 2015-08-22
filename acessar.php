@@ -8,7 +8,7 @@ $senha = md5($_POST['senha']);
 
 if ($email && $senha){
 	
-	$sql = "select count(*) as total, id, email 
+	$sql = "select count(*) as total, id, email, perfil  
 			from usuario 
 			where email = '$email' 
 			and   senha = '$senha'";
