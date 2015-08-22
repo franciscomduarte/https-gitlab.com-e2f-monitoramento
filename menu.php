@@ -9,22 +9,69 @@
 			<span class="icon-bar"></span>
 			</button>
 		<a class="navbar-brand" href="index.php">
-			<img src="img/icone_scc.fw.png" alt="Sistema de Controle de Cole絥s" align="top">
+			<img src="img/icone_scc.fw.png" alt="Sistema de Controle de Cerimonial" align="top">
 		</a>
 		</div>
+		
+		
+		<?php 
+			session_start();
+			
+			switch ($_SESSION['perfil']) {
+				case 0:
+		?>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 			<li class="active"><a href="#">Home</a></li>
-			<li><a href="index.php?pg=3">Posto de Graduação</a></li>
-			<li><a href="index.php?pg=2">Função</a></li>
+			<li><a href="index.php?pg=3">Posto de Gradua&ccedil;&atilde;o</a></li>
+			<li><a href="index.php?pg=2">Fun&ccedil;&atilde;o</a></li>
 			<li><a href="index.php?pg=7">Local</a></li>
 			<li><a href="index.php?pg=13">Eventos</a></li>
 			<li><a href="index.php?pg=10">Pessoas</a></li>
 			<li><a href="index.php?pg=15">Convidados</a></li>
-			<li><a href="index.php?pg=20">Recepção</a></li>
+			<li><a href="index.php?pg=20">Recep&ccedil;&atilde;o</a></li>
 			<li><a href="sair.php">Sair</a></li>
 			</ul>
 		</div><!-- /.nav-collapse -->
+		<?php   break;
+		
+				case 1:		?>
+				<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="index.php?pg=10">Pessoas</a></li>
+				<li><a href="index.php?pg=15">Convidados</a></li>
+				<li><a href="index.php?pg=20">Recep&ccedil;&atilde;o</a></li>
+				<li><a href="sair.php">Sair</a></li>
+				</ul>
+				</div><!-- /.nav-collapse -->
+		<?php   break;
+				
+				case 2: ?>		
+				<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="index.php?pg=20">Recep&ccedil;&atilde;o</a></li>
+				<li><a href="sair.php">Sair</a></li>
+				</ul>
+				</div><!-- /.nav-collapse -->
+		
+		<?php 
+				
+			}
+		
+		?>
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</div><!-- /.container -->
 </div><!-- /.navbar -->
 <div class="container">

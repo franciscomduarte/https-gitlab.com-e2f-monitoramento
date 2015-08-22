@@ -19,10 +19,12 @@ if ($email && $senha){
 		$total 		= $linha['total'];
 		$id_usuario = $linha['id'];
 		$email		= $linha['email'];
+		$perfil		= $linha['perfil'];
 	}
 	if ($total > 0){
 		$_SESSION['id_usuario'] = $id_usuario;
 		$_SESSION['email'] = $email;
+		$_SESSION['perfil'] = $perfil;
 		
 		$sqlHistorico = "INSERT INTO historico_acesso VALUES (null, now(), '$id_usuario')";
 		mysqli_query($conexao,$sqlHistorico);
