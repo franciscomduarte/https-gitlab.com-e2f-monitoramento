@@ -1,13 +1,9 @@
 <?php
-
-
 session_start();
 include_once 'valida.php';
 include_once 'header.php';
 include_once 'menu.php';
-?>
 
-<?php
 if(isset($_REQUEST['pg'])) {
 	switch ($_REQUEST['pg']) {
 		case 1:

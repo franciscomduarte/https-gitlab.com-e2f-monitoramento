@@ -20,7 +20,7 @@ $nome                = $_REQUEST['nome'];
 $email        		 = $_REQUEST['email'];
 $telefone_1   		 = $_REQUEST['telefone_1'];
 $telefone_2   		 = $_REQUEST['telefone_2'];
-$data_criacao 		 = date('Y-m-d');
+#$data_criacao 		 = date('Y-m-d');
 $posto_graduacao_id  = $_REQUEST['posto_graduacao_id'];
 $funcao_id           = $_REQUEST['funcao_id'];
 $usuario_cadastro_id = $_SESSION["id_usuario"];
@@ -28,7 +28,7 @@ $tipo_arquivo		 = isset($foto['type']) ? $foto['type'] : "";
 if($tipo_arquivo) {
 	$tipo_arquivo 		 = explode("/",$tipo_arquivo)[1];
 }
-if($foto){
+if(!empty($foto['name'])){
 	$nome_foto			 = md5($foto['name'].date('d-m-Y H:m:s'));
 	$nome_foto_pequena	 = $nome_foto."_tumb.".$tipo_arquivo;
 	$nome_foto			 = $nome_foto.".".$tipo_arquivo;
@@ -46,25 +46,39 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 	if ($acao == "n"){
 			
 		//Funcao para fazer upload da foto.
-		if ($foto){
+		if(!empty($foto['name'])){
 			try {
 				uploadFotos($foto, $nome_foto, $nome_foto_pequena, $path_foto,$tipo_arquivo);
+				
+				$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
+						data_criacao,posto_graduacao_id,funcao_id,
+						usuario_cadastro_id)
+						VALUES
+						(null,null,'$ordem','$nome',
+						'$email', '$telefone_1',
+						'$telefone_2',now(),
+						'$posto_graduacao_id',
+						'$funcao_id',
+						'$usuario_cadastro_id');";
+				
 			} catch (Exception $e) {
 				echo "<script>alert('Erro ao incluir Pessoa');history.go(-1);</script>";
 				exit();
 			}
+		}else{
+			$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
+					data_criacao,posto_graduacao_id,funcao_id,
+					usuario_cadastro_id)
+					VALUES
+					(null,'$nome_foto','$ordem','$nome',
+					'$email', '$telefone_1',
+					'$telefone_2',now(),
+					'$posto_graduacao_id',
+					'$funcao_id',
+					'$usuario_cadastro_id');";
 		}
 			
-		$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
-								   data_criacao,posto_graduacao_id,funcao_id,
-								   usuario_cadastro_id)
-								   VALUES		
-								   (null,'$nome_foto','$ordem','$nome',
-									'$email', '$telefone_1',
-									'$telefone_2',now(),
-									'$posto_graduacao_id',
-									'$funcao_id',
-									'$usuario_cadastro_id');";
+		
 	}elseif ($acao == "e") {
 		//Esta a não exclui apenas inativa.
 		echo "<script>alert('A exclusão de pessoa não é permitida.');history.go(-1);</script>";
@@ -72,7 +86,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 	}elseif ($acao == "a") {
 			
 		//Funcao para fazer upload da foto.
-		if ($foto){
+		if(!empty($foto['name'])){
 			$nome_foto_alterar = $_REQUEST['nome_foto_alterar'];	
 			try {
 				uploadFotos($foto, $nome_foto, $nome_foto_pequena, $path_foto,$tipo_arquivo,$nome_foto_alterar);
@@ -85,7 +99,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 			
 		$sql = "UPDATE pessoa SET ";
 			
-		if ($foto)
+		if(!empty($foto['name']))
 			$sql .= "foto = '$nome_foto', ";
 		if ($posto_graduacao_id)
 			$sql .= "posto_graduacao_id = '$posto_graduacao_id', ";
@@ -98,8 +112,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		funcao_id = '$funcao_id',
 		usuario_cadastro_id = '$usuario_cadastro_id'
 		WHERE id = '$id'";
-		#echo "SQL = ".$sql;
-		#exit();
+		
 	}
 
 	mysqli_query($conexao, $sql);

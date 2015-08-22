@@ -39,7 +39,7 @@
 ?>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
+		<div>
 
 			<fieldset legend="Pesquisar">
 				<form method="post" action="index.php?pg=2">

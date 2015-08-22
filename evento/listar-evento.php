@@ -60,7 +60,7 @@
 								<span class="glyphicon glyphicon-edit" title="Editar"></span>
 							</button>
 							<button onclick="location.href='index.php?pg=17&acao=a&id=<?php echo $linha['id']?>'">
-								<span class="glyphicon glyphicon-tasks" title="Pré Nominata"></span>
+								<span class="glyphicon glyphicon-tasks" title="Pr&eacute; Nominata"></span>
 							</button>
 							<button onclick="location.href='index.php?pg=18&acao=a&id=<?php echo $linha['id']?>'">
 								<span class="glyphicon glyphicon-align-justify" title="Nominata"></span>

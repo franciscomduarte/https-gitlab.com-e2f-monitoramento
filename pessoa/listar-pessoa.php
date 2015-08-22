@@ -1,35 +1,29 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
-
-				<form method="post" action="index.php?pg=10" name="formulario" id="formulario_busca">
-					<div class="row">
-						<div class="col-lg-6">
-
-								<button class="btn btn-info" type="button"
-									onclick="location.href='index.php?pg=11'">Criar Novo</button>
-
-						</div>
-						<!-- /.col-lg-6 -->
-						<div class="col-lg-6">
-							<div class="input-group">
-								<input type="text" class="form-control" name="busca" id="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
-									   placeholder="Digite sua pesquisa..."> 
-								<span
-									class="input-group-btn" >
-									<button class="btn btn-default" type="submit">Procurar</button>
-								</span>
-							</div>
-							<!-- /input-group -->
-						</div>
-						<!-- /.col-lg-6 -->
+		<div>
+			<form method="post" action="index.php?pg=10" name="formulario" id="formulario_busca">
+				<div class="row">
+					<div class="col-lg-6">
+							<button class="btn btn-info" type="button"
+								onclick="location.href='index.php?pg=11'">Criar Novo</button>
 					</div>
+						<!-- /.col-lg-6 -->
+					<div class="col-lg-6">
+						<div class="input-group">
+							<input type="text" class="form-control" name="busca" id="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
+								   placeholder="Digite sua pesquisa..."> 
+							<span class="input-group-btn" >
+								<button class="btn btn-default" type="submit">Procurar</button>
+							</span>
+						</div>
+							<!-- /input-group -->
+					</div>
+						<!-- /.col-lg-6 -->
+				</div>
 					<!-- /.row -->
-				</form>
-
-
-
+			</form>
 		</div>
+		
 	</div>
 </div>
 <div class="row row-offcanvas row-offcanvas-right">

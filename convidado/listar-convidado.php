@@ -3,23 +3,42 @@ require_once 'conexao/conn.php';
 
 $evento_id = $_REQUEST['id'];
 
+$sql = "select e.descricao, e.data_fim, e.data_inicio, e.nome, l.nome as local
+		from evento e, local l
+		where l.id = e.local_id
+		and e.id = '".$evento_id."'";
+
+$rs = mysqli_query($conexao, $sql);
+
+while ($linha = mysqli_fetch_array($rs)) {
+		
+	$data_inicio  = $linha['data_inicio'];
+	$data_fim     = $linha['data_fim'];
+	$nome         = $linha['nome'];
+	$descricao    = $linha['descricao'];
+	$local  	  = $linha['local'];
+		
+}
+
 ?>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
-
+		<div>
 			<fieldset legend="Pesquisar">
 				<form method="post" action="index.php?pg=16" name="formulario" id="formulario_busca">
 					<input type="hidden" name="tipo" id="tipo">
 					<div class="row">
-						<div class="col-lg-6">
-
-							<span class="input-group-btn">
-								Dados do Evento: <?php echo $_SESSION['evento']?>
-							</span>
-
-						</div>
 						<!-- /.col-lg-6 -->
+						<div class="panel panel-default col-lg-6">
+						<div class="panel-heading"><b>Evento: <?php echo $nome ?></b></div>
+						  <div class="panel-body">
+						  	Local: <?php echo $local ?><br>
+						 	Descri&ccedil;&atilde;o: <?php echo $descricao ?><br>
+						    Data Inicio: <?php echo $data_inicio ?><br>
+						    Data Fim: <?php echo $data_fim ?>
+						  </div>
+						</div>						
+						
 						<div class="col-lg-6">
 								<span class="label label-default" style="cursor: pointer" onclick="javascript:chamaPesquisa(2);">Convidado</span>
 								<span class="label label-info"  style="cursor: pointer" onclick="javascript:chamaPesquisa(3);">Pre-nominata</span>
@@ -48,45 +67,9 @@ $evento_id = $_REQUEST['id'];
 	</div>
 </div>
 <div class="row row-offcanvas row-offcanvas-right">
-	<div class="row" style="margin-top: 10px">
-
-			<?php
-					
-				$sql = "select e.descricao, e.data_fim, e.data_inicio, e.nome, l.nome as local
-						from evento e, local l
-		                where 1=1 and 
-		                      l.id = e.local_id 
-		                      and e.id = '".$evento_id."'";
-				$rs = mysqli_query($conexao, $sql);
-				
-				while ($linha = mysqli_fetch_array($rs)) {
-					
-					$data_inicio  = $linha['data_inicio'];
-					$data_fim     = $linha['data_fim'];
-					$nome         = $linha['nome'];
-					$descricao  = $linha['descricao'];
-					$local  = $linha['local'];
-					
-				}
-			?>
-	
-		<div class="panel panel-default">
-		  <div class="panel-heading"><b>Evento: <?php echo $nome ?></b></div>
-		  <div class="panel-body">
-		  	Local: <?php echo $local ?><br>
-		 	Descrição: <?php echo $descricao ?><br>
-		    Data Inicio: <?php echo $data_inicio ?><br>
-		    Data Fim: <?php echo $data_fim ?>
-		  </div>
-		</div>
-	
-	</div>
 
 	<div class="row">
 		<div class="table-responsive">
-
-
-
 			<table class="table table-hover">
 				<thead>
 					<tr>

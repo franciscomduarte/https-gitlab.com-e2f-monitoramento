@@ -30,7 +30,7 @@ switch ($acao) {
 		NULL, '0', '1');";
 		break;
 }
-exit;
+
 if ($sql){
 	mysqli_query($conexao, $sql);
 }
