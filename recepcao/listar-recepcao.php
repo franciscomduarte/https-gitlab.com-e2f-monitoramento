@@ -25,7 +25,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 	<div class="row">
 		<div>
 			<fieldset legend="Pesquisar">
-				<form method="post" action="index.php?pg=16" name="formulario" id="formulario_busca">
+				<form method="post" action="index.php?pg=21" name="formulario" id="formulario_busca">
 					<input type="hidden" name="tipo" id="tipo">
 					<div class="row">
 						<!-- /.col-lg-6 -->
@@ -37,11 +37,11 @@ while ($linha = mysqli_fetch_array($rs)) {
 								<span class="label label-primary"  style="cursor: pointer" onclick="javascript:chamaPesquisa(4);">Nominata</span>
 								<span class="label label-warning"  style="cursor: pointer" onclick="javascript:chamaPesquisa(1);">Todos</span>
 							<div class="input-group" style="padding-top: 5px">
-								<input type="text" class="form-control" name="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
+								<input type="text" class="form-control input-lg" name="busca" value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : "" ?>" 
 									   placeholder="Digite sua pesquisa..."> 
 								<span
 									class="input-group-btn" >
-									<button class="btn btn-default" type="submit">Procurar</button>
+									<button class="btn btn-default btn-lg" type="submit">Procurar</button>
 									<input type="hidden" name="id" value="<?php echo $evento_id?>">
 								</span>
 							</div>
@@ -71,6 +71,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 						<th>#</th>
 						<th width="10%">Foto</th>
 						<th width="60%">Nome</th>
+						<th width="60%">Data</th>
 						<th>Op&ccedil;&otilde;es</th>
 					</tr>
 				</thead>
@@ -113,6 +114,13 @@ while ($linha = mysqli_fetch_array($rs)) {
 			
 					while ($linha = mysqli_fetch_array($rs)) {
 			                        $num++;
+			                        
+			                        $id_pessoa = $linha['id'];
+			                        $sqlConvidado = "select * from convidado where pessoa_id = '$id_pessoa' and evento_id = '$evento_id'";
+			                        $rsConvidado  = mysqli_query($conexao, $sqlConvidado);
+			                        $linha_convidado = mysqli_fetch_array($rsConvidado);
+			                        $data_convidado = $linha_convidado['data_hora_chegada']
+			                        
 			                        ?>
 					<tr>
 						<td><?php echo $num ?></td>
@@ -139,9 +147,16 @@ while ($linha = mysqli_fetch_array($rs)) {
 								echo $linha['nome_pessoa']."<br />(".$linha['nome_funcao'].")"; 
 							?>
 						</td>
-						
 						<td>
-							<button class="btn btn-success btn-lg" onclick="location.href='convidado/gravar-convidado.php?acao=convidar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'" <?php echo $linha['total'] > 0 ? "disabled":""?>>Convidar</button>
+							<?php echo $data_convidado ?>
+						</td>
+						<td>
+							<?php 
+								  if (!$data_convidado) {?>
+									<button class="btn btn-success btn-lg" onclick="location.href='recepcao/gravar-recepcao.php?acao=confirmar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'">Confirmar</button>
+							<?php } else { ?>
+									<button class="btn btn-danger btn-lg" onclick="location.href='recepcao/gravar-recepcao.php?acao=desconfirmar&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'">Desconfirmar</button>
+							<?php } ?>
 						</td>
 			
 					</tr>

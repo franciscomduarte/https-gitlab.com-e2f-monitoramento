@@ -6,28 +6,18 @@ session_start();
 $acao  = $_REQUEST['acao'];
 $id	   = $_REQUEST['id'];
 $evento =  $_REQUEST['evento_id'];
+$id_usuario = $_SESSION['id_usuario'];
 #dados do formulario
 
 switch ($acao) {
-	case "convidar":
-		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
-		usuario_check_id, nominata, pre_nominata)
-		VALUES (null, '$id', '$evento', NULL,
-		NULL, '0', '0');";
+	case "confirmar":
+		$sql = "UPDATE convidado SET data_hora_chegada = NOW(), usuario_check_id = '$id_usuario'
+				WHERE pessoa_id = '$id' and evento_id = '$evento'";
 		break;
-
-	case "nominata":
-		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
-		usuario_check_id, nominata, pre_nominata)
-		VALUES (null, '$id', '$evento', NULL,
-		NULL, '1', '0');";
-		break;
-
-	case "prenominata":
-		$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
-		usuario_check_id, nominata, pre_nominata)
-		VALUES (null, '$id', '$evento', NULL,
-		NULL, '0', '1');";
+		
+	case "desconfirmar":
+			$sql = "UPDATE convidado SET data_hora_chegada = null, usuario_check_id = '$id_usuario'
+			WHERE pessoa_id = '$id' and evento_id = '$evento'";
 		break;
 }
 
@@ -37,7 +27,7 @@ if ($sql){
 
 ob_clean();
 
-header("Location: ../index.php?pg=16&id=".$evento);
+header("Location: ../index.php?pg=21&id=".$evento);
 
 
 ?>
