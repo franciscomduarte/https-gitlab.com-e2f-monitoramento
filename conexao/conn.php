@@ -12,13 +12,9 @@
 if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'){
 
 	//Atributos para acesso ao banco de produção
-	$servidor = "localhost";
-	$usuario  = "root";
-	$senha    = "";
-
-	//$servidor = "localhost";
-	//$usuario  = "root";
-	//$senha    = "e2f12345678";
+	$servidor = "mysql.e2f.com.br";
+	$usuario  = "e2f08";
+	$senha    = "ebsucesso";
 	$banco    = "e2f08";
 }else{
 	// Banco de teste
