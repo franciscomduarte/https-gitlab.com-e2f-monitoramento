@@ -11,6 +11,7 @@
 					<tr>
 						<th>#</th>
 						<th>C&oacute;digo</th>
+						<th>Ordem</th>
 						<th>Sigla</th>
 						<th>Nome</th>
 						<th>Op&ccedil;&otilde;es</th>
@@ -22,7 +23,7 @@
 					require_once 'conexao/conn.php';
                     
 					$sql = "select * 
-							from posto_graduacao p order by id";
+							from posto_graduacao p order by CAST(ordem as SIGNED) ";
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 
@@ -32,6 +33,7 @@
 					<tr>
 						<td><?php echo $num?></td>
 						<td><?php echo $linha['id']?></td>
+						<td><?php echo $linha['ordem']?></td>
 						<td><?php echo $linha['sigla']?></td>
 						<td><?php echo $linha['nome']?></td>
 						<td>
@@ -68,7 +70,7 @@
 		  pagerSelector:'#myPager',
 		  showPrevNext:true,
 		  hidePageNumbers:false,
-		  perPage:5,
+		  perPage:10,
 		  totalPages:5
 		 }); 
 	  

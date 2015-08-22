@@ -4,6 +4,7 @@
 	$acao   = isset($_REQUEST['acao']) ?  $_REQUEST['acao'] : "";
 	$sigla = "";
 	$nome  = "";
+	$ordem = "";
 	
 	if ($acao == "a"){
 		include 'conexao/conn.php';
@@ -13,6 +14,7 @@
 		while ($linha = mysqli_fetch_array($rs)) {
 			$sigla = $linha['sigla'];
 			$nome  = $linha['nome'];
+			$ordem = $linha['ordem'];
 		}
 	}else{
 		$acao = "n";
@@ -30,6 +32,11 @@
 		<form action="posto-graduacao/gravar-posto-graduacao.php?acao=<?php echo $acao?>" method="post">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
+			
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">Ordem</span> 
+					<input type="text" name="ordem" value="<?php echo $ordem ?>" class="form-control" placeholder="Digite a ordem" required>
+				</div>
 				
 				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Sigla</span> 
