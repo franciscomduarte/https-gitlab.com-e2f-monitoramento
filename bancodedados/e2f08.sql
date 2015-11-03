@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 3.5.8.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 14-Out-2015 às 22:45
--- Versão do servidor: 5.6.21
--- PHP Version: 5.6.3
+-- Máquina: localhost
+-- Data de Criação: 03-Nov-2015 às 05:02
+-- Versão do servidor: 5.6.11-log
+-- versão do PHP: 5.4.14
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `e2f08`
+-- Base de Dados: `e2f08`
 --
 
 -- --------------------------------------------------------
@@ -27,10 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `cidade` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(70) NOT NULL,
-  `uf_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `uf_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cidade_uf_idx` (`uf_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `cidade`
@@ -46,33 +48,169 @@ INSERT INTO `cidade` (`id`, `nome`, `uf_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `convidado` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pessoa_id` int(11) NOT NULL,
   `evento_id` int(11) NOT NULL,
   `data_hora_chegada` datetime DEFAULT NULL,
   `usuario_check_id` int(11) DEFAULT NULL,
   `nominata` tinyint(1) NOT NULL DEFAULT '0',
-  `pre_nominata` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+  `pre_nominata` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pessoa_id` (`pessoa_id`,`evento_id`),
+  KEY `fk_pessoa_has_evento_evento1_idx` (`evento_id`),
+  KEY `fk_pessoa_has_evento_pessoa1_idx` (`pessoa_id`),
+  KEY `fk_convidado_usuario1_idx` (`usuario_check_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=193 ;
 
 --
 -- Extraindo dados da tabela `convidado`
 --
 
 INSERT INTO `convidado` (`id`, `pessoa_id`, `evento_id`, `data_hora_chegada`, `usuario_check_id`, `nominata`, `pre_nominata`) VALUES
-(1, 33, 7, NULL, NULL, 0, 1),
-(3, 32, 7, NULL, NULL, 0, 0),
-(7, 33, 1, NULL, NULL, 0, 0),
-(9, 33, 6, NULL, NULL, 0, 0),
-(10, 32, 11, NULL, NULL, 0, 0),
-(11, 33, 11, NULL, NULL, 0, 0),
-(12, 32, 12, NULL, NULL, 0, 0),
-(13, 33, 12, NULL, NULL, 0, 0),
-(17, 34, 12, NULL, NULL, 0, 1),
-(18, 34, 13, '2015-10-14 17:41:28', 3, 0, 0),
-(19, 35, 13, NULL, NULL, 0, 0),
-(20, 36, 13, NULL, NULL, 0, 0),
-(21, 37, 13, NULL, NULL, 0, 0);
+(12, 38, 9, NULL, 12, 1, 0),
+(16, 40, 9, NULL, 10, 1, 0),
+(18, 464, 9, NULL, 10, 0, 1),
+(21, 99, 9, NULL, NULL, 0, 0),
+(22, 89, 9, NULL, 12, 0, 0),
+(23, 333, 9, NULL, 10, 0, 0),
+(24, 346, 9, NULL, 10, 0, 0),
+(25, 251, 9, NULL, NULL, 0, 0),
+(27, 325, 9, NULL, 10, 0, 0),
+(28, 911, 9, NULL, NULL, 0, 0),
+(29, 50, 9, NULL, NULL, 0, 0),
+(31, 102, 9, NULL, NULL, 0, 1),
+(32, 509, 9, NULL, 10, 0, 0),
+(34, 264, 9, NULL, 10, 0, 1),
+(41, 270, 9, NULL, NULL, 0, 0),
+(42, 155, 9, NULL, NULL, 0, 0),
+(43, 723, 9, NULL, 10, 0, 0),
+(44, 737, 9, NULL, NULL, 0, 0),
+(45, 430, 9, NULL, NULL, 0, 0),
+(46, 157, 9, NULL, 10, 0, 0),
+(47, 391, 9, NULL, NULL, 0, 0),
+(49, 503, 9, NULL, NULL, 0, 0),
+(51, 156, 9, NULL, NULL, 0, 0),
+(53, 463, 9, NULL, NULL, 0, 1),
+(56, 101, 9, NULL, NULL, 0, 0),
+(66, 39, 9, NULL, NULL, 0, 1),
+(67, 447, 9, NULL, NULL, 0, 1),
+(70, 43, 9, NULL, NULL, 0, 1),
+(72, 70, 9, NULL, NULL, 0, 1),
+(74, 47, 9, NULL, NULL, 0, 1),
+(75, 87, 9, NULL, NULL, 1, 0),
+(76, 72, 9, NULL, NULL, 0, 0),
+(77, 66, 9, NULL, NULL, 0, 0),
+(78, 57, 9, NULL, NULL, 0, 0),
+(79, 85, 9, NULL, NULL, 0, 0),
+(80, 69, 9, NULL, NULL, 0, 0),
+(81, 103, 9, NULL, NULL, 0, 1),
+(82, 49, 9, NULL, NULL, 0, 1),
+(83, 53, 9, NULL, NULL, 0, 1),
+(84, 46, 9, NULL, NULL, 1, 0),
+(85, 79, 9, NULL, NULL, 0, 1),
+(86, 96, 9, NULL, NULL, 0, 1),
+(87, 52, 9, NULL, NULL, 0, 1),
+(88, 74, 9, NULL, NULL, 0, 1),
+(89, 68, 9, NULL, NULL, 0, 1),
+(90, 63, 9, NULL, NULL, 0, 1),
+(91, 59, 9, NULL, NULL, 0, 1),
+(92, 56, 9, NULL, NULL, 0, 1),
+(93, 100, 9, NULL, NULL, 0, 1),
+(94, 1016, 9, NULL, NULL, 0, 1),
+(95, 1015, 9, NULL, NULL, 0, 1),
+(96, 1013, 9, NULL, NULL, 0, 1),
+(97, 1012, 9, NULL, NULL, 0, 1),
+(98, 1014, 9, NULL, NULL, 0, 1),
+(99, 105, 9, NULL, NULL, 0, 1),
+(100, 271, 9, NULL, NULL, 0, 1),
+(101, 1019, 9, NULL, NULL, 0, 0),
+(102, 1021, 9, NULL, NULL, 0, 0),
+(103, 1023, 9, NULL, NULL, 0, 0),
+(104, 1022, 9, NULL, NULL, 0, 0),
+(105, 1020, 9, NULL, NULL, 0, 0),
+(106, 746, 9, NULL, NULL, 0, 0),
+(107, 1018, 9, NULL, NULL, 0, 0),
+(108, 1017, 9, NULL, NULL, 0, 0),
+(109, 1025, 9, NULL, NULL, 0, 0),
+(110, 1035, 9, NULL, NULL, 0, 0),
+(111, 1034, 9, NULL, NULL, 0, 0),
+(112, 1033, 9, NULL, NULL, 0, 0),
+(113, 1032, 9, NULL, NULL, 0, 0),
+(114, 1031, 9, NULL, NULL, 0, 0),
+(115, 1030, 9, NULL, NULL, 0, 0),
+(116, 734, 9, NULL, NULL, 0, 0),
+(117, 1029, 9, NULL, NULL, 0, 0),
+(118, 1028, 9, NULL, NULL, 0, 0),
+(119, 1027, 9, NULL, NULL, 0, 0),
+(120, 1039, 9, NULL, NULL, 0, 0),
+(121, 1037, 9, NULL, NULL, 0, 0),
+(122, 1040, 9, NULL, NULL, 0, 0),
+(123, 1038, 9, NULL, NULL, 0, 0),
+(124, 1026, 9, NULL, NULL, 0, 0),
+(125, 88, 9, NULL, NULL, 0, 1),
+(126, 150, 9, NULL, NULL, 0, 1),
+(127, 738, 9, NULL, NULL, 0, 0),
+(128, 228, 9, NULL, NULL, 0, 0),
+(129, 86, 9, NULL, NULL, 0, 1),
+(131, 730, 9, NULL, NULL, 0, 0),
+(132, 728, 9, NULL, NULL, 0, 0),
+(133, 151, 9, NULL, NULL, 0, 1),
+(134, 148, 9, NULL, NULL, 0, 0),
+(135, 159, 9, NULL, NULL, 0, 0),
+(136, 366, 9, NULL, NULL, 0, 0),
+(137, 162, 9, NULL, NULL, 0, 0),
+(138, 154, 9, NULL, NULL, 0, 0),
+(139, 219, 9, NULL, NULL, 0, 0),
+(140, 165, 9, NULL, NULL, 0, 0),
+(141, 158, 9, NULL, NULL, 0, 0),
+(142, 164, 9, NULL, NULL, 0, 0),
+(143, 161, 9, NULL, NULL, 0, 0),
+(144, 722, 9, NULL, NULL, 0, 0),
+(145, 166, 9, NULL, 10, 0, 0),
+(146, 163, 9, NULL, NULL, 0, 0),
+(147, 721, 9, NULL, NULL, 0, 0),
+(148, 720, 9, NULL, NULL, 0, 0),
+(149, 152, 9, NULL, NULL, 0, 0),
+(150, 735, 9, NULL, NULL, 0, 0),
+(151, 732, 9, NULL, NULL, 0, 0),
+(152, 731, 9, NULL, NULL, 0, 0),
+(153, 736, 9, NULL, NULL, 0, 0),
+(154, 733, 9, NULL, NULL, 0, 0),
+(155, 174, 9, NULL, NULL, 0, 0),
+(156, 170, 9, NULL, NULL, 0, 0),
+(157, 224, 9, NULL, NULL, 0, 0),
+(158, 227, 9, NULL, NULL, 0, 0),
+(159, 94, 9, NULL, NULL, 0, 1),
+(160, 231, 9, NULL, NULL, 0, 0),
+(161, 41, 9, NULL, NULL, 0, 0),
+(162, 262, 9, NULL, NULL, 0, 0),
+(163, 229, 9, NULL, NULL, 0, 0),
+(164, 230, 9, NULL, NULL, 0, 0),
+(165, 223, 9, NULL, NULL, 0, 0),
+(166, 226, 9, NULL, NULL, 0, 0),
+(167, 235, 9, NULL, NULL, 0, 0),
+(168, 225, 9, NULL, NULL, 0, 0),
+(169, 261, 9, NULL, NULL, 0, 0),
+(170, 740, 9, NULL, NULL, 0, 0),
+(171, 745, 9, NULL, NULL, 0, 0),
+(172, 742, 9, NULL, NULL, 0, 0),
+(173, 199, 9, NULL, NULL, 0, 0),
+(174, 747, 9, NULL, NULL, 0, 0),
+(175, 744, 9, NULL, NULL, 0, 0),
+(177, 741, 9, NULL, NULL, 0, 0),
+(178, 743, 9, NULL, NULL, 0, 0),
+(179, 98, 9, NULL, NULL, 0, 1),
+(180, 95, 9, NULL, NULL, 0, 1),
+(181, 97, 9, NULL, NULL, 0, 1),
+(183, 826, 9, NULL, NULL, 0, 0),
+(184, 943, 9, NULL, NULL, 0, 0),
+(185, 897, 9, NULL, NULL, 0, 0),
+(186, 534, 9, NULL, NULL, 0, 1),
+(187, 44, 9, NULL, NULL, 1, 0),
+(188, 1043, 9, NULL, NULL, 1, 0),
+(189, 436, 9, NULL, NULL, 1, 0),
+(190, 263, 9, NULL, 1, 0, 0),
+(192, 233, 9, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -81,27 +219,25 @@ INSERT INTO `convidado` (`id`, `pessoa_id`, `evento_id`, `data_hora_chegada`, `u
 --
 
 CREATE TABLE IF NOT EXISTS `evento` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `data_inicio` datetime NOT NULL,
   `data_fim` datetime DEFAULT NULL,
   `descricao` varchar(150) DEFAULT NULL,
   `local_id` int(11) NOT NULL,
-  `usuario_cadastro_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  `usuario_cadastro_id` int(11) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `fk_evento_local1_idx` (`local_id`),
+  KEY `fk_evento_usuario1_idx` (`usuario_cadastro_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Extraindo dados da tabela `evento`
 --
 
-INSERT INTO `evento` (`id`, `nome`, `data_inicio`, `data_fim`, `descricao`, `local_id`, `usuario_cadastro_id`) VALUES
-(1, 'Evento Teste', '2015-08-22 00:00:00', '2015-08-28 00:00:00', 'Evento de Teste E2f', 1, 1),
-(2, 'Evento Teste 2 Alterado pelo FOS', '2015-08-14 00:00:00', '2015-08-28 00:00:00', 'Evento teste 2 Descricao', 1, 1),
-(6, 'Flaviano', '2015-08-22 00:00:00', NULL, 'aaaaaaaaaaa', 1, 1),
-(7, 'Teste com o novo Windows', '2015-08-21 00:00:00', NULL, 'Teste com o novo Windows', 1, 1),
-(11, 'asdasdadasd', '2015-08-22 00:00:00', '2015-08-31 00:00:00', 'sadasds', 1, 3),
-(12, 'teste', '2015-10-23 00:00:00', '2015-10-23 00:00:00', 'aasdasd', 1, 3),
-(13, 'molina', '2015-10-14 00:00:00', '2015-10-21 00:00:00', 'asdasd', 1, 3);
+INSERT INTO `evento` (`id`, `nome`, `data_inicio`, `data_fim`, `descricao`, `local_id`, `usuario_cadastro_id`, `ativo`) VALUES
+(9, 'Dia do Soldado 2015', '2015-12-29 00:00:00', '2015-12-30 00:00:00', 'Formatura da Medalha do Pacificador', 3, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -110,11 +246,13 @@ INSERT INTO `evento` (`id`, `nome`, `data_inicio`, `data_fim`, `descricao`, `loc
 --
 
 CREATE TABLE IF NOT EXISTS `funcao` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
   `ordem` varchar(5) NOT NULL DEFAULT '001',
-  `poder_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `poder_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_funcao_poder1_idx` (`poder_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Extraindo dados da tabela `funcao`
@@ -123,7 +261,38 @@ CREATE TABLE IF NOT EXISTS `funcao` (
 INSERT INTO `funcao` (`id`, `nome`, `ordem`, `poder_id`) VALUES
 (1, 'Presidente', '001', 1),
 (2, 'Advogado Geral da União', '002', 3),
-(3, 'asdasd', 'asdsa', 1);
+(3, 'Vice-presidente', '002', 1),
+(4, 'Autoridades eclesiásticas ', '003', 4),
+(5, 'Chefe de Estado-Maior das Forças Armadas', '005', 1),
+(6, 'Comandante das Forças Armadas ', '001', 1),
+(7, 'Deputados Federais', '001', 1),
+(8, 'Equivalência General de Exército ', '001', 1),
+(9, 'Equivalência General de Divisão', '001', 1),
+(10, 'Equivalência General de Brigada ', '001', 1),
+(13, 'Equivalência Marechal ', '001', 1),
+(14, 'Governador de Estado e DF', '001', 1),
+(15, 'Juízes ', '001', 3),
+(16, 'Ministros de Estado', '001', 1),
+(17, 'Ministros do Superior Tribunal Federal - STF', '001', 3),
+(18, 'Ministros dos Tribunais Superiores ', '001', 4),
+(19, 'Presidente da República', '001', 1),
+(20, 'Presidente do STF', '001', 3),
+(21, 'Presidente dos Poderes Constitucionais', '001', 2),
+(22, 'Presidentes dos Tribunais Superiores ', '001', 4),
+(23, 'Procuradoria-Geral da República ', '001', 1),
+(24, 'Senador da República ', '001', 4),
+(25, 'Presidentes dos Tribunais Superiores ', '001', 4),
+(26, 'Secretários-Executivo ', '001', 1),
+(27, 'Presidentes dos Tribunais subalternos', '001', 3),
+(28, 'Procurador-Geral ', '001', 1),
+(29, 'Governador do DF', '04.50', 1),
+(30, 'Chefe de Gabinete', '05.99', 1),
+(31, 'Assessor Especial', '05.99', 1),
+(32, 'Desembargador', '08.00', 3),
+(33, 'Ministro de segunda classe', '08.00', 1),
+(34, 'Secretário', '08.00', 1),
+(35, 'Delegado', '08.00', 1),
+(36, 'dasssa', '04.67', 2);
 
 -- --------------------------------------------------------
 
@@ -132,54 +301,73 @@ INSERT INTO `funcao` (`id`, `nome`, `ordem`, `poder_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `historico_acesso` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `data` datetime NOT NULL,
-  `usuario_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_historico_acesso_usuario1_idx` (`usuario_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
 
 --
 -- Extraindo dados da tabela `historico_acesso`
 --
 
 INSERT INTO `historico_acesso` (`id`, `data`, `usuario_id`) VALUES
-(1, '2015-08-10 00:53:26', 1),
-(2, '2015-08-10 00:55:47', 1),
-(3, '2015-08-10 20:30:17', 1),
-(4, '2015-08-10 21:16:40', 1),
-(5, '2015-08-11 21:43:13', 1),
-(6, '2015-08-16 10:27:59', 1),
-(7, '2015-08-16 10:44:55', 1),
-(8, '2015-08-17 00:25:32', 1),
-(9, '2015-08-18 00:39:04', 1),
-(10, '2015-08-18 21:41:40', 3),
-(11, '2015-08-20 01:02:28', 1),
-(12, '2015-08-20 21:05:46', 1),
-(13, '2015-08-20 22:27:53', 1),
-(14, '2015-08-21 11:41:28', 3),
-(15, '2015-08-21 11:42:45', 3),
-(16, '2015-08-21 11:43:07', 3),
-(17, '2015-08-21 11:45:29', 3),
-(18, '2015-08-21 11:45:41', 3),
-(19, '2015-08-21 11:46:40', 3),
-(20, '2015-08-21 12:24:42', 3),
-(21, '2015-08-21 12:24:46', 3),
-(22, '2015-08-21 12:25:13', 3),
-(23, '2015-08-21 14:20:59', 3),
-(24, '2015-08-21 16:17:25', 3),
-(25, '2015-08-21 18:37:44', 3),
-(26, '2015-08-21 18:37:50', 3),
-(27, '2015-08-21 18:38:27', 3),
-(28, '2015-08-21 18:39:18', 3),
-(29, '2015-08-21 18:40:59', 3),
-(30, '2015-09-24 16:46:23', 3),
-(31, '2015-09-28 15:51:22', 3),
-(32, '2015-09-28 15:51:51', 3),
-(33, '2015-09-28 16:30:58', 3),
-(34, '2015-09-28 17:19:58', 3),
-(35, '2015-09-28 17:29:33', 3),
-(36, '2015-09-28 17:30:55', 3),
-(37, '2015-10-13 14:34:54', 3),
-(38, '2015-10-14 15:27:09', 3);
+(1, '2015-08-22 11:39:36', 3),
+(2, '2015-08-22 11:59:22', 1),
+(3, '2015-08-22 12:43:38', 2),
+(4, '2015-08-22 12:47:54', 2),
+(5, '2015-08-22 14:36:51', 1),
+(6, '2015-08-22 14:37:22', 1),
+(7, '2015-08-22 14:38:36', 2),
+(8, '2015-08-22 14:39:59', 3),
+(9, '2015-08-22 14:56:24', 1),
+(10, '2015-08-22 15:27:24', 3),
+(11, '2015-08-23 17:12:08', 3),
+(12, '2015-08-23 17:23:11', 3),
+(13, '2015-08-23 17:28:19', 3),
+(14, '2015-08-23 20:18:43', 10),
+(15, '2015-08-23 20:28:19', 12),
+(16, '2015-08-23 20:30:46', 11),
+(17, '2015-08-23 21:07:11', 10),
+(18, '2015-08-23 22:00:36', 12),
+(19, '2015-08-24 09:27:37', 12),
+(20, '2015-08-24 09:29:20', 10),
+(21, '2015-08-24 09:30:55', 12),
+(22, '2015-08-24 09:31:54', 12),
+(23, '2015-08-24 09:42:03', 12),
+(24, '2015-08-24 09:43:13', 10),
+(25, '2015-08-24 10:54:33', 12),
+(26, '2015-08-24 10:55:53', 12),
+(27, '2015-08-24 12:17:23', 12),
+(28, '2015-08-24 12:28:25', 12),
+(29, '2015-08-24 12:33:13', 12),
+(30, '2015-08-24 12:34:56', 10),
+(31, '2015-08-24 12:38:44', 12),
+(32, '2015-08-24 12:41:49', 10),
+(33, '2015-08-24 12:42:54', 12),
+(34, '2015-08-24 13:20:06', 10),
+(35, '2015-08-24 13:44:09', 10),
+(36, '2015-08-24 13:52:23', 10),
+(37, '2015-08-24 14:19:46', 12),
+(38, '2015-08-24 14:21:19', 10),
+(39, '2015-08-24 14:47:37', 10),
+(40, '2015-08-24 19:03:50', 10),
+(41, '2015-08-24 19:26:34', 10),
+(42, '2015-08-25 06:52:27', 10),
+(43, '2015-08-25 06:53:23', 10),
+(44, '2015-08-25 06:54:11', 12),
+(45, '2015-08-25 06:54:42', 10),
+(46, '2015-08-25 06:55:08', 12),
+(47, '2015-08-25 06:55:39', 10),
+(48, '2015-08-25 06:56:03', 10),
+(49, '2015-08-25 06:57:12', 12),
+(50, '2015-08-26 14:18:59', 10),
+(51, '2015-08-27 09:59:10', 10),
+(52, '2015-09-11 08:19:17', 10),
+(53, '2015-09-11 11:01:13', 10),
+(54, '2015-09-14 09:10:45', 10),
+(55, '2015-09-14 09:40:28', 12);
 
 -- --------------------------------------------------------
 
@@ -188,29 +376,21 @@ INSERT INTO `historico_acesso` (`id`, `data`, `usuario_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `local` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `endereco` varchar(200) NOT NULL,
-  `cidade_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `cidade_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_local_cidade1_idx` (`cidade_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `local`
 --
 
 INSERT INTO `local` (`id`, `nome`, `endereco`, `cidade_id`) VALUES
-(1, 'Igreja Rainha da Paz', 'Canteiro Central do Eixo Monumental', 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `perfil`
---
-
-CREATE TABLE IF NOT EXISTS `perfil` (
-`id` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(1, 'Igreja Rainha da Paz', 'Canteiro Central do Eixo Monumental', 1),
+(3, 'QGEx', 'SMU', 1);
 
 -- --------------------------------------------------------
 
@@ -219,37 +399,1038 @@ CREATE TABLE IF NOT EXISTS `perfil` (
 --
 
 CREATE TABLE IF NOT EXISTS `pessoa` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `foto` varchar(100) DEFAULT NULL,
-  `ordem` char(5) NOT NULL DEFAULT '99999',
-  `nome` varchar(85) NOT NULL,
+  `ordem` char(10) NOT NULL DEFAULT '99999',
+  `nome` varchar(200) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `telefone_1` varchar(15) NOT NULL,
+  `telefone_1` varchar(15) DEFAULT NULL,
   `telefone_2` varchar(15) DEFAULT NULL,
-  `data_criacao` datetime NOT NULL,
+  `data_criacao` datetime DEFAULT NULL,
   `posto_graduacao_id` int(11) DEFAULT NULL,
   `funcao_id` int(11) NOT NULL,
   `usuario_cadastro_id` int(11) NOT NULL,
-  `ativo` enum('0','1','','') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `fk_pessoa_posto_graduacao1_idx` (`posto_graduacao_id`),
+  KEY `fk_pessoa_funcao1_idx` (`funcao_id`),
+  KEY `fk_pessoa_usuario1_idx` (`usuario_cadastro_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1044 ;
 
 --
 -- Extraindo dados da tabela `pessoa`
 --
 
 INSERT INTO `pessoa` (`id`, `foto`, `ordem`, `nome`, `email`, `telefone_1`, `telefone_2`, `data_criacao`, `posto_graduacao_id`, `funcao_id`, `usuario_cadastro_id`, `ativo`) VALUES
-(32, '5e3d4accb40e5b1ae6f7416727e69893.png', 'GGGGG', 'GGGGGGGGG', 'GGGGGG', 'GGGGGGGGGGGGGG', 'GGGGGGGGGGG', '2015-08-21 12:34:17', NULL, 2, 3, ''),
-(33, '7cce188bef9036f7d194588276956273.jpeg', 'aaaaa', 'aaaaa', 'aaaaaaaa', '44', '444444', '2015-08-21 15:48:34', NULL, 1, 3, ''),
-(34, NULL, '2', '2', '2', '2', '2', '2015-09-28 15:52:07', NULL, 1, 3, '1'),
-(35, NULL, '3', '3', '3', '3', '3', '2015-09-28 15:52:16', NULL, 2, 3, '1'),
-(36, NULL, '4', '4', '4', '4', '4', '2015-09-28 15:52:28', NULL, 2, 3, '1'),
-(37, NULL, '5', '5', '5', '5', '5', '2015-09-28 15:52:35', NULL, 2, 3, '1'),
-(38, NULL, '6', '6', '6', '6', '6', '2015-09-28 15:52:46', NULL, 2, 3, '1'),
-(39, NULL, '8', '8', '8', '8', '8', '2015-09-28 15:52:54', NULL, 3, 3, '1'),
-(40, NULL, '9', '9', '9', '9', '9', '2015-09-28 15:53:03', NULL, 2, 3, '1'),
-(41, NULL, '10', '10', '10', '10', '10', '2015-09-28 15:53:18', NULL, 2, 3, '1'),
-(42, NULL, '11', '11', '11', '11', '11', '2015-09-28 15:53:31', NULL, 2, 3, '1'),
-(43, NULL, '12', '12', '12', '12', '12', '2015-09-28 15:53:46', NULL, 1, 3, '1');
+(38, NULL, '02.01', 'Michel Temer (Exmo Sr Vice-Presidente da República)', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 3, 1, 1),
+(39, NULL, '03.02', 'Eduardo Cunha (Exmo Sr Presidente da Câmara dos Deputados', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 21, 1, 1),
+(40, NULL, '03.01', 'José Renan Vasconcelos Calheiros (Exmo Sr Presidente do Congresso Nacional', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 21, 1, 1),
+(41, NULL, '06.02', 'General de Exército LÚCIO Mário de Barros Góes (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', 10, 16, 1, 1),
+(42, NULL, '04.01', 'Aluísio Mercadante Oliva (Exmo Sr Ministro de Estado Chefe da Casa Civil da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(43, NULL, '04.02', 'José Eduardo Cardozo (Exmo Sr Ministro de Estado da Justiça', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(44, NULL, '02.02', 'Dom Paulo Evaristo Arns (Eminentíssimo e Reverendíssimo Sr Arcebispo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 4, 1, 1),
+(45, NULL, '02.02', 'Dom Serafim Fernandes de Araújo (Eminentíssimo e Reverendíssimo Sr Arcebispo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 4, 1, 1),
+(46, NULL, '04.03', 'Jaques Wagner (Exmo Sr Ministro de Estado da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(47, NULL, '04.04', 'Embaixador Mauro Vieira (Exmo Sr Ministro de Estado das Relações  Exteriores', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(48, NULL, '04.05', 'Joaquim Vieira Ferreira Levy (Exmo Sr Ministro de Estado da Fazenda', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(49, NULL, '04.06', 'Antônio Carlos Rodrigues (Exmo Sr Ministro de Estado dos Transportes', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(50, NULL, '04.08', 'Renato Janine Ribeiro (Exmo Sr Ministro de Estado da Educação', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(51, NULL, '04.07', 'Katia Abreu (Exma Sra Ministra de Estado da Agricultura, Pecuária  e Abastecimento', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(52, NULL, '04.09', 'Juca Ferreira (Exmo Sr Ministro de Estado da Cultura', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(53, NULL, '04.10', 'Manoel Dias (Exmo Sr Ministro de Estado do Trabalho e do Emprego', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(54, NULL, '04.11', 'Carlos Eduardo Gabas (Exmo Sr Ministro de Estado da Previdência social', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(55, NULL, '04.12', 'Tereza Campello (Exma Sra Ministra de Estado do Desenvolvimento Social e Combate a Fome', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(56, NULL, '04.15', 'Carlos Eduardo de Souza Braga (Exmo Sr Ministro de Estado de Minas e Energia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(57, NULL, '04.16', 'Nelson Barbosa (Exmo Sr Ministro de Estado do Planejamento, Orçamento e Gestão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(58, NULL, '04.13', 'Arthur Chioro (Exmo Sr Ministro de Estado da Saúde', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(59, NULL, '04.14', 'Arnaldo Monteiro (Exmo Sr Ministro de Estado do Desenvolvimento, Indústria e Comércio', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(60, NULL, '04.17', 'Ricardo Berzoini (Exmo Sr Ministro de Estado das Comunicações', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(61, NULL, '04.18', 'Aldo Rebelo (Exmo Sr Ministro de Estado da Ciencia, Tecnologia e Inovacao', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(62, NULL, '04.19', 'Izabella Teixeira (Exma Sra Ministra de Estado do Meio Ambiente', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(63, NULL, '04.20', 'George Hilton (Exmo Sr Ministro de Estado do Esporte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(64, NULL, '04.21', 'Henrique Eduardo Alves (Exmo Sr Ministro de Estado do Turismo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(65, NULL, '04.22', 'Gilberto Occhi (Exmo Sr Ministro de Estado da Integração Nacional', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(66, NULL, '04.23', 'Patrus Ananias (Exmo Sr Ministro de Estado d o Desenvolvimento Agrário', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(67, NULL, '04.24', 'Gilberto Kassab (Exmo Sr Ministro de Estado das Cidades', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(68, NULL, '04.25', 'Helder Barbalho (Exmo Sr Ministro de Estado dda Pesca e Aquicultura', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(69, NULL, '04.26', 'Miguel Rossetto (Exmo Sr Ministro de Estado Chefe da Secretaria-Geral da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(70, NULL, '04.27', 'José ELITO Carvalho Siqueira (Exmo Sr Ministro de Estado Chefe do Gabinete de Segurança Institucional da Presidência da República', '', '000', '', '2015-08-23 19:06:25', 10, 16, 10, 1),
+(71, NULL, '04.28', 'Luís Inácio Lucena Adams (Exmo Sr Ministro de Estado Advogado-Geral da União', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(72, NULL, '04.29', 'Valdir Simão (Exmo Sr Ministro de Estado Chefe da Controladoria-Geral da União', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(73, NULL, '04.30', 'Alexandre Tombini (Exmo Sr Ministro de Estado Diretor do Banco Central do Brasil', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(74, NULL, '04.31', 'Edinho Silva (Exmo Sr Ministro de Estado Chefe da Secretaria de Comunicação Social da Presid?ncia da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(75, NULL, '04.32', 'Mangabeira Unger (Exmo Sr Ministro de Estado Chefe da Secretaria de Assuntos Estratégicos da Presidência da Repúblca', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(76, NULL, '04.33', 'Nilma Lino Gomes (Exma Sra Ministra de Estado Chefe da Secretaria de Politicas de Promocao da Igualdade Racial', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(77, NULL, '04.34', 'Eleonora Menicucci de Oliveira (Exma Sra Ministra de Estado Chefe da Secretaria de Politicas para as Mulheres', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(78, NULL, '04.36', 'Edinho Araújo (Exmo Sr Ministro de Estado Chefe da Secretaria de Portos da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(79, NULL, '04.37', 'Eliseu Padilha (Exmo Sr Ministro de Estado Chefe da Secretaria de Aviação Civil da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(80, NULL, '04.38', 'Guilherme Afif Domingos (Exmo Sr Ministro de Estado Chefe da Secretaria de Micro e Pequena Empresa', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(81, NULL, '04.39', 'nome completo (Exmo Sr Ministro de Estado Chefe do Gabinete Militar da Presidência  da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(82, NULL, '04.40', 'nome completo (Exmo Sr Ministro de Estado Chefe do Gabinete Civil da Presidência  da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(83, NULL, '04.35', 'Pepe Vargas (Exmo Sr Ministro de Estado Chefe da Secretaria de Direitos Humanos da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(84, NULL, '04.40', 'Ex-Ministro de Estado', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 16, 1, 1),
+(85, NULL, '04.48', 'Joaquim Pereira Barbosa (Exmo Sr Ex-Ministro do STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(86, NULL, '04.41', 'Almirante de Esquadra Eduardo Bacellar LEAL FERREIRA (Exmo Sr Comandante da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 6, 1, 1),
+(87, NULL, '04.42', 'General de Exército Eduardo Dias da Costa VILLAS BÔAS (Exmo Sr Comandante do Exército Brasileiro', '', '0', '', '2015-08-23 19:06:25', 10, 6, 10, 1),
+(88, NULL, '04.43', 'Tenente-Brigadeiro NIVALDO Luiz Rossato (Exmo Sr Comandante da Aeronáutica', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 6, 1, 1),
+(89, NULL, '04.44', 'General de Exército Jose Carlos de NARDI (Exmo Sr Chefe do Estado-Maior Conjunto das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', 10, 6, 1, 1),
+(90, NULL, '04.45', 'nome completo (Exmo Sr Consultor-Geral da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(91, NULL, '04.46', 'nome completo (Exmo Sr Enviado Extraordinário Extrangeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(92, NULL, '04.46', 'nome completo (Exmo Sr Ministro Plenipotenciário Estrangeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(93, NULL, '04.47', 'José Antonio Dias Toffoli (Exmo Sr Presidente do Tribunal Superior Eleitoral - TSE', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 22, 1, 1),
+(94, NULL, '04.48', 'Luiz Edson Fachin (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(95, NULL, '04.48', 'Cármen Lúcia (Exma Sra Ministra do Supremo Tribunal Federal - STF - Vice-Presidente', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(96, NULL, '04.48', 'Celso de Mello (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(97, NULL, '04.48', 'Marco Aurélio Mendes de Farias Mello (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(98, NULL, '04.48', 'Gilmar Mendes (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(99, NULL, '04.48', 'José Antonio Dias Toffoli (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(100, NULL, '04.48', 'Luiz Fux (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(101, NULL, '04.48', 'Rosa Weber (Exma Sra Ministra do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(102, NULL, '04.48', 'Roberto Barroso (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 17, 1, 1),
+(103, NULL, '04.48', 'Teori Albino Zavascki (Exmo Sr Ministro do Supremo Tribunal Federal - STF', '', '0', '', '2015-08-23 19:06:25', NULL, 17, 10, 1),
+(104, NULL, '04.49', 'Ricardo Janot  (Exmo Sr Procurador Geral da República - PGR', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 23, 1, 1),
+(105, NULL, '04.50', 'Rodrigo Sobral Rollemberg (Exmo Sr Governador do Distrito Federal', '', '0', '0', '2015-08-23 19:06:25', NULL, 29, 10, 1),
+(106, NULL, '04.51', 'Rui Costa (Exmo Sr Governador do Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(107, NULL, '04.52', 'Gladson de Lima Cameli (Exmo Sr Senador da República pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(108, NULL, '04.52', 'Jorge Ney Viana Macedo Neves (Exmo Sr Senador da República pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(109, NULL, '04.52', 'Sérgio de Oliveira Cunha (Exmo Sr Senador da República pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(110, NULL, '04.52', 'Acir Marcos Gurgacz (Exmo Sr Senador da República pelo Estado de Rondônia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(111, NULL, '04.52', 'Aécio Neves da Cunha (Exmo Sr Senador da República pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(112, NULL, '04.52', 'Aloysio Nunes Ferreira Filho (Exmo Sr Senador da República pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(113, NULL, '04.52', 'Alvaro Fernandes Dias (Exmo Sr Senador da República pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(114, NULL, '04.52', 'Ana Amélia de Lemos (Exma Sra Senadora da República pelo Estado do Rio Grande do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(115, NULL, '04.52', 'Angela Maria Gomes Portela (Exma Sra Senadora da República pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(116, NULL, '04.52', 'Antonio Augusto Junho Anastasia (Exmo Sr Senador da República pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(117, NULL, '04.52', 'Antonio Carlos Valadares (Exmo Sr Senador da República pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(118, NULL, '04.52', 'Ataídes de Oliveira (Exmo Sr Senador da República pelo Estado do Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(119, NULL, '04.52', 'Benedito de Lira (Exmo Sr Senador da República pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(120, NULL, '04.52', 'Blairo Borges Maggi (Exmo Sr Senador da República pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(121, NULL, '04.52', 'Cássio Rodrigues da Cunha Lima (Exmo Sr Senador da República pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(122, NULL, '04.52', 'Ciro Nogueira Lima Filho (Exmo Sr Senador da República pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(123, NULL, '04.52', 'Dalírio José Beber (Exmo Sr Senador da República pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(124, NULL, '04.52', 'David Samuel Alcolumbre Tobelem (Exmo Sr Senador da República pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(125, NULL, '04.52', 'Cristovam Ricardo Cavalcanti Buarque (Exmo Sr Senador da República pelo Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(126, NULL, '04.52', 'Delcídio do Amaral Gomez (Exmo Sr Senador da República pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(127, NULL, '04.52', 'Divino Donizeti Borges Nogueira (Exmo Sr Senador da República pelo Estado do Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(128, NULL, '04.52', 'Douglas Mauricio Ramos Cintra (Exmo Sr Senador da República pelo Estado de Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(129, NULL, '04.52', 'Edison Lobão (Exmo Sr Senador da República pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(130, NULL, '04.52', 'Eduardo Alves do Amorim (Exmo Sr Senador da República pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(131, NULL, '04.52', 'Elmano Férrer de Almeida (Exmo Sr Senador da República pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(132, NULL, '04.53', 'Alan Rick Miranda (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(133, NULL, '04.53', 'Raimundo Angelim Vasconcelos (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(134, NULL, '04.53', 'Carlos Cesar Correia de Messias (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(135, NULL, '04.53', 'Flaviano Flávio Baptista de Melo (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(136, NULL, '04.53', 'Jessica Rojas Sales (Exma Sra Deputada Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(137, NULL, '04.53', 'Leonardo Cunha de Brito (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(138, NULL, '04.53', 'Wherles Fernandes da Rocha (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(139, NULL, '04.53', 'Sebastião Sibá Machado Oliveira (Exmo Sr Deputado Federal pelo Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(140, NULL, '04.53', 'Arthur César Pereira de Lira (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(141, NULL, '04.53', 'José Cícero Soares de Almeida (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(142, NULL, '04.53', 'Givaldo de Sá Gouveia (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(143, NULL, '04.53', 'João Henrique Holanda Caldas (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(144, NULL, '04.53', 'Marx Beltrão Lima Siqueira (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(145, NULL, '04.54', 'nome completo (Exmo Sr Almirante', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(146, NULL, '04.55', 'nome completo (Exmo Sr Marechal     ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(147, NULL, '04.56', 'nome completo (Exmo Sr Marechal-do-Ar     ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 13, 1, 1),
+(148, NULL, '04.57', 'Almirante de Esquadra Wilson Barbosa GUERRA (Exmo Sr Chefe do Estado-Maior da Armada', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 5, 1, 1),
+(149, NULL, '04.58', 'Sergio Westphalen ETCHEGOYEN (Exmo Sr Chefe do Estado-Maior do Exército', '', '000', '', '2015-08-23 19:06:25', 10, 5, 10, 1),
+(150, NULL, '04.60', 'Tenente-Brigadeiro Hélio PAES DE BARROS Júnior (Exmo Sr Chefe do Estado-Maior da Aeronáutica', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 5, 1, 1),
+(151, NULL, '05.01', 'Almirante de Esquadra Wilson Barbosa GUERRA (Exmo Sr Chefe do Estado-Maior da Armada', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(152, NULL, '05.02', 'General de Exército R/1 Sinclair James MAYER (Exmo Sr Assessor do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(153, NULL, '05.02', 'General de Exército Ueliton José MONTEZANO Vaz', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(154, NULL, '05.02', 'General de Exército Joaquim Maia BRANDÃO Júnior (Exmo Sr Chefe do Departamento de Engenharia e Construção', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(155, NULL, '05.02', 'General de Exército Marco Antonio de FARIAS (Exmo Sr Comandante Logístico ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(156, NULL, '05.02', 'General de Exército Francisco Carlos MODESTO (Exmo Sr Chefe do Departamento-Geral do Pessoal', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(157, NULL, '05.02', 'General de Exército ARAKEN de Albuquerque (Exmo Sr Comandante de Operações Terrestres ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(158, NULL, '05.02', 'General de Exército Oswaldo de Jesus FERREIRA (Exmo Sr Comandante Militar do Norte', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(159, NULL, '05.02', 'General de Exército Antônio Hamilton Martins MOURÃO (Exmo Sr Comandante Militar do Sul ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(160, NULL, '05.02', 'JUAREZ Aparecido de Paula Cunha (Exmo Sr Chefe do Departamento de Ciência e Tecnologia', '', '000', '', '2015-08-23 19:06:25', 10, 8, 10, 1),
+(161, NULL, '05.02', 'General de Exército Guilherme Cals THEOPHILO Gaspar de Oliveira (Exmo Sr Comandante Militar da Amazônia ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(162, NULL, '05.02', 'General de Exército João Camilo Pires de CAMPOS (Exmo Sr Chefe do Departamento de Educação e Cultura do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(163, NULL, '05.02', 'General de Exército FERNANDO Azevedo e Silva (Exmo Sr Comandante Militar do Leste ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(164, NULL, '05.02', 'General de Exército Manoel Luiz Narvaz PAFIADACHE (Exmo Sr Comandante Militar do Nordeste ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(165, NULL, '05.02', 'General de Exército PAULO HUMBERTO César de Oliveira (Exmo Sr Comandante Militar do Oeste', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(166, NULL, '05.02', 'General de Exército Edson Leal PUJOL (Exmo Sr Secretário de Economia e Finanças ', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(167, NULL, '05.03', 'nome completo (Exmo Sr Embaixador Extraordinário e Plenipotenciario', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(168, NULL, '05.04', 'nome completo (Exmo Sr Ministro de Primeira Classe ?????', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(169, NULL, '05.06', 'nome completo (Exmo Sr Presidente do Superior Tribunal de Justiça - STJ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 22, 1, 1),
+(170, NULL, '06.02', 'General de Exército Luis Carlos Gomes MATTOS (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', 10, 22, 1, 1),
+(171, NULL, '05.08', 'nome completo (Exmo Sr Presidente do Tribunal Superior do Trabalho - TST', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 22, 1, 1),
+(172, NULL, '05.09', 'nome completo (Exmo Sr Ministro do Tribunal Superior Eleitoral - TSE', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(173, NULL, '05.10', 'nome completo (Exmo Sr Encarregado de Negócios Estrangeiros', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(174, NULL, '06.02', 'General de Exército FERNANDO Sérgio Galvão (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', 10, 18, 1, 1),
+(175, NULL, '06.01', 'nome completo (Exmo Sr Ministro do Superior Tribunal de Justiça - STJ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(176, NULL, '06.03', 'nome completo (Exmo Sr Ministro do Tribunal Superior  do Trabalho - TST', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(177, NULL, '06.04', 'Vice-Almirante Paulo Mauricio Farias Alves  (Exmo Sr Comandante do 7 Distrito Naval)', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(178, NULL, '06.06', 'Embaixador nome completo (Exmo Sr Ministro de Primeira Classe função', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(179, NULL, '06.03', 'Major-Brigadeiro Rogério Gammerdinger VERAS (Exmo Sr Comandante do VI Comando Aéreo Regional', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(180, NULL, '06.08', 'nome completo (Reverendíssimo e Eminentíssimo Chefe de Igreja sediada no Brasil', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 4, 1, 1),
+(181, NULL, '06.09', 'nome completo (Arcebispo católico ou equivalente Eminentíssimo e Reverendíssimo ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 4, 1, 1),
+(182, NULL, '06.10', 'nome completo (Exmo Sr Presidente do Tribunal de Justiça do Distrito Federal e Territórios - TJDFT', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 27, 1, 1),
+(183, NULL, '06.11', 'nome completo (Exmo Sr Presidente do Tribunal de Contas da União - TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 27, 1, 1),
+(184, NULL, '06.12', 'nome completo (Exmo Sr Secretário Executivo do Ministério d ', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 26, 1, 1),
+(185, NULL, '06.13', 'nome completo (Exmo Sr Presidente do Tribunal Marítimo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 27, 1, 1),
+(186, NULL, '06.14', 'nome completo (Diretor-Geral  da Secretaria do Senado Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(187, NULL, '06.14', 'nome completo (Diretor-Geral  da Secretaria da Câmara Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(188, NULL, '06.15', 'nome completo  (Exmo Sr Procurador-Geral da Justiça Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 28, 1, 1),
+(189, NULL, '06.15', 'nome completo  (Exmo Sr Procurador-Geral da Justiça do Trabalho - TST', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 28, 1, 1),
+(190, NULL, '06.15', 'nome completo  (Exmo Sr Procurador-Geral do Tribunal de Contas da União - TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 28, 1, 1),
+(191, NULL, '06.16', 'nome completo (Exmo Sr Secretário-Geral do Ministério d', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(192, NULL, '06.17', 'nome completo  (Magnífico Reitor da Universidade Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(193, NULL, '06.18', 'nome completo (Exmo Sr Diretor-Geral do Departamento de Polícia Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(194, NULL, '06.19', 'nome completo  (Exmo Sr Presidente do Banco do Brasil', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(195, NULL, '06.20', 'nome completo (Exmo Sr Presidente do Banco Nacional de Desenvolvimento Econômico', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(196, NULL, '06.21', 'nome completo  (Exmo Sr Presidente do Banco Nacional da Habitação', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(197, NULL, '06.22', 'nome completo (Exmo Sr Presidente da Caixa Econômica Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(198, NULL, '06.23', 'nome completo  (Exmo Sr Secretário da Receita Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(199, NULL, '06.24', 'João Augusto Ribeiro Nardes  (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(200, NULL, '06.25', 'nome completo  (Ex Sr Juiz do Tribunal Superior do Trabalho - TST', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 15, 1, 1),
+(201, NULL, '06.26', 'nome  completo (Exmo Sr Subprocurador-Geral da República - PGR', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 23, 1, 1),
+(202, NULL, '06.27', 'nome completo (Exmo Sr função personalidade inscrita no Livro do Mérito', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(203, NULL, '06.28', 'nome completo (Exmo Sr Prefeito da Cidade de - acima de UM MILHÃO de habitantes', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(204, NULL, '06.30', 'nome completo (Exmo Sr Ministro-Conselheiro estrangeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(205, NULL, '06.31', 'nome completo ( Exmo Sr Adido Militar estrangeiro quando Of Gen', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(206, NULL, '07.01', 'Contra Almirante nome completo (Exmo Sr função', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 10, 1, 1),
+(207, NULL, '07.02', 'General de Brigada William Georges Felippe ABRAAHÃO (Exmo Sr Comandante da Brigada de Infantaria Paraquedista', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(208, NULL, '07.03', 'nome completo (Exmo Sr Embaixador Comissionado', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 10, 1, 1),
+(209, NULL, '07.03', 'nome completo (Exmo Sr Ministro de Segunda Classe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 10, 1, 1),
+(210, NULL, '07.04', 'Brigadeiro nome completo (Exmo Sr função)', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 10, 1, 1),
+(211, NULL, '06.05', 'General de Divisão Carlos Cesar ARAÚJO LIMA (Exmo Sr Subcomandante Logístico )', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(212, NULL, '06.05', 'General de Divisão Paulo Sérgio Melo de CARVALHO (Exmo Sr Chefe do Centro de Defesa Cibernética )', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(213, NULL, '06.05', 'General de Divisão José CAIXETA Ribeiro (Exmo Sr Vice-Chefe do Estado-Maior do Exército)', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(214, NULL, '06.05', 'General de Divisão Eduardo Arnaud CYPRIANO (Exmo Sr Chefe do Gabinete de Planejamento e Gestão do COLOG )', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(215, NULL, '06.05', 'General de Divisão AJAX Porto Pinheiro (Exmo Sr Vice-Chefe do Departamento-Geral do Pessoal)', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(216, NULL, '06.05', 'General de Divisão ADALMIR Manoel Domingos (Exmo Sr Diretor de Material)', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(217, NULL, '06.05', 'General de Divisão Marcos Antonio AMARO dos Santos (Exmo Sr Secretário de Segurança Presidencial do GSI/PR )', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(218, NULL, '06.05', 'General de Divisão ÁLVARO Gonçalves Wanderley (Exmo Sr Subchefe de Inteligência de Defesa do MD)', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(219, NULL, '05.02', 'General de Exército Cesar Lourena CID (Exmo Sr Comandante Militar do Sudeste', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(220, NULL, '07.02', 'General de Brigada Danilo Cezar AGUIAR de Souza (Exmo Sr Subdiretor de Apoio à Saúde)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(221, NULL, '07.02', 'General de Brigada Guido AMIN Naves (Exmo Sr Chefe do Escritório de Projetos do Exército)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(222, NULL, '07.02', 'General de Brigada Médico Marcio Andrade de Oliveira (Exmo Sr Estagiário na Escola Superior de Guerra)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(223, NULL, '06.02', 'Artur Vidigal de Oliveira (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(224, NULL, '06.02', 'Almirante de Esquadra Alvaro Luiz Pinto (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(225, NULL, '06.02', 'Tenente-Brigadeiro Cleonilson Nicásio Silva (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(226, NULL, '06.02', 'Almirante de Esquadra Carlos Augusto de Sousa (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(227, NULL, '06.02', 'Almirante de Equadra Marcus Vinicius Oliveira dos Santos (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(228, NULL, '05.07', 'Tenente-Brigadeiro William de Oliveira Barros (Exmo Sr Presidente do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 22, 1, 1),
+(229, NULL, '06.02', 'General de Exército Odilson Sampaio BENZI (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', 10, 18, 1, 1),
+(230, NULL, '06.02', 'Tenente-Brigadeiro Francisco Joseli (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(231, NULL, '06.02', 'Olympio Pereira da Silva Junior (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(232, NULL, '02.03', 'Embaixadores Estrangeiros', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(233, NULL, '02.04', 'Chefe da Delegação CEE', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(234, NULL, '03.05', 'Ex-Vice-Presidente', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 3, 1, 1),
+(235, NULL, '06.02', 'José Coêlho Ferreira (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(236, NULL, '06.05', 'General de Divisão Mario Lucio Alves de Araujo (Exmo Sr Comandante da 4ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(237, NULL, '06.05', 'General de Divisão ARNALDO Barreto Araujo (Exmo Sr Chefe do Centro de Controle Interno do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(238, NULL, '06.05', 'General de Divisão Júlio Cesar de ARRUDA (Exmo Sr Diretor de Educação Superior Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(239, NULL, '07.02', 'General de Brigada José Carlos Braga de Avellar (Exmo Sr Comandante da 13ª Brigada de Infantaria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(240, NULL, '07.02', 'General de Brigada Antonio Carlos BARBOTEO Pinto (Exmo Sr Comandante da 7ª Brigada de Infantaria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(241, NULL, '06.05', 'General de Divisão Carlos Alberto Neiva BARCELLOS (Exmo Sr Comandante da 1ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(242, NULL, '07.02', 'General de Brigada Ronaldo BARCELLOS Ferreira de Araujo (Exmo Sr Comandante da Base de Apoio Logístico do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(243, NULL, '07.02', 'General de Brigada Antonio Manoel de BARROS (Exmo Sr Comandante da 2ª Brigada de Infantaria de Selva', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(244, NULL, '06.05', 'General de Divisão Engenheiro Militar Waldemar BARROSO MAGNO Neto (Exmo Sr Comandante do Instituto Militar de Engenharia', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(245, NULL, '07.02', 'General de Brigada Douglas BASSOLI (Exmo Sr Comandante da 1ª Brigada de Cavalaria Mecanizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(246, NULL, '07.02', 'General de Brigada Pedro Paulo de Mello BRAGA (Exmo Sr Diretor de Material de Aviação do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(247, NULL, '06.05', 'General de Divisão Walter Souza BRAGA NETTO (Exmo Sr Coordenador Geral da Assessoria Especial para os Jogos Olímpicos e Paraolimpicos Rio 2016', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(248, NULL, '07.02', 'General de Divisão Décio dos Santos BRASIL (Exmo Sr Chefe do Centro de Capacitação Física do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(249, NULL, '07.02', 'General de Brigada Engenheiro Militar BRÁULIO de Paula Machado (Exmo Sr Chefe do Centro de Desenvolvimento de Sistemas', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(250, NULL, '07.02', 'General de Brigada Francisco Mamede de BRITO Filho (Exmo Sr Chefe do Estado?Maior do Comando Militar do Nordeste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(251, NULL, '07.02', 'General de Brigada Ricardo Rodrigues CANHACI (Exmo Sr Comandante da 11 Brigada de Infantaria Leve)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(252, NULL, '06.05', 'General de Divisão Luiz Felipe Kraemer CARBONELL (Exmo Sr Comandante da 5ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(253, NULL, '06.05', 'General de Divisão José Carlos CARDOSO (Exmo Sr Comandante da 3ª Divisão de Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(254, NULL, '07.02', 'General de Brigada Jorge CARDOSO MARTINS (Exmo Sr Comandante da 18 Brigada de Infantaria de Fronteira', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(255, NULL, '07.02', 'General de Brigada CARLOS JORGE Jorge da Costa (Exmo Sr Comandante da 2ª Brigada de Cavalaria Mecanizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(256, NULL, '07.02', 'General de Brigada CARLOS ROBERTO Pinto de Souza (Exmo Sr Comandante de Comunicações e Guerra Eletrônica do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(257, NULL, '06.05', 'General de Divisão CARLOS dos Santos SARDINHA (Exmo Sr Comandante da 2ª Divisão de Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(258, NULL, '06.05', 'General de Divisão Lourival CARVALHO Silva (Exmo Sr Diretor de Educação Técnica Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(259, NULL, '07.02', 'General de Brigada Fábio Benvenutti CASTRO (Exmo Sr Comandante da 6ª Brigada de Infantaria Blindada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(260, NULL, '07.02', 'General de Brigada Antonio CÉSAR Alves Rocha (Exmo Sr Chefe do Estado-Maior do Comando Militar do Norte', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(261, NULL, '06.02', 'Maria Elizabeth Guimarães Teixeira Rocha (Exma Sra Ministra do Superior Tribunal Mililtar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(262, NULL, '06.02', 'José Barroso Filho (Exmo Sr Ministro do Superior Tribunal Militar - STM', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 18, 1, 1),
+(263, NULL, '01.01', 'Dilma Vana Rousseff (Exma Sra Presidenta da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 19, 1, 1),
+(264, NULL, '03.04', 'José Sarney (Exmo Sr Ex-Presidente da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 19, 1, 1),
+(265, NULL, '07.02', 'General de Brigada João CHALELLA Júnior (Exmo Sr Comandante da 1ª Brigada de Artilharia Antiaérea', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(266, NULL, '07.02', 'General de Brigada Arnaldo Alves da COSTA NETO (Exmo Sr Comandante da 3ª Brigada de Cavalaria Mecanizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(267, NULL, '07.02', 'General de Brigada Ricardo Augusto Fereeira COSTA NEVES ( Exmo Sr Comandante da 17ª Brigada de Infantaria de Selva', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(268, NULL, '07.02', 'General de Brigada Rolemberg Ferreira da CUNHA (Exmo Sr Comandante da 12ª Brigada de Infantaria Leve', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(269, NULL, '07.02', 'General de Brigada Fernando José Soares da CUNHA MATTOS (Exmo Sr 7º Subchefe do Estado-Maior do Exércto', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(270, NULL, '06.05', 'General de Divisão Luiz Cláudio CYRILLO (Exmo Sr Adido ao EME', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(271, NULL, '04.54', 'Eva Maria Cella Dal Chiavon (Exma Sra Secretária-Geral do Ministério da Defesa', '', '000', '', '2015-08-23 19:06:25', 28, 8, 10, 1),
+(272, NULL, '07.02', 'General de Brigada Daniel de Almeida DANTAS (Exmo Sr Comandante do 1º Grupamento de Engenharia', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(273, NULL, '07.02', 'General de Brigada Anisio DAVID de Oliveira Junior (Exmo Sr Comandante da 23ª Brigada de Infantaria de Selva', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(274, NULL, '07.02', 'General de Brigada Antonio Carlos DE SOUZA (Exmo Sr Chefe do Centro de Operações do Comando Militar do Leste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(275, NULL, '07.02', 'General de Brigada Engenheiro Militar  DECILIO de Medeiros Sales (Exmo Sr Chefe do Centro Integrado de Telemática do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(276, NULL, '07.02', 'General de Brigada DÊNIS Taveira Martins (Exmo Sr Chefe do Estado-Maior do Comando Militar do Oeste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(277, NULL, '07.02', 'General de Brigada Edson DIEHL Ripoli (Exmo Sr Comandande da Artilharia Divisionária da 1ª Divisão do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(278, NULL, '06.05', 'General de Divisão Eduardo DINIZ (Exmo Sr Subcomandante da Escola Superior de Guerra', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(279, NULL, '07.02', 'General de Brigada Sergio Luiz Goulart DUARTE (Exmo Sr 2º Subchefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(280, NULL, '07.02', 'General de Brigada Luis Antônio DUIZIT BRITO (Exmo Sr Comandante da 5ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(281, NULL, '07.02', 'General de Brigada ELIAS Rodrigues Martins Filho (Exmo Sr Comandante da Escola de Comando e Estado-Maior do Exército)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(282, NULL, '07.02', 'General de Brigada ENIO Machado Martins Junior (Exmo Sr Comandante da 16ª Brigada de Infantaria de Selva', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(283, NULL, '07.02', 'General de Brigada Engenheiro militar Marcelo ESCHILETTI Caldas Rodrigues (Exmo Sr Diretor de Obras Militares', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(284, NULL, '07.02', 'General de Brigada Roberto ESCOTO (Exmo Sr 4º Subchefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(285, NULL, '07.02', 'General de Brigada Antonio EUDES Lima da Silva (Exmo Sr Comandante da 10ª Brigada de Infantaria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(286, NULL, '06.05', 'General de Divisão Antonio Maxwell de Oliveira EUFRÁSIO (Exmo Sr Subchefe de Mobilização do Ministério da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(287, NULL, '06.05', 'General de Divisão Intendente EXPEDITO Alves de Lima (Exmo Sr Diretor de Contabilidade', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(288, NULL, '07.02', 'General de Brigada Antônio Carlos Machado FAILLACE (Exmo Sr Comandante da 11ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(289, NULL, '07.02', 'General de Brigada Médico Alexandre FALCÃO Corrêa (Exmo Sr Diretor do Hospital Central do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(290, NULL, '07.02', 'General de Brigada Eduardo Antonio FERNANDES ( Exmo Sr 3º Subchefe do Estado-Maior do Exército e Chefe do Centro de Doutrina do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(291, NULL, '07.02', 'General de Brigada Intendente Ricardo Marques FIGUEREDO (Diretor de Abastecimento)', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(292, NULL, '06.05', 'General de Divisão Marco antônio FREIRE GOMES (Comandante da 10ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(293, NULL, '07.02', 'General de Brigada Fernando Marques de FREITAS (1º Subchefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(294, NULL, '06.05', 'General de Divisão José Luiz Dias FREITAS (Subcomandante de Operações Terrestres', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(295, NULL, '07.02', 'General de Brigada Achilles FURLAN Neto (Comandante de Aviação do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(296, NULL, '07.02', 'General de Brigada Intendente Eduardo Castanheira GARRIDO Alves (6º Subchefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(297, NULL, '07.02', 'General de Brigada GLAUCIO Lucas Alves (3º Subchefe do Comando de Operações Terrestres', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(298, NULL, '06.05', 'General de Divisão Fernando Rodrigues GOULART (Chefe do Centro de Coordenação de Operações do Comando Militar do sul', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(299, NULL, '07.02', 'General de Brigada Intendente HELCIO de Freitas Martins (Chefe do centro de Pagamento do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(300, NULL, '07.02', 'General de Brigada José Fernando IASBECH (Comandante da 9ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(301, NULL, '07.02', 'General de Brigada Médico Paulo Sérgio IGLESSIAS (Exmo Sr Assessor de Saúde do Comando Militar da Amazônia', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(302, NULL, '07.02', 'General de Brigada Riyuzo IKEDA (Chefe do Estado-Maior do Comando Militar do Sudeste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(303, NULL, '06.05', 'General de Divisão José Luiz JABORANDY Júnior (Exmo Sr Comandante da Força Militar da Missão das Nações Unidas para a Estabilização no Haiti (Force Commander/MINUSTAH).', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(304, NULL, '06.05', 'General de Divisão José Luiz JABORANDY Rodrigues (Exmo Sr Chefe de Assessoria de Planejamento e Gestão do DGP', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(305, NULL, '07.02', 'General de Brigada Médico Arno Ribeiro JARDIM Junior (Diretor do Hospital Militar de Área de Recife', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(306, NULL, '07.02', 'General de Brigada JOAREZ Alves Pereira Junior (5º Subchefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(307, NULL, '06.05', 'General de Divisão Engenheiro Militar JOSÉ CARLOS dos Santos (Chefe do Centro de Avaliações do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(308, NULL, '07.02', 'General de Brigada JOSÉ EDUARDO Pereira (1º Subchefe do Comando de Operações Terrestres', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(309, NULL, '06.05', 'General de Divisão Roberto JUNGTHON (Vice-Chefe do Departamento de Educação e Cultura do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(310, NULL, '07.02', 'General de Brigada Intendente LAELIO Soares de Andrade (Assessor Especial de Orçamento e Finanças', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(311, NULL, '06.05', 'General de Divisão LAERTE de Souza Santos (Exmo Sr Diretor de Controle de Efetivos e Movimentações', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(312, NULL, '07.02', 'General de Brigada Flavio Marcus LANCIA Barbosa (Comandante da Artilharia Divisionária da 5ª Divisão de Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(313, NULL, '06.05', 'General de Divisão LAURO Luís Pires da Silva (Diretor de Patrimônio Imobiliário e Meio Ambiente', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(314, NULL, '06.05', 'General de Divisão Cesar LEME Justo (Chefe do Centro de Inteligência do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(315, NULL, '07.02', 'General de Brigada João Batista Bezerra LEONEL Filho (Adido junto à Embaixada do Brasil nos EUA e Canadá', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(316, NULL, '06.05', 'General de Divisão Luiz Felipe LINHARES Gomes (Chefe de Assessoria Especial para Grandes Eventos do Ministério da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(317, NULL, '07.02', 'General de Brigada LUCIANO Jose Penna (Chefe do Estado-Maior do Comando Militar do Sul', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(318, NULL, '07.02', 'General de Brigada Engenheiro Militar LUIS HENRIQUE de Andrade (Exmo Sr Adido ao DCT', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(319, NULL, '07.02', 'General de Brigada LUIZ Cláudio Gomes GONÇALVES (Diretor de Educação Preparatória e Assistencial', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(320, NULL, '06.05', 'General de Divisão Humberto Francisco MADEIRA Mascarenhas (Comandante da 8ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(321, NULL, '07.02', 'General de Brigada Carlos Alberto MANSUR (Comandande da 1ª Brigada de Infantaria de Selva', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(322, NULL, '06.05', 'General de Divisão MARCIO Roland Heise (Comandante da 7ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(323, NULL, '07.02', 'General de Brigada Intendente MARCO César de Moraes (Exmo Sr Diretor de Gestão Orçamentária', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(324, NULL, '07.02', 'General de Brigada Rui Yutaka MATSUDA (Comandante da 4ª Brigada de Cavalaria Mecanizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(325, NULL, '07.02', 'General de Brigada Eduardo Paiva MAURMANN (Comandante da 4ª Brigada de Infantaria Leve', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(326, NULL, '06.05', 'General de Divisão Jamil MEGID Junior (Vice-Chefe do Departamento de Engenharia e Construção', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(327, NULL, '06.05', 'General de Divisão Geraldo Antonio MIOTTO (Exmo Sr Secretário-Executivo do Gabinete de Segurança Institucional da Presidência da República', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(328, NULL, '06.05', 'General de Divisão Intendente Paulo Cesar Souza de MIRANDA (Exmo Sr Subsecretário de Economia e Finanças', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(329, NULL, '06.05', 'General de Divisão Engenheiro Militar Claudio Duarte de MORAES (Diretor do Departamento de Ciência e Tecnologia Industrial do Ministério da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(330, NULL, '07.02', 'General de Brigada Engenheiro Militar Mauro Guedes Ferreira MOSQUEIRA Gomes (Diretor de Fabricação', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(331, NULL, '06.05', 'General de Divisão Artur Costa MOURA (Comandante da 6ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(332, NULL, '06.05', 'General de Divisão Cláudio Coscia MOURA (Comandante da 2ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(333, NULL, '06.05', 'General de Divisão César Augusto NARDI de Souza (Subchefe de Operações da Chefia das Operações Conjuntas do Estado-Maior Conjunto das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(334, NULL, '07.02', 'General de Brigada Sérgio da Costa NEGRAES (Comandante da 3ª Brigada de Infantaria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(335, NULL, '07.02', 'General de Brigada Henrique Martins NOLASCO Sobrinho (Chefe do Gabinete do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(336, NULL, '07.02', 'General de Brigada André Luís NOVAES Miranda (Comandante da Academia Militar das Agulhas Negras ', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(337, NULL, '07.02', 'General de Brigada Angelo Kawakami OKAMURA (Assistente do Exército do Comando da Escola Superior de Guerra', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(338, NULL, '06.05', 'General de Divisão Intendente José ORLANDO Ribeiro Cardoso (Vice-chefe de Logística do Ministério da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(339, NULL, '07.02', 'General de Brigada José Luiz de PAIVA (Diretor de Projetos de Engenharia', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(340, NULL, '07.02', 'General de Brigada Severino de Ramos Bento da PAIXÃO (Comandante da Artilharia Divisionária da 3ª Divisão de Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(341, NULL, '06.05', 'General de Divisão Luiz Guilherme PAUL CRUZ (Diretor de Pacerias Estratégicas do Departamento de Operações de Manutenção da Paz', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(342, NULL, '07.02', 'General de Brigada PAULO ROBERTO de Oliveira (Comandante da 15ª Brigada de Infantaria Mecanizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(343, NULL, '06.05', 'General de Divisão PAULO SÉRGIO Nogueira de Oliveira (Comandande da 12ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1);
+INSERT INTO `pessoa` (`id`, `foto`, `ordem`, `nome`, `email`, `telefone_1`, `telefone_2`, `data_criacao`, `posto_graduacao_id`, `funcao_id`, `usuario_cadastro_id`, `ativo`) VALUES
+(344, NULL, '07.02', 'General de Brigada Intendente Eduardo PAZUELLO (Chefe de Assessoria de Planejamento, Programação e Controle Orçamento do Comando Logístico', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(345, NULL, '07.02', 'General de Brigada Afonso Henrique Ignacio PEDROSA (Diretor de Serviço Militar', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(346, NULL, '07.02', 'General de Brigada Luiz Carlos PEREIRA GOMES (Secretário-Geral do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(347, NULL, '07.02', 'General de Brigada Altair José POLSIN (Comandante da Escola de Aperfeiçoamento de Oficiais', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(348, NULL, '06.05', 'General de Divisão Médico Gilberto Franco PONTES NETTO (Diretor do Hospital das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(349, NULL, '07.02', 'General de Brigada Ubiratan POTY (Chefe do Estado-Maior do Comando Militar da Amazônia', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(350, NULL, '07.02', 'General de Brigada Engenheiro Militar Hildo Vieira PRADO Filho (Chefe do Centro Tecnológico do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(351, NULL, '07.02', 'General de Brigada Marcos José PUPIN (Comandante do 2º Grupamento de Engenharia', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(352, NULL, '06.05', 'General de Divisão RACINE Bezerra Lima Filho (Exmo Sr Comandante Militar do Planalto', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(353, NULL, '07.02', 'General de Brigada Edson Henrique RAMIRES (Comandante da 5ª Brigada de Cavalaria Blindada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(354, NULL, '06.05', 'General de Divisão Luiz Eduardo RAMOS Baptista Pereira (Comandante da 1ª Divisão de Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(355, NULL, '06.05', 'General de Divisão Engenheiro Militar Rodrigo Balloussier RATTON (Vice-Chefe do Departamento de Ciência e Tecnologia', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(356, NULL, '07.02', 'General de Brigada Otavio Santana do RÊGO BARROS (Chefe do Centro de Comunicação Social do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(357, NULL, '07.02', 'General de Brigada RICHARD Fernandez Nunes (Comandande da 14ª Brigada de Infataria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(358, NULL, '07.02', 'General de Brigada Médico ROGÉRIO Pedroti (Diretor do Hospital Militar de Área de Porto Alegre', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(359, NULL, '07.02', 'General de Brigada Antonio Leite dos SANTOS FILHO (4ºSubchefe do Comando de Operações Terrestre', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(360, NULL, '06.05', 'General de Divisão Carlos Alberto dos SANTOS CRUZ (Comandante da Força de Paz na Missão de Estabilização das Nações Unidas na República Democrática do Congo', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(361, NULL, '06.05', 'General de Divisão Antonino dos SANTOS GUERRA Neto (Vice-Chefe de Tecnologia da Informação e Comunicações', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(362, NULL, '04.52', 'Eunício Lopes de Oliveira (Exmo Sr Senador da República pelo Estado do Ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(363, NULL, '04.52', 'Maria de Fátima Bezerra (Exma Sra Senadora da República pelo Estado do Rio Grande do Norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(364, NULL, '04.52', 'Fernando Bezerra de Souza Coelho (Exmo Sr Senador da República pelo Estado de Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(365, NULL, '03.04', 'Fernando Affonso Collor de Melo (Exmo Sr Ex-Presidente da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 19, 1, 1),
+(366, NULL, '05.02', 'General de Exército Sergio Westphalen ETCHEGOYEN (Exmo Sr Chefe do Estado-Maior do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(367, NULL, '04.52', 'Fernando Affonso Collor de Melo (Exmo Sr Senador da República pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(368, NULL, '04.52', 'Fernando de Souza Flexa Ribeiro (Exmo Sr Senador da República pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(369, NULL, '04.52', 'Garibaldi Alves Filho (Exmo Sr Senador da República pelo Estado do Rio Grande do Norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(370, NULL, '04.52', 'Gleisi Helena Hoffman (Exma Sra Senadora da República pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(371, NULL, '04.52', 'Hélio José da Silva Lima (Exmo Sr Senador da República pelo Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(372, NULL, '04.52', 'Humberto Sérgio Costa Lima (Exmo Sr Senador da República pelo Estado de Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(373, NULL, '04.52', 'Ivo Narciso Cassol (Exmo Sr Senador da República pelo Estado de Rondônia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(374, NULL, '04.52', 'Jader Fontenelle Barbalho (Exmo Sr Senador da República pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(375, NULL, '04.52', 'João Alberto de Souza (Exmo Sr Senador da República pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(376, NULL, '04.52', 'João Alberto Rodrigues Capiberibe (Exmo Sr Senador da República pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(377, NULL, '04.52', 'José Agripino Maia (Exmo Sr Senador da República pelo Estado do Rio Grande do Norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(378, NULL, '04.52', 'José Targino Maranhão (Exmo Sr Senador da República pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(379, NULL, '04.52', 'José Antônio Medeiros (Exmo Sr Senador da República pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(380, NULL, '04.52', 'José Barroso Pimentel (Exmo Sr Senador da República pelo Estado do Ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(381, NULL, '04.52', 'José Serra (Exmo Sr Senador da República pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(382, NULL, '04.52', 'Lasier Costa Martins (Exmo Sr Senador da República pelo Estado do Rio Grande do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(383, NULL, '04.52', 'Lídice da Mata e Souza (Exma Sra Senadora da República pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(384, NULL, '04.52', 'Luiz Lindbergh Farias Filho (Exmo Sr Senador da República pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(385, NULL, '04.52', 'Lúcia Vânia Abrão (Exma Sra Senadora da República pelo Estado do Goiás', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(386, NULL, '04.52', 'Magno Pereira Malta (Exmo Sr Senador da República pelo Estado do Espírito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(387, NULL, '04.52', 'Marcelo Bezerra Crivella (Exmo Sr Senador da República pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(388, NULL, '04.52', 'Maria do Carmo do Nascimento Alves (Exma Sra Senadora da República pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(389, NULL, '07.02', 'General de Brigada Carlos Sérgio Camara SAÚ (Chefe do Centro de Operações do Comando Militar do Oeste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(390, NULL, '06.05', 'General de Divisão Walmir Almada SCHNEIDER Filho (Diretor do Departamento de Ensino do Ministério da Defesa', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(391, NULL, '06.05', 'General de Divisão Décio Luís SCHONS (Subchefe de Assuntos Internacionais do Ministério do EMCFA', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(392, NULL, '06.05', 'General de Divisão Roberto SEVERO Ramos (Chefe do Gabinete do Estado-Maior Conjunto das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(393, NULL, '07.02', 'General de Brigada Marcos André da SILVA ALVIM (Comandante da Escola de Sargentos das Armas', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(394, NULL, '07.02', 'General de Brigada Engenheiro Militar Pedro Soares da SILVA NETO (Diretor de Seviço Geográfico', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(395, NULL, '07.02', 'General de Brigada André Luiz SILVEIRA (Comandante da 8ª Brigada de Infantaria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(396, NULL, '07.02', 'General de Brigada Mauro SINOTT Lopes (Comandante de Operações Especiais', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(397, NULL, '07.02', 'General de Brigada Jorge Antonio SMICELATO (Comandante do Grupamento de Unidades -Escola/9ª Brigada de Infataria Motorizada', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(398, NULL, '07.02', 'General de Brigada Fernado Jose Sant`Ana SOARES e Silva (Chefe do Estado-Maior do Comando Militar do Leste', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(399, NULL, '07.02', 'General de Brigada Walter Nilton Pina STOFFEL (Diretor do Patrimônio Histórico e Cultural do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(400, NULL, '06.05', 'General de Divisão Valério STUMPF Trindade (Diretor de Avaliação e Promoções', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(401, NULL, '07.02', 'General de Brigada Carlos Alberto Maciel TEIXEIRA (Diretor de Civis, Inativos, Pensionistas e Assistência Social', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(402, NULL, '07.02', 'General de Brigada Estevam Cals THEOPHILO Gaspar de Oliveira (2º Subchefe do Comando de Operações Terrestres', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(403, NULL, '06.05', 'General de Divisão TOMÁS Miguel Miné Ribeiro Paiva (Exmo Sr Chefe do Gabinete do Comandante do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(404, NULL, '06.05', 'General de Divisão Médico TÚLIO Fonseca Chebli (Exmo Sr Diretor de Saúde', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(405, NULL, '06.05', 'General de Divisão Engenheiro Militar UBIRATAN de Salles (Assessor de Ensino, Pesquisa, Desenvolvimento e Inovação do Departamento de Ciência e Tecnologia', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(406, NULL, '06.05', 'General de Divisão Fernando VASCONCELLOS Pereira (Comandande da 3ª Região Militar', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(407, NULL, '06.05', 'General de Divisão Marcio VELLOSO Guimarães (Exmo Sr Diretor de Obras de Cooperação', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(408, NULL, '07.02', 'General de Brigada Médico VITOR CESAR Furley dos Santos (Exmo Sr Subdiretor Técnico de Saúde', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(409, NULL, '06.05', 'General de Divisão Dílson Corrêa de Sá e BENEVIDES (Presidente da Função de Apoio à Pesquisa, Desenvolvimento e Inovação do Exército Brasileiro', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(410, NULL, '07.02', 'General de Brigada Waldemir CRISTINO Rômulo (Presidente da Fundação Ricardo Franco', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(411, NULL, '06.05', 'Dom FERNANDO José Monteiro GUIMARÃES (Arcebispo da Arquidiocese Militar do Brasil', '', '000', '', '2015-08-23 19:06:25', 28, 9, 10, 1),
+(412, NULL, '07.02', 'General de Brigada Dom JOSÉ FRANCISCO Falcão de Barros (Bispo Auxiliar da Arquidiocese Militar do Brasil', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(413, NULL, '06.05', 'General de Divisão Gerson FORINI (Gerente do Projeto Estratégico do Exército SISFRON', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(414, NULL, '06.05', 'General de Divisão JALDEMAR Rodrigues de Souza (Assessor Especial do Comandante do Exército', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(415, NULL, '06.05', 'General de Divisão Ricardo Barbalho LAMELLAS (Vice-Presidente da Fundação Habitacional do Exército Associação de Poupança e Empréstimo', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(416, NULL, '06.05', 'General de Divisão João Roberto de OLIVEIRA (Assessor Especial do Comandante do Exército para o Setor Cibernético', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(417, NULL, '06.05', 'General de Divisão Celso José TIAGO (Diretor-Presidente da Indústria de Material Bélico do Brasil-IMBEL', '', NULL, NULL, '2015-08-23 19:06:25', 11, 9, 1, 1),
+(418, NULL, '07.02', 'General de Brigada Américo Paysan VALDETARO Filho (Vice-Presidente Executivo da Indústria de Material Bélico do Brasil-IMBEL', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(419, NULL, '04.52', 'Marta Teresa Suplicy (Exma Sra Senadora da República pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(420, NULL, '04.52', 'Omar José Abdel Aziz (Exmo Sr Senador da República pelo Estado do Rio de Amazônia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(421, NULL, '04.52', 'Otto Roberto Mendonça de Alencar (Exmo Sr Senador da República pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(422, NULL, '04.52', 'Paulo Rogerto Bauer (Exmo Sr Senador da República pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(423, NULL, '04.52', 'Paulo Renato Paim (Exmo Sr Senador da República pelo Estado do Rio Grande do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(424, NULL, '04.52', 'Paulo Roberto Galvão da Rocha (Exmo Sr Senador da República pelo Estado da Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(425, NULL, '04.52', 'Raimundo Lira (Exmo Sr Senador da República pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(426, NULL, '04.52', 'Randolph Frederich Rodrigues Alves (Exmo Sr Senador da República pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(427, NULL, '04.52', 'Maria Regina Sousa (Exma Sra Senadora da República pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(428, NULL, '04.52', 'José Antônio Machado Regguffe (Exmo Sr Senador da República pelo Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(429, NULL, '04.52', 'José Renan Vasconcelos Calheiros (Exmo Sr Senador da República pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(430, NULL, '04.52', 'Ricardo de Rezende Ferraço (Exmo Sr Senador da República pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(431, NULL, '04.53', 'Maurício Quintella Malta Lessa (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(432, NULL, '04.53', 'Paulo Fernando dos Santos (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(433, NULL, '04.53', 'Pedro Torres Brandão Vilela (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(434, NULL, '04.53.??', 'Ronaldo Augusto Lessa Santos (Exmo Sr Deputado Federal pelo Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(435, NULL, '04.52.??', 'Dário Elias Berger (Exmo Sr Senador da República pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(436, NULL, '03.04.03', 'Fernando Henrique Cardoso (Exmo Sr Ex-Presidente da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(437, NULL, '04.52.??', 'Roberto Requião de Mello e Silva (Exmo Sr Senador da República pelo Estado da Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(438, NULL, '04.52.??', 'Roberto Coelho Rocha (Exmo Sr Senador da República pelo Estado da Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(439, NULL, '04.52.??', 'Romario de Souza Faria (Exmo Sr Senador da República pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(440, NULL, '04.52.??', 'Romero Jucá Filho (Exmo Sr Senador da República pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(441, NULL, '04.52.??', 'Ronaldo Ramos Caiado (Exmo Sr Senador da República pelo Estado do Goiás', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(442, NULL, '04.52.??', 'Rosilda (Rose) de Freitas (Exma Sra Senadora da República pelo Estado do Espírito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(443, NULL, '04.52.??', 'Sandra Backsmann Braga (Exma Sra Senadora da República pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(444, NULL, '04.52.??', 'Simone Nassar Tebet (Exma Sra Senadora da República pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(445, NULL, '04.52.??', 'Tasso Ribeiro Jereissati (Exmo Sr Senador da República pelo Estado do Ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(446, NULL, '04.52.??', 'Telmário Mota de Oliveira (Exmo Sr Senador da República pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(447, NULL, '04.52.??', 'Valdir Raupp de Matos (Exmo Sr Senador da República pelo Estado de Rondônia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(448, NULL, '04.52.??', 'Vanessa Grazziotin (Exma Sra Senadora da República pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(449, NULL, '04.52.??', 'Vicente Alves de Oliveira (Exmo Sr Senador da República pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(450, NULL, '04.52.??', 'Waldemir Moka Miranda de Britto (Exmo Sr Senador da República pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(451, NULL, '04.52.??', 'Walter de Freitas Pinheiro (Exmo Sr Senador da República pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(452, NULL, '04.52.??', 'Wellington Antonio Fagundes (Exmo Sr Senador da República pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(453, NULL, '04.52.??', 'Wilder Pedro de Morais (Exmo Sr Senador da República pelo Estado do Goiás', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(454, NULL, '04.52.??', 'José Perella de Oliveira Costa (Exmo Sr Senador da República pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 24, 1, 1),
+(455, NULL, '04.53.??', 'Alfredo Pereira do Nascimento (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(456, NULL, '04.53.??', 'Arthur Virgilio do Carmo Ribeiro Bisneto (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(457, NULL, '04.53.??', 'Átila Sidney Lins Albuquerque (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(458, NULL, '04.53.??', 'Maria da Conceição Sampaio Moura (Exma Sra Deputada Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(459, NULL, '04.53.??', 'Hissa Nagib Abrahão Filho (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(460, NULL, '04.53.??', 'Marcos Sergio Rotta (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(461, NULL, '04.53.??', 'Pauderney Tomaz Avelino (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(462, NULL, '04.53.??', 'Silas Câmara (Exmo Sr Deputado Federal pelo Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(463, NULL, '03.04.04', 'Luiz Inácio Lula da Silva (Exmo Sr Ex-Presidente da República', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 19, 1, 1),
+(464, NULL, '03.03', 'Enrique Ricardo Lewandowski (Exmo Sr Ministro Presidente do Supremo Tribunal Federal - STF', '', '0', '', '2015-08-23 19:06:25', NULL, 20, 10, 1),
+(465, NULL, '02.02.03', 'Dom Sergio da Rocha (Eminentíssimo e Reverendíssimo Sr Arcebispo Metropolitano de Brasília', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 4, 1, 1),
+(466, NULL, '04.53.??', 'André Abdon (Exmo Sr Deputado Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(467, NULL, '04.53.??', 'Cabuçu Borges (Exmo Sr Deputado Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(468, NULL, '04.53.??', 'Janete Capiberibe (Exma Sra Deputada Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(469, NULL, '04.53.??', 'Jozi Rocha (Exma Sra Deputada Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(470, NULL, '04.53.??', 'Marcos Reategui (Exmo Sr Deputado Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(471, NULL, '04.53.??', 'Professora Marcivania (Exma Sra Deputada Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(472, NULL, '04.53.??', 'Roberto Góes (Exmo Sr Deputado Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(473, NULL, '04.53.??', 'Vinicius Gurgel (Exmo Sr Deputado Federal pelo Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(474, NULL, '04.53.??', 'Afonso Florence (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(475, NULL, '04.53.??', 'Alice Portugal (Exma Sra Deputada Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(476, NULL, '04.53.??', 'Antonio Brito (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(477, NULL, '04.53.??', 'Antonio Imbassahy (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(478, NULL, '04.53.??', 'Arthur Oliveira Maia (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(479, NULL, '04.53.??', 'Bacelar (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(480, NULL, '04.53.??', 'Bebeto (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(481, NULL, '04.53.??', 'Benito Gama (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(482, NULL, '04.53.??', 'Cacá Leão (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(483, NULL, '04.53.??', 'Caetano (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(484, NULL, '04.53.??', 'Claudio Cajado (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(485, NULL, '04.53.??', 'Daniel Almeida (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(486, NULL, '04.53.??', 'Davidson Magalhães (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(487, NULL, '04.53.??', 'Elmar Nascimento (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(488, NULL, '04.53.??', 'Erivelton Santana (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(489, NULL, '04.53.??', 'Félix Mendonça Júnior (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(490, NULL, '04.53.??', 'Fernando Torres (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(491, NULL, '04.53.??', 'Irmão Lazaro (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(492, NULL, '04.53.??', 'João Carlos Bacelar (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(493, NULL, '04.53.??', 'João Gualberto (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(494, NULL, '04.53.??', 'Jorge Solla (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(495, NULL, '04.53.??', 'José Carlos Aleluia (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(496, NULL, '04.53.??', 'José Carlos Araúo (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(497, NULL, '04.53.??', 'José Nunes (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(498, NULL, '04.53.??', 'Joksé Rocha (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(499, NULL, '04.53.??', 'Jutahy Junior (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(500, NULL, '04.53.??', 'Lucio Vieira de Lima (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(501, NULL, '04.53.??', 'Márcio Marinho (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(502, NULL, '04.53.??', 'Mário Negromonte jr. (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(503, NULL, '04.53.??', 'Moema Gramacho (Exma Sra Deputada Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(504, NULL, '04.53.??', 'Paulo Azi (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(505, NULL, '04.53.??', 'Paulo Magalhães (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(506, NULL, '04.53.??', 'Roberto Brito (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(507, NULL, '04.53.??', 'Ronaldo Carletto (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(508, NULL, '04.53.??', 'Sérgio Brito (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(509, NULL, '04.53.??', 'Tia Eron (Exma Sra Deputada Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(510, NULL, '04.53.??', 'Ulderico Junior (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(511, NULL, '04.53.??', 'Valmir Assunção (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(512, NULL, '04.53.??', 'Waldenor Pereira (Exmo Sr Deputado Federal pelo Estado da Bahia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(513, NULL, '04.53.??', 'Adalberto Cavalcanti (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(514, NULL, '04.53.??', 'André Figueredo (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(515, NULL, '04.53.??', 'Aníbal Gomes (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(516, NULL, '04.53.??', 'Antonio Balhmann (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(517, NULL, '04.53.??', 'Arnon Bezerra (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(518, NULL, '04.53.??', 'Cabo Sabino (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(519, NULL, '04.53.??', 'Chico Lopes (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(520, NULL, '04.53.??', 'Danilo Forte (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(521, NULL, '04.53.??', 'Domingos Neto (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(522, NULL, '04.53.??', 'Genecias Neto (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(523, NULL, '04.53.??', 'Gorete Pereira (Exma Sra Deputada Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(524, NULL, '04.53.??', 'José Airton Cirilo (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(525, NULL, '04.53.??', 'José Guimarães (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(526, NULL, '04.53.??', 'Leônidas Cristino (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(527, NULL, '04.53.??', 'Luizianne Lins (Exma Sra Deputada Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(528, NULL, '04.53.??', 'Macedo (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(529, NULL, '04.53.??', 'Moroni Torgan (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(530, NULL, '04.53.??', 'Moses Rodrigues (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(531, NULL, '04.53.??', 'Odorico Monteiro (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(532, NULL, '04.53.??', 'Raimundo Gomes de Matos (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(533, NULL, '04.53.??', 'Ronaldo Martins (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(534, NULL, '04.53.??', 'Vitor Valim (Exmo Sr Deputado Federal pelo Estado do ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(535, NULL, '04.53.??', 'Carlos Manato (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(536, NULL, '04.53.??', 'Dr. Jorge Silva (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(537, NULL, '04.53.??', 'Evair de Melo (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(538, NULL, '04.53.??', 'Givaldo Vieira (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(539, NULL, '04.53.??', 'Helder Salomão (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(540, NULL, '04.53.??', 'Lelo Coimbra (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(541, NULL, '04.53.??', 'Marcus Vicente (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(542, NULL, '04.53.??', 'Max Filho (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(543, NULL, '04.53.??', 'Paulo Foletto (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(544, NULL, '04.53.??', 'Sergio Vidigal (Exmo Sr Deputado Federal pelo Estado do Espirito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(545, NULL, '04.53.??', 'Alberto Fraga (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(546, NULL, '04.53.??', 'Augusto Carvalho (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(547, NULL, '04.53.??', 'Erika Kokay (Exma Sra Deputada Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(548, NULL, '04.53.??', 'Izalci (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(549, NULL, '04.53.??', 'Laerte Bessa (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(550, NULL, '04.53.??', 'Rogério Rosso (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(551, NULL, '04.53.??', 'Ronaldo Fonseca (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(552, NULL, '04.53.??', 'Roney Nemer (Exmo Sr Deputado Federal pelo Estado do Distrito Federal', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(553, NULL, '04.53.??', 'Alexandre Baldy (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(554, NULL, '04.53.??', 'Célio Silveira (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(555, NULL, '04.53.??', 'Daniel Vilela (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(556, NULL, '04.53.??', 'Delegado Waldir (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(557, NULL, '04.53.??', 'Fábio Sousa (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(558, NULL, '04.53.??', 'Flávia Moraes (Exma Sra Deputada Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(559, NULL, '04.53.??', 'Giussepe Vecci (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(560, NULL, '04.53.??', 'Heuler Cruvinel (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(561, NULL, '04.53.??', 'João Campos (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(562, NULL, '04.53.??', 'Jovair Arantes (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(563, NULL, '04.53.??', 'Lucas Vergilio (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(564, NULL, '04.53.??', 'Magda Mofatto (Exma Sra Deputada Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(565, NULL, '04.53.??', 'Marcos Abrão (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(566, NULL, '04.53.??', 'Pedro Chaves (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(567, NULL, '04.53.??', 'Roberto Balestra (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(568, NULL, '04.53.??', 'Rubens Otoni (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(569, NULL, '04.53.??', 'Sandes Júnior (Exmo Sr Deputado Federal pelo Estado do Goias', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(570, NULL, '04.53.??', 'Alberto Filho (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(571, NULL, '04.53.??', 'Aluisio Mendes (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(572, NULL, '04.53.??', 'André Fufuca (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(573, NULL, '04.53.??', 'Cleber Verde (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(574, NULL, '04.53.??', 'Eliziane Gama (Exma Sra Deputada Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(575, NULL, '04.53.??', 'Hildo Rocha (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(576, NULL, '04.53.??', 'João Castelo (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(577, NULL, '04.53.??', 'João Marcelo Souza (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(578, NULL, '04.53.??', 'José Reinaldo (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(579, NULL, '04.53.??', 'Junior Marreca (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(580, NULL, '04.53.??', 'Juscelino Filho (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(581, NULL, '04.53.??', 'Pedro Fernandes (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(582, NULL, '04.53.??', 'Rubens Pereira Júnior (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(583, NULL, '04.53.??', 'Sarney Filho (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(584, NULL, '04.53.??', 'Victor Mendes (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(585, NULL, '04.53.??', 'Waldir Maranhão (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(586, NULL, '04.53.??', 'Werventon Rocha (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(587, NULL, '04.53.??', 'Zé Carlos (Exmo Sr Deputado Federal pelo Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(588, NULL, '04.53.??', 'Adelmo Carneiro Leão (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(589, NULL, '04.53.??', 'Ademir Camilo (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(590, NULL, '04.53.??', 'Aelton Freitas (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(591, NULL, '04.53.??', 'Bilac Pinto (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(592, NULL, '04.53.??', 'Bonifácio de Andrada (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(593, NULL, '04.53.??', 'Brunny (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(594, NULL, '04.53.??', 'Caio Narcio (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(595, NULL, '04.53.??', 'Carlos Melles (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(596, NULL, '04.53.??', 'Dâmina Pereira (Exma Sra Deputada Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(597, NULL, '04.53.??', 'Delegado Edson Moreira (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(598, NULL, '04.53.??', 'Diego Andrade (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(599, NULL, '04.53.??', 'Dimas Fabiano (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(600, NULL, '04.53.??', 'Domingos Sávio (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(601, NULL, '04.53.??', 'Eduardo Barbosa (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(602, NULL, '04.53.??', 'Eros Biondini (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(603, NULL, '04.53.??', 'Fábio Ramalho (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(604, NULL, '04.53.??', 'Gabriel Guimarães (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(605, NULL, '04.53.??', 'Jaime Martins (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(606, NULL, '04.53.??', 'Jô Moraes (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(607, NULL, '04.53.??', 'Júlio Delgado (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(608, NULL, '04.53.??', 'Laudivio Carvalho (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(609, NULL, '04.53.??', 'Leonardo Monteiro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(610, NULL, '04.53.??', 'Leonardo Quintão (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(611, NULL, '04.53.??', 'Lincoln Portela (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(612, NULL, '04.53.??', 'Luis Tibé (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(613, NULL, '04.53.??', 'Luiz Fernando Faria (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(614, NULL, '04.53.??', 'Marcelo Álvaro Antônio (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(615, NULL, '04.53.??', 'Marcelo Aro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(616, NULL, '04.53.??', 'Marcos Montes (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(617, NULL, '04.53.??', 'Marcus Pestana (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(618, NULL, '04.53.??', 'Margarida Salomão (Exma Sra Deputada Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(619, NULL, '04.53.??', 'Mário Heringer (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(620, NULL, '04.53.??', 'Mauro Lopes (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(621, NULL, '04.53.??', 'Misael Varella (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(622, NULL, '04.53.??', 'Newton Cardoso Jr. (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(623, NULL, '04.53.??', 'Odelmo Leão (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(624, NULL, '04.53.??', 'Padre João (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(625, NULL, '04.53.??', 'Pastor Franklin (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(626, NULL, '04.53.??', 'Paulo Abi-Ackel (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(627, NULL, '04.53.??', 'Raquel Muniz (Exma Sra Deputada Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(628, NULL, '04.53.??', 'Reginaldo Lopes (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(629, NULL, '04.53.??', 'Renzo Braz (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(630, NULL, '04.53.??', 'Rodrigo de Castro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(631, NULL, '04.53.??', 'Rodrigo Pacheco (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(632, NULL, '04.53.??', 'Sairava Felipe (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(633, NULL, '04.53.??', 'Silas Brasileiro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(634, NULL, '04.53.??', 'Stefano Aguiar (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(635, NULL, '04.53.??', 'Subtenente Gonzaga (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(636, NULL, '04.53.??', 'Tenente Lúcio (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(637, NULL, '04.53.??', 'Toninho Pinheiro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(638, NULL, '04.53.??', 'Wadson Ribeiro (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(639, NULL, '04.53.??', 'Weliton Prado (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(640, NULL, '04.53.??', 'Zé Silva (Exmo Sr Deputado Federal pelo Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(641, NULL, '04.53.??', 'Carlos Marun (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(642, NULL, '04.53.??', 'Dagoberto (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(643, NULL, '04.53.??', 'Elizeu Dionizio (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(644, NULL, '04.53.??', 'Geraldo Resende (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(645, NULL, '04.53.??', 'Mandetta (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(646, NULL, '04.53.??', 'Tereza Cristina (Exma Sra Deputada Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(647, NULL, '04.53.??', 'Vander Loubet (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(648, NULL, '04.53.??', 'Zeca do Pt (Exmo Sr Deputado Federal pelo Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(649, NULL, '04.53.??', 'Adilton Sachetti (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(650, NULL, '04.53.??', 'Carlos Bezerra (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(651, NULL, '04.53.??', 'Ezequiel Fonseca (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(652, NULL, '04.53.??', 'Fabio Garcia (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(653, NULL, '04.53.??', 'Nilson Leitão (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(654, NULL, '04.53.??', 'Professor Victório Galli (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(655, NULL, '04.53.??', 'Ságuas Moraes (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(656, NULL, '04.53.??', 'Valtenir pereira (Exmo Sr Deputado Federal pelo Estado do Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(657, NULL, '04.53.??', 'Arnaldo Jordy (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(658, NULL, '04.53.??', 'Beto Faro (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(659, NULL, '04.53.??', 'Beto Salame (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(660, NULL, '04.53.??', 'Delegado Éder Mauro (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(661, NULL, '04.53.??', 'Edmilson Rodrigues (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(662, NULL, '04.53.??', 'Elcione Barbalho (Exma Sra Deputada Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(663, NULL, '04.53.??', 'Francisco Chapadinha (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(664, NULL, '04.53.??', 'Hélio Leite (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(665, NULL, '04.53.??', 'Joaquim Passarinho (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1);
+INSERT INTO `pessoa` (`id`, `foto`, `ordem`, `nome`, `email`, `telefone_1`, `telefone_2`, `data_criacao`, `posto_graduacao_id`, `funcao_id`, `usuario_cadastro_id`, `ativo`) VALUES
+(666, NULL, '04.53.??', 'José Priante (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(667, NULL, '04.53.??', 'Josué Bengtson (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(668, NULL, '04.53.??', 'Júlia Marinho (Exma Sra Deputada Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(669, NULL, '04.53.??', 'Lúcio Vale (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(670, NULL, '04.53.??', 'Nilson Pinto (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(671, NULL, '04.53.??', 'Simone Morgado (Exma Sra Deputada Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(672, NULL, '04.53.??', 'Wladimir Costa (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(673, NULL, '04.53.??', 'Zé Geraldo (Exmo Sr Deputado Federal pelo Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(674, NULL, '04.53.??', 'Aguinaldo Ribeiro (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(675, NULL, '04.53.??', 'Benjamim Maranhão (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(676, NULL, '04.53.??', 'Damião Feliciano (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(677, NULL, '04.53.??', 'Efraim Filho (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(678, NULL, '04.53.??', 'Hugo Motta (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(679, NULL, '04.53.??', 'Luiz Couto (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(680, NULL, '04.53.??', 'Manoel Junior (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(681, NULL, '04.53.??', 'Pedro Cunha Lima (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(682, NULL, '04.53.??', 'Rômulo Gouveia (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(683, NULL, '04.53.??', 'Veneziano vital do Rêgo (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(684, NULL, '04.53.??', 'Wellington Roberto (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(685, NULL, '04.53.??', 'Wilson Filho (Exmo Sr Deputado Federal pelo Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(686, NULL, '04.53.??', 'Anderson Ferreira (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(687, NULL, '04.53.??', 'Augusto Cotinho (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(688, NULL, '04.53.??', 'Betinho Gomes (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(689, NULL, '04.53.??', 'Bruno Araújo (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(690, NULL, '04.53.??', 'Carlos Eduardo Cadoca (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(691, NULL, '04.53.??', 'Daniel Coelho (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(692, NULL, '04.53.??', 'Eduardo da Fonte (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(693, NULL, '04.53.??', 'Fernando Coelho Filho (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(694, NULL, '04.53.??', 'Fernando Monteiro (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(695, NULL, '04.53.??', 'Gonzaga Patriota (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(696, NULL, '04.53.??', 'Jarbas Vasconcelos (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(697, NULL, '04.53.??', 'João Fernando Coutinho (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(698, NULL, '04.53.??', 'Jorge Côrte Real (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(699, NULL, '04.53.??', 'Kaio Maniçoba (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(700, NULL, '04.53.??', 'Luciana Santos (Exma Sra Deputada Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(701, NULL, '04.53.??', 'Marinaldo Rosendo (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(702, NULL, '04.53.??', 'Mendoça Filho (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(703, NULL, '04.53.??', 'Pastor Eurico (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(704, NULL, '04.53.??', 'Raul Jungmann (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(705, NULL, '04.53.??', 'Ricardo Teobaldo (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(706, NULL, '04.53.??', 'Silvio Costa (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(707, NULL, '04.53.??', 'Tadeu Alencar (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(708, NULL, '04.53.??', 'Wolney Queiroz (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(709, NULL, '04.53.??', 'Zeca Cavalcanti (Exmo Sr Deputado Federal pelo Estado do Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(710, NULL, '04.53.??', 'Assis Carvalho (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(711, NULL, '04.53.??', 'Átila Lira (Exma Sra Deputada Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(712, NULL, '04.53.??', 'Heráclito Fortes (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(713, NULL, '04.53.??', 'José Maia Filho (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(714, NULL, '04.53.??', 'Júlio Cesar (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(715, NULL, '04.53.??', 'Iracema Portella (Exma Sra Deputada Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(716, NULL, '04.53.??', 'Marcelo Castro (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(717, NULL, '04.53.??', 'Paes Landim (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(718, NULL, '04.53.??', 'Rodrigo Martins (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(719, NULL, '04.53.??', 'Silas Freire (Exmo Sr Deputado Federal pelo Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(720, NULL, '04.42.04', 'General de Exército ENZO Martins Peri (Exmo Sr Ex-Comandante do Exército Brasileiro', '', NULL, NULL, '2015-08-23 19:06:25', 10, 6, 1, 1),
+(721, NULL, '04.42.02', 'General de Exército GLEUBER Vieira (Exmo Sr Ex-Comandante do Exército Brasileiro', '', NULL, NULL, '2015-08-23 19:06:25', 10, 6, 1, 1),
+(722, NULL, '04.42.03', 'General de Exército Francisco Roberto de ALBUQUERQUE (Exmo Sr Ex-Comandante do Exército Brasileiro', '', NULL, NULL, '2015-08-23 19:06:25', 10, 6, 1, 1),
+(723, NULL, '05.02.??', 'General de Exército Joaquim SILVA E LUNA (Exmo Sr Secretário de Pessoal, Ensino, Saúde e Desporto do MD', '', NULL, NULL, '2015-08-23 19:06:25', 10, 8, 1, 1),
+(724, NULL, '05.01.??', 'Almirante de Esquadra Luiz Guilherme Sá de GUSMÃO (Exmo Sr Diretor-Geral do Material da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(725, NULL, '05.01.??', 'Almirante de Esquadra Elis Treidler ÖBERG (Exmo Sr Comandante de Operações Navais e Diretor-Geral de Navegação', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(726, NULL, '05.01.??', 'Sérgio Roberto FERNANDES dos santos(Exmo Sr Secretário, tecnologia e Inovação da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(727, NULL, '05.01.??', 'Almirante de Esquadra Fernando Antonio de Siqueira Ribeiro  (Exmo Sr Comandante-Geral do Corpo de Fuzileiros Navais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(728, NULL, '05.01.??', 'Almirante de Esquadra AIRTON Teixeira Pinho Filho (Exmo Sr Secretário-Geral da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(729, NULL, '05.01.??', 'Wilson  Barbosa QUERRA(Exmo Sr Chefe do Estado-Maior da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(730, NULL, '05.01.??', 'Almirante de Esquadra ADEMIR Sobrinho (Exmo Sr Chefe de Operações Conjuntas do Estado-Maior Conjunto das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(731, NULL, '05.05.??', 'Tenente-Brigadeiro Hélio PAES DE BARROS Júnior (Exmo Sr Chefe do Estado-Maior da Aeronáutica', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(732, NULL, '05.05.??', 'Tenente-Brigadeiro Raul BOTELHO (Exmo Sr Comandante-Geral do Pessoal e Diretor-Geral do Departamento de Ensino da Aeronáutica', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(733, NULL, '05.05.??', 'Tenente-Brigadeiro Carlos Vuyk de AQUINO (Diretor-Geral do Departamento de Controle do Espaço Aéreo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(734, NULL, '05.05.??', 'Tenente-Brigadeiro Antonio Carlos Moretti BERMUDEZ (Chefe de Logística do Estado-Maior Conjunto das Forças Armadas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(735, NULL, '05.05.??', 'Tenente-Brigadeiro Gerson Nogueira MACHADO de Oliveira (Comandante-Geral de Operações Aéreas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(736, NULL, '05.05.??', 'Tenente-Brigadeiro Dirceu Tondolo NÔRO (Comandante-Geral de Apoio', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(737, NULL, '05.05.??', 'Tenente-Brigadeiro Antonio  FRANCISCANGELIS Neto (Secretário de Economia e Finanças da Aeronáutica', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(738, NULL, '05.05.??', 'Tenente-Brigadeiro ALVANIR Adão da silva (Diretor-Geral do Departamento de Ciência e Tecnologia Aeroespacial', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(739, NULL, '05.05.??', 'Tenente-Brigadeiro Rafael RODRIGUES FILHO (Comandante da Escola Superior de Guerra', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(740, NULL, '06.24.??', 'Aroldo Cedraz de Oliveira  (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(741, NULL, '06.24.??', 'Walton Alencar Rodrigues   (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(742, NULL, '06.24.??', 'Benjamin Zymler  (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(743, NULL, '06.24.??', 'Raimundo Correio silva   (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(744, NULL, '06.24.??', 'José Jorge de Vasconcelos Lima (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(745, NULL, '06.24.??', 'José Múcio Monteiro Filho  (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(746, NULL, '06.24.??', 'Ana Lúcia Arraes de Alencar (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(747, NULL, '06.24.??', 'Bruno Datas Nascimento  (Exmo Sr Ministro do Tribunal de Contas da União -TCU', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 9, 1, 1),
+(748, NULL, '04.51.??', 'Luiz Fernando Pessoa (Exmo Sr Governador do Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(749, NULL, '04.51.??', 'Flávio Dino (Exmo Sr Governador do Estado do Maranhão', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(750, NULL, '04.51.??', 'Simão Jatene (Exmo Sr Governador do Estado do Pará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(751, NULL, '04.51.??', 'Paulo Câmara (Exmo Sr Governador do Estado de Pernambuco', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(752, NULL, '04.51.??', 'Geraldo Alckmin (Exmo Sr Governador do Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(753, NULL, '04.51.??', 'Fernando Pimentel (Exmo Sr Governador do Estado de Minas Gerais', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(754, NULL, '04.51.??', 'Marconi Perillo (Exmo Sr Governador do Estado de Goiás', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(755, NULL, '04.51.??', 'Pedro Taques (Exmo Sr Governador do Estado de Mato Grosso', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(756, NULL, '04.51.??', 'José Ivo Sartori (Exmo Sr Governador do Estado do Rio Grande do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(757, NULL, '04.51.??', 'Camilo Santana (Exmo Sr Governador do Estado do Ceará', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(758, NULL, '04.51.??', 'Ricardo Coutinho (Exmo Sr Governador do Estado da Paraíba', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(759, NULL, '04.51.??', 'Paulo Hartung (Exmo Sr Governador do Estado do Espírito Santo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(760, NULL, '04.51.??', 'Wellington Dias (Exmo Sr Governador do Estado do Piauí', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(761, NULL, '04.51.??', 'Robinson Faria (Exmo Sr Governador do Estado do Rio Grande do Norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(762, NULL, '04.51.??', 'Raimundo Colombo (Exmo Sr Governador do Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(763, NULL, '04.51.??', 'Renan Filho (Exmo Sr Governador do Estado de Alagoas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(764, NULL, '04.51.??', 'Jackson Barreto (Exmo Sr Governador do Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(765, NULL, '04.51.??', 'José Melo (Exmo Sr Governador do Estado do Amazonas', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(766, NULL, '04.51.??', 'Beto Richa (Exmo Sr Governador do Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(767, NULL, '04.51.??', 'Tião Viana (Exmo Sr Governador do Estado do Acre', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(768, NULL, '04.51.??', 'Reinaldo Azambuja (Exmo Sr Governador do Estado do Mato Grosso do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(769, NULL, '04.51.??', 'Confúcio Moura (Exmo Sr Governador do Estado da Rondônia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(770, NULL, '04.51.??', 'Marcelo Miranda (Exmo Sr Governador do Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(771, NULL, '04.51.??', 'Waldez (Exmo Sr Governador do Estado do Amapá', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(772, NULL, '04.51.??', 'Suely Campos (Exmo Sr Governadora do Estado da Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 14, 1, 1),
+(773, NULL, '04.53.??', 'Alex Canziani (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(774, NULL, '04.53.??', 'Alfredo kaefer (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(775, NULL, '04.53.??', 'ALIEL Machado (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(776, NULL, '04.53.??', 'Assis do couto (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(777, NULL, '04.53.??', 'Christiane de Souza yared (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(778, NULL, '04.53.??', 'Dego Garcia (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(779, NULL, '04.53.??', 'Dilceu sperafico (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(780, NULL, '04.53.??', 'Edmar Arruda (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(781, NULL, '04.53.??', 'ENIO VERRI (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(782, NULL, '04.53.??', 'Evandro Roman (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(783, NULL, '04.53.??', 'Fernando Francischini (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(784, NULL, '04.53.??', 'Giocobo (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(785, NULL, '04.53.??', 'Hermes Parcianello (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(786, NULL, '04.53.??', 'João Arruda (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(787, NULL, '04.53.??', 'Leandre (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(788, NULL, '04.53.??', 'Leopoldo Meyer (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(789, NULL, '04.53.??', 'Luciano Ducci (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(790, NULL, '04.53.??', 'Luiz Carlos Hauly (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(791, NULL, '04.53.??', 'Luiz Nishimori (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(792, NULL, '04.53.??', 'Marcelo Belinati 7(Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(793, NULL, '04.53.??', 'Nelson Meurer (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(794, NULL, '04.53.??', 'Osmar Serraglio (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(795, NULL, '04.53.??', 'Ricardo Barros (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(796, NULL, '04.53.??', 'Rossini (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(797, NULL, '04.53.??', 'Rubens Bueno (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(798, NULL, '04.53.??', 'Sandro Alex (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(799, NULL, '04.53.??', 'Sergio Souza (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(800, NULL, '04.53.??', 'Takayama (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(801, NULL, '04.53.??', 'Toninho Wandscheer (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(802, NULL, '04.53.??', 'Zeca Dirceu (Exmo Sr Deputado Federal pelo Estado do Paraná', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(803, NULL, '04.53.??', 'Alessandro Marlon (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(804, NULL, '04.53.??', 'Alexandre Serfiote (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(805, NULL, '04.53.??', 'Alexandre Valle (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(806, NULL, '04.53.??', 'Alexandre Valle (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(807, NULL, '04.53.??', 'Altineu Côrtes (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(808, NULL, '04.53.??', 'Aureo (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(809, NULL, '04.53.??', 'Benedita da silva (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(810, NULL, '04.53.??', 'Cabo Daciolo (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(811, NULL, '04.53.??', 'Celso Jacob (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(812, NULL, '04.53.??', 'Chico Alencar (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(813, NULL, '04.53.??', 'Chico D'' Angelo (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(814, NULL, '04.53.??', 'Clarissa Garotinho (Exma Sr Deputada Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(815, NULL, '04.53.??', ' Cristiane Brasil (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(816, NULL, '04.53.??', 'Deley (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(817, NULL, '04.53.??', 'DR. João (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(818, NULL, '04.53.??', 'Eduardo Cunha (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(819, NULL, '04.53.??', 'Ezequiel Teixeira (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(820, NULL, '04.53.??', 'Felipe Bornier (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(821, NULL, '04.53.??', 'Fernando Jordão (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(822, NULL, '04.53.??', 'Francisco Floriano (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(823, NULL, '04.53.??', 'Glauber Braga (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(824, NULL, '04.53.??', 'Hugo leal (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(825, NULL, '04.53.??', 'Índio da Costa (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(826, NULL, '04.53.??', 'Jair Bolsonaro (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro)', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(827, NULL, '04.53.??', 'Jadira Feghali (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(828, NULL, '04.53.??', 'Jean Wyllys (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(829, NULL, '04.53.??', 'Julio Lopes (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(830, NULL, '04.53.??', 'Leonardo picciani (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(831, NULL, '04.53.??', 'Luiz Carlos Ramos (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(832, NULL, '04.53.??', 'Luiz Sérgio (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(833, NULL, '04.53.??', 'Marcelo Matos (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(834, NULL, '04.53.??', 'Marquinhos Mendes (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(835, NULL, '04.53.??', 'Miro Teixeira (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(836, NULL, '04.53.??', 'Otavio Leite (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(837, NULL, '04.53.??', 'Paulo Feijó (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(838, NULL, '04.53.??', 'Roberto Sales (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(839, NULL, '04.53.??', 'Rodrigo Maia (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(840, NULL, '04.53.??', 'Rosagela Gomes (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(841, NULL, '04.53.??', 'Sérgio Zveiter (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(842, NULL, '04.53.??', 'Simão Sessim (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(843, NULL, '04.53.??', 'Sorayra Santos (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(844, NULL, '04.53.??', 'Sóstenes Cavalcante (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(845, NULL, '04.53.??', 'Wadih Damous (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(846, NULL, '04.53.??', 'Walney Rocha (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(847, NULL, '04.53.??', 'Washington Reis (Exmo Sr Deputado Federal pelo Estado do Rio de Janeiro', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(848, NULL, '04.53.??', 'Antônio Jácome (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(849, NULL, '04.53.??', 'Beto Rosano (Exmo Sr Deputado Federal pelo Estado do Rio Grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(850, NULL, '04.53.??', 'Fábio Faria (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(851, NULL, '04.53.??', 'Felipe Maia (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(852, NULL, '04.53.??', 'Rogério Marinho (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(853, NULL, '04.53.??', 'Walter Alves (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(854, NULL, '04.53.??', 'Zeneaide Maia (Exmo Sr Deputado Federal pelo Estado do Rio grande do norte', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(855, NULL, '04.53.??', 'Expedito Neto (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(856, NULL, '04.53.??', 'Lindomar Garçon (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(857, NULL, '04.53.??', 'Lucio Mosquini (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(858, NULL, '04.53.??', 'Luiz Cláudio (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(859, NULL, '04.53.??', 'Marcos Rogério (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(860, NULL, '04.53.??', 'Mariana Carvalho (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(861, NULL, '04.53.??', 'Marinha Raupp (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(862, NULL, '04.53.??', 'Nilton Capixaba (Exmo Sr Deputado Federal pelo Estado de Rodonia', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(863, NULL, '04.53.??', 'Abel Mesquita JR. (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(864, NULL, '04.53.??', 'Carlos Andrade (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(865, NULL, '04.53.??', 'Edio Lopes (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(866, NULL, '04.53.??', 'Hiran Gonçalves (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(867, NULL, '04.53.??', 'Jonathan de Jesus (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(868, NULL, '04.53.??', 'Maria Helena (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(869, NULL, '04.53.??', 'Remidio Monai (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(870, NULL, '04.53.??', 'Sheridan (Exmo Sr Deputado Federal pelo Estado de Roraima', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(871, NULL, '04.53.??', 'Afonso Hamm (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(872, NULL, '04.53.??', 'Afonso Motta (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(873, NULL, '04.53.??', 'Alceu Moreira (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(874, NULL, '04.53.??', 'Bohn Gass (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(875, NULL, '04.53.??', 'Carlos Gomes (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(876, NULL, '04.53.??', 'Cavatti Filho (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(877, NULL, '04.53.??', 'Danrlei de Jesus Hinterholz (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(878, NULL, '04.53.??', 'Darcisio perondi (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(879, NULL, '04.53.??', 'Fernando Marroni (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(880, NULL, '04.53.??', 'Giovani Cherini (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(881, NULL, '04.53.??', 'Heitor Schuch (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(882, NULL, '04.53.??', 'Henrique Fontana (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(883, NULL, '04.53.??', 'Jerônimo Goergen (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(884, NULL, '04.53.??', 'João Darley(Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(885, NULL, '04.53.??', 'José Fogaça (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(886, NULL, '04.53.??', 'José Otávio Germano (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(887, NULL, '04.53.??', 'Jose Stedile (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(888, NULL, '04.53.??', 'Luiz Carlos Heinze (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(889, NULL, '04.53.??', 'Luiz Carlos Busato (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(890, NULL, '04.53.??', 'Marco Maia (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(891, NULL, '04.53.??', 'Marcon (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(892, NULL, '04.53.??', 'Maria do Rosário (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(893, NULL, '04.53.??', 'Mauro Pereira (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(894, NULL, '04.53.??', 'Nelson Marchezan Junior (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(895, NULL, '04.53.??', 'Onyx Lorenzoni (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(896, NULL, '04.53.??', 'Osmar Terra (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(897, NULL, '04.53.??', 'Paulo Pimenta (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(898, NULL, '04.53.??', 'Popeo de Mattos (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(899, NULL, '04.53??', 'Renato Nogueira (Exmo Sr Deputado Federal pelo Estado do Rio do Sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(900, NULL, '04.53.??', 'Renato molling (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(901, NULL, '04.53.??', 'Sérgio moraes (Exmo Sr Deputado Federal pelo Estado do Rio grande do sul', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(902, NULL, '04.53.??', 'Carmen Zanotto (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(903, NULL, '04.53.??', 'Celso Maldaner (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(904, NULL, '04.53.??', 'César Souza (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(905, NULL, '04.53.??', 'Décio Lima (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(906, NULL, '04.53.??', 'Edinho Bez (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(907, NULL, '04.53.??', 'Esperidião Amin (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(908, NULL, '04.53.??', 'Geovania De Sá (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(909, NULL, '04.53.??', 'João Rodrigues (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(910, NULL, '04.53.??', 'Jorge Boeira (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(911, NULL, '04.53.??', 'Jorginho Melo (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(912, NULL, '04.53.??', 'Marco Tebaldi (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(913, NULL, '04.53.??', 'Mauro Mariani (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(914, NULL, '04.53.??', 'Pedro Uczai (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(915, NULL, '04.53.??', 'Rogério Peninha Mendonça (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(916, NULL, '04.53.??', 'Ronaldo Benedet (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(917, NULL, '04.53.??', 'Valdir Calatto (Exmo Sr Deputado Federal pelo Estado de Santa Catarina', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(918, NULL, '04.53.??', 'Adelson Barreto (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(919, NULL, '04.53.??', 'André Moura (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(920, NULL, '04.53.??', 'Fábio Mitidieri (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(921, NULL, '04.53.??', 'Fabio Reis (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(922, NULL, '04.53.??', 'João Daniel (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(923, NULL, '04.53.??', 'Jony Marcos (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(924, NULL, '04.53.??', 'Laercio Oliveira (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(925, NULL, '04.53.??', 'Valadares Filho (Exmo Sr Deputado Federal pelo Estado de Sergipe', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(926, NULL, '04.53.??', 'Alex Maneta (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(927, NULL, '04.53.??', 'Alexandre Leite (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(928, NULL, '04.53.??', 'Ana perugini (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(929, NULL, '04.53.??', 'Andres Sanchez (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(930, NULL, '04.53.??', 'Antônio Bulhões (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(931, NULL, '04.53.??', 'Antônio Carlos Mendes thame (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(932, NULL, '04.53.??', 'Arlindo Chinaglia (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(933, NULL, '04.53.??', 'Arnaldo Faria de Sá (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(934, NULL, '04.53.??', 'Baleia Rossi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(935, NULL, '04.53.??', 'Beto Mansur (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(936, NULL, '04.53.??', 'Bruna Furlan (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(937, NULL, '04.53.??', 'Bruno Covas (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(938, NULL, '04.53.??', 'Capitão Augusto (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(939, NULL, '04.53.??', 'Carlos  Sampaio (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(940, NULL, '04.53.??', 'Carlos Zarattini (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(941, NULL, '04.53.??', 'Celso Russomanno (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(942, NULL, '04.53.??', 'DR. Sinval Malheiros (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(943, NULL, '04.53.??', 'Eduardo Bolsonaro (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(944, NULL, '04.53.??', 'Eduardo Cury (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(945, NULL, '04.53.??', 'Eli Correia Filho (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(946, NULL, '04.53.??', 'Evandro Gussi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(947, NULL, '04.53.??', 'Fausto pinato (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(948, NULL, '04.53.??', 'Flavinho (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(949, NULL, '04.53.??', 'Gilberto nascimento (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(950, NULL, '04.53.??', 'Goulart (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(951, NULL, '04.53.??', 'Guilherme Mussi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(952, NULL, '04.53.??', 'Herculano Passos (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(953, NULL, '04.53.??', 'Ivan Valente (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(954, NULL, '04.53.??', 'Jefferson Campos (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(955, NULL, '04.53.??', 'João Paulo Papa (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(956, NULL, '04.53.??', 'Jorge Tadeu Mundalen (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(957, NULL, '04.53.??', 'José Mentor (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(958, NULL, '04.53.??', 'Keiko Ota (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(959, NULL, '04.53.??', 'Lonbbre neto (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(960, NULL, '04.53.??', 'Luiz Lauro Filho (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(961, NULL, '04.53.??', 'Luiza Erudina (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(962, NULL, '04.53.??', 'Major Olimpo (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(963, NULL, '04.53.??', 'Maranhão Gabrielli (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(964, NULL, '04.53.??', 'Marcelo Aguiar (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(965, NULL, '04.53.??', 'Marcelo Squassoni(Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(966, NULL, '04.53.??', 'Marcio alvino (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(967, NULL, '04.53.??', 'Miguel Haddad (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(968, NULL, '04.53.??', 'Milton Monti (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(969, NULL, '04.53.??', 'Miguel Lombardi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(970, NULL, '04.53.??', 'Milton Monti (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(971, NULL, '04.53.??', 'Missionário José Olimpio (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(972, NULL, '04.53.??', 'Nelson Marquezelli (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(973, NULL, '04.53.??', 'Nilton Tatto (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(974, NULL, '04.53.??', 'Orlando Silva (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(975, NULL, '04.53.??', 'Paulo Freire (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(976, NULL, '04.53.??', 'Paulo Maluf (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(977, NULL, '04.53.??', 'Paulo Pereira da Silva (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(978, NULL, '04.53.??', 'Paulo Teixeira (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(979, NULL, '04.53.??', 'Penna (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(980, NULL, '04.53.??', 'PR. Marco Feliciano (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(981, NULL, '04.53.??', 'Renata Abreu (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(982, NULL, '04.53.??', 'Ricardo Izar (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(983, NULL, '04.53.??', 'Ricardo Tripoli (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(984, NULL, '04.53.??', 'Roberto Alves (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(985, NULL, '04.53.??', 'Samuel Moreira (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(986, NULL, '04.53.??', 'Sérgio Reis (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(987, NULL, '04.53.??', 'Silvio Torres (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(988, NULL, '04.53.??', 'Tiririca (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(989, NULL, '04.53.??', 'valmir Prascidelli (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(990, NULL, '04.53.??', 'Vanderlei Macris (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(991, NULL, '04.53.??', 'Vicente Cândido (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(992, NULL, '04.53.??', 'Vicentino (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(993, NULL, '04.53.??', 'Vinicius Carvalho (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(994, NULL, '04.53.??', 'Vitor Lippi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(995, NULL, '04.53.??', 'Walter Ihoshi (Exmo Sr Deputado Federal pelo Estado de São Paulo', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(996, NULL, '04.53.??', 'Carlos Henrique Gaguim (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(997, NULL, '04.53.??', 'César Halum (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(998, NULL, '04.53.??', 'Dulce Miranda (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1);
+INSERT INTO `pessoa` (`id`, `foto`, `ordem`, `nome`, `email`, `telefone_1`, `telefone_2`, `data_criacao`, `posto_graduacao_id`, `funcao_id`, `usuario_cadastro_id`, `ativo`) VALUES
+(999, NULL, '04.53.??', 'Irajá Abreu (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(1000, NULL, '04.53.??', 'Josi Nunes (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(1001, NULL, '04.53.??', 'Lázaro Botelho (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(1002, NULL, '04.53.??', 'Professora Dorinha Seabra Rezende (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(1003, NULL, '04.53.??', 'Vicentinho Júnior (Exmo Sr Deputado Federal pelo Estado de Tocantins', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 7, 1, 1),
+(1004, NULL, '07.02.??', 'General de Brigada Ivan Ferreira NEIVA Filho (Exmo Sr Diretor de Fiscalização de Produtos Controlados', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(1005, NULL, '07.02.??', 'General de Brigada AIRES de Melo Jurema (Exmo Sr Diretor de Gestão Especial', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(1006, NULL, '07.02.??', 'General de Brigada Paulo Sérgio SADAUKAS  (Exmo Sr Subdiretor Técnico de Saúde', '', NULL, NULL, '2015-08-23 19:06:25', 12, 10, 1, 1),
+(1007, NULL, '05.01.??', 'Almirante de Esquadra Sergio Roberto FERNANDES dos Santos (Exmo Sr Secretário de Ciência, Tecnologia e Inovação da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(1008, NULL, '05.01.??', 'Almirante de Esquadra ILQUES Barbosa Junior  (Exmo Sr Diretor-Geral do Pessoal da Marinha', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(1009, NULL, '05.01.??', 'Almirante de Esquadra RM1 Gilberto Max Rod fé Hirschfeld (Exmo Sr Coordenador-Geral do Programa de Desenvolvimento de Submarino com Propulsão Nuclear', '', NULL, NULL, '2015-08-23 19:06:25', NULL, 8, 1, 1),
+(1010, NULL, '99.99.99', 'Flaviano O. Silva', '', '0', '', '2015-08-24 19:13:26', NULL, 19, 10, 1),
+(1011, NULL, '09.90.98', 'Andre Andrino', '', '888', '', '2015-08-24 19:28:18', 14, 15, 10, 1),
+(1012, NULL, '04.99.99', 'Cármen Lúcia Antunes Rocha', '', '000', '', '2015-08-24 22:55:53', 28, 17, 10, 1),
+(1013, NULL, '04.99.99', 'José Celso de Mello Filho', '', '000', '', '2015-08-24 22:56:36', NULL, 17, 10, 1),
+(1014, NULL, '04.99.99', 'Rosa Maria Weber Candiota da Rosa', '', '000', '', '2015-08-24 22:59:18', 28, 17, 10, 1),
+(1015, NULL, '04.99.99', 'Teori Albino Zavaski', '', '000', '', '2015-08-24 22:59:52', 28, 17, 10, 1),
+(1016, NULL, '04.52', 'Kátia Regina de Abreu', '', '0000', '', '2015-08-24 23:01:59', 28, 24, 10, 1),
+(1017, NULL, '06.00', 'Rogerio Guedes Soares', '', '000', '', '2015-08-24 23:05:02', 28, 9, 10, 1),
+(1018, NULL, '06.00', 'Luiz Antonio de Souza Cordeiro', '', '00', '', '2015-08-24 23:05:55', 28, 9, 10, 1),
+(1019, NULL, '05.99', 'Sérgio Luiz Kukina', '', '000', '', '2015-08-24 23:06:39', 28, 18, 10, 1),
+(1020, NULL, '05.99', 'Sebastião Alves dos Reis Júnior', '', '000', '', '2015-08-24 23:07:30', 28, 18, 10, 1),
+(1021, NULL, '05.99', 'Rogério Schietti Machado Cruz', '', '000', '', '2015-08-24 23:08:05', 28, 18, 10, 1),
+(1022, NULL, '05.99', 'Jorge Mussi', '', '000', '', '2015-08-24 23:08:50', 28, 18, 10, 1),
+(1023, NULL, '05.99', 'Maria de Assis Calsing', '', '000', '', '2015-08-24 23:09:20', 28, 18, 10, 1),
+(1024, NULL, '05.99', 'Ana Lúcia Arraes de Alencar', '', '000', '', '2015-08-24 23:10:30', 28, 18, 10, 1),
+(1025, NULL, '06.00', 'Silvio José Albuquerque e Silva', '', '000', '', '2015-08-24 23:13:03', 28, 26, 10, 1),
+(1026, NULL, '08.00', 'Ilana Trombka', '', '000', '', '2015-08-24 23:15:42', 28, 31, 10, 1),
+(1027, NULL, '08.00', 'Newton Trisotto', '', '000', '', '2015-08-24 23:16:33', 28, 15, 10, 1),
+(1028, NULL, '08.00', 'Rodrigo de Lima Baena Soares', '', '000', '', '2015-08-24 23:17:55', 28, 9, 10, 1),
+(1029, NULL, '08.00', 'Norberto Moretti', '', '000', '', '2015-08-24 23:18:40', 28, 31, 10, 1),
+(1030, NULL, '08.00', 'Marcelo Marotta Viegas', '', '000', '', '2015-08-24 23:19:22', 28, 33, 10, 1),
+(1031, NULL, '08.00', 'Cláudia Fonseca Buzzi', '', '000', '', '2015-08-24 23:22:25', 28, 33, 10, 1),
+(1032, NULL, '08.00', 'Julio Cesar Peres', '', '000', '', '2015-08-24 23:23:38', 28, 34, 10, 1),
+(1033, NULL, '08.00', 'Franselmo Araújo Costa', '', '000', '', '2015-08-24 23:24:10', 28, 34, 10, 1),
+(1034, NULL, '08.00', 'Éden Valadares Santos', '', '000', '', '2015-08-24 23:24:51', 28, 31, 10, 1),
+(1035, NULL, '08.00', 'Sonia Maria Dunshee de Abranches Carneiro', '', '000', '', '2015-08-24 23:25:20', 28, 31, 10, 1),
+(1036, NULL, '08.00', 'aa', '', '000', '', '2015-08-24 23:26:00', 28, 30, 10, 1),
+(1037, NULL, '08.00', 'Cláudio Alano Cohen Bezerra', '', '000', '', '2015-08-24 23:27:14', 28, 10, 10, 1),
+(1038, NULL, '08.00', 'Yuri Pereira Fernandes', '', '000', '', '2015-08-24 23:28:33', 28, 35, 10, 1),
+(1039, NULL, '08.00', 'Jandyr Maya Faillace Neto', '', '000', '', '2015-08-24 23:48:55', 28, 31, 10, 1),
+(1040, NULL, '08.00', 'Renato Dantas de Araujo', '', '000', '', '2015-08-24 23:50:35', 28, 10, 10, 1),
+(1041, NULL, '10.00.11', 'Colnago', '', '0000', '', '2015-08-27 10:07:00', 18, 16, 10, 1),
+(1042, NULL, '04.67.99', 'mmnnnm', '', '00', '', '2015-08-27 10:22:33', 28, 36, 10, 1),
+(1043, NULL, '99.32', 'Teste em Setembro 2015', 'wwwww@www', '22233322', '', '2015-09-11 09:58:09', 12, 15, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -258,19 +1439,20 @@ INSERT INTO `pessoa` (`id`, `foto`, `ordem`, `nome`, `email`, `telefone_1`, `tel
 --
 
 CREATE TABLE IF NOT EXISTS `poder` (
-`id` int(11) NOT NULL,
-  `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `poder`
 --
 
 INSERT INTO `poder` (`id`, `nome`) VALUES
-(1, 'Executivo 2'),
+(1, 'Executivo'),
 (2, 'Legistativo'),
 (3, 'Judiciário'),
-(4, 'asdasdas');
+(4, 'Outros');
 
 -- --------------------------------------------------------
 
@@ -279,10 +1461,38 @@ INSERT INTO `poder` (`id`, `nome`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `posto_graduacao` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ordem` varchar(10) NOT NULL,
   `sigla` varchar(20) NOT NULL,
-  `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `nome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- Extraindo dados da tabela `posto_graduacao`
+--
+
+INSERT INTO `posto_graduacao` (`id`, `ordem`, `sigla`, `nome`) VALUES
+(9, '1', 'Mar', 'Marechal'),
+(10, '2', 'Gen Ex', 'General de Exército'),
+(11, '3', 'Gen Div', 'General de Divisão'),
+(12, '4', 'Gen Brig', 'General de Brigada'),
+(13, '5', 'Cel', 'Coronel'),
+(14, '6', 'Ten Cel', 'Tenente-Coronel'),
+(15, '7', 'Maj', 'Major'),
+(16, '8', 'Cap', 'Capitão'),
+(17, '9', '1º Ten', '1º Tenente'),
+(18, '10', '2º Ten', '2º Tenente'),
+(19, '11', 'Asp', 'Aspirante a Oficial'),
+(20, '12', 'Sub Ten', 'Subtenente'),
+(21, '13', '1º Sgt', '1º Sargento'),
+(22, '14', '2º Sgt', '2º Sargento'),
+(23, '15', 'TM', 'Taifeiro-Mor'),
+(24, '16', 'Cb', 'Cabo'),
+(25, '17', 'T1', 'Taifeiro de 1ª Classe'),
+(26, '18', 'T2', 'Taifeiro de 2ª Classe'),
+(27, '19', 'Sd', 'Soldado'),
+(28, '00.00.00', 'Exmo Sr', 'Exmo Senhor');
 
 -- --------------------------------------------------------
 
@@ -291,10 +1501,12 @@ CREATE TABLE IF NOT EXISTS `posto_graduacao` (
 --
 
 CREATE TABLE IF NOT EXISTS `uf` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sigla` char(2) NOT NULL,
-  `nome` varchar(60) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `nome` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sigla_UNIQUE` (`sigla`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Extraindo dados da tabela `uf`
@@ -310,164 +1522,29 @@ INSERT INTO `uf` (`id`, `sigla`, `nome`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(60) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senha` varchar(32) NOT NULL,
   `ativo` tinyint(1) NOT NULL DEFAULT '1',
   `data_cadastro` datetime NOT NULL,
-  `perfil` enum('0','1') DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `perfil` enum('0','1','2') DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `ativo`, `data_cadastro`, `perfil`) VALUES
-(1, 'Flaviano O Silva', 'fosbsb@gmail.com', 'd3426d47a74ac758a7167846d80ddcdc', 0, '2015-08-01 00:00:00', '0'),
-(2, 'Eric Soares', 'ericsoaresd@gmail.com.br', 'd3426d47a74ac758a7167846d80ddcdc', 0, '2015-08-09 23:46:14', '1'),
-(3, 'Francisco Molina', 'francisco.m.duarte@gmail.com', '202cb962ac59075b964b07152d234b70', 0, '2015-08-10 21:15:17', '0');
+(1, 'Flaviano O Silva', 'fosbsb@gmail.com', 'd3426d47a74ac758a7167846d80ddcdc', 1, '2015-08-01 00:00:00', '0'),
+(2, 'Eric Soares', 'ericsoaresd@gmail.com.br', 'd3426d47a74ac758a7167846d80ddcdc', 1, '2015-08-09 23:46:14', '1'),
+(3, 'Francisco Molina', 'francisco.m.duarte@gmail.com', '202cb962ac59075b964b07152d234b70', 1, '2015-08-10 21:15:17', '2'),
+(10, 'administracao', 'administracao', '202cb962ac59075b964b07152d234b70', 1, '2015-08-01 00:00:00', '0'),
+(11, 'usuario', 'usuario', '202cb962ac59075b964b07152d234b70', 1, '2015-08-09 23:46:14', '1'),
+(12, 'recepcao', 'recepcao', '202cb962ac59075b964b07152d234b70', 1, '2015-08-10 21:15:17', '2');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cidade`
---
-ALTER TABLE `cidade`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_cidade_uf_idx` (`uf_id`);
-
---
--- Indexes for table `convidado`
---
-ALTER TABLE `convidado`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `pessoa_id` (`pessoa_id`,`evento_id`), ADD KEY `fk_pessoa_has_evento_evento1_idx` (`evento_id`), ADD KEY `fk_pessoa_has_evento_pessoa1_idx` (`pessoa_id`), ADD KEY `fk_convidado_usuario1_idx` (`usuario_check_id`);
-
---
--- Indexes for table `evento`
---
-ALTER TABLE `evento`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_evento_local1_idx` (`local_id`), ADD KEY `fk_evento_usuario1_idx` (`usuario_cadastro_id`);
-
---
--- Indexes for table `funcao`
---
-ALTER TABLE `funcao`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_funcao_poder1_idx` (`poder_id`);
-
---
--- Indexes for table `historico_acesso`
---
-ALTER TABLE `historico_acesso`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_historico_acesso_usuario1_idx` (`usuario_id`);
-
---
--- Indexes for table `local`
---
-ALTER TABLE `local`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_local_cidade1_idx` (`cidade_id`);
-
---
--- Indexes for table `perfil`
---
-ALTER TABLE `perfil`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pessoa`
---
-ALTER TABLE `pessoa`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_pessoa_posto_graduacao1_idx` (`posto_graduacao_id`), ADD KEY `fk_pessoa_funcao1_idx` (`funcao_id`), ADD KEY `fk_pessoa_usuario1_idx` (`usuario_cadastro_id`);
-
---
--- Indexes for table `poder`
---
-ALTER TABLE `poder`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `posto_graduacao`
---
-ALTER TABLE `posto_graduacao`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `uf`
---
-ALTER TABLE `uf`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `sigla_UNIQUE` (`sigla`);
-
---
--- Indexes for table `usuario`
---
-ALTER TABLE `usuario`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email_UNIQUE` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cidade`
---
-ALTER TABLE `cidade`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `convidado`
---
-ALTER TABLE `convidado`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
---
--- AUTO_INCREMENT for table `evento`
---
-ALTER TABLE `evento`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `funcao`
---
-ALTER TABLE `funcao`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `historico_acesso`
---
-ALTER TABLE `historico_acesso`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
---
--- AUTO_INCREMENT for table `local`
---
-ALTER TABLE `local`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `perfil`
---
-ALTER TABLE `perfil`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pessoa`
---
-ALTER TABLE `pessoa`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
---
--- AUTO_INCREMENT for table `poder`
---
-ALTER TABLE `poder`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `posto_graduacao`
---
-ALTER TABLE `posto_graduacao`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `uf`
---
-ALTER TABLE `uf`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `usuario`
---
-ALTER TABLE `usuario`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -476,48 +1553,48 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- Limitadores para a tabela `cidade`
 --
 ALTER TABLE `cidade`
-ADD CONSTRAINT `fk_cidade_uf` FOREIGN KEY (`uf_id`) REFERENCES `uf` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cidade_uf` FOREIGN KEY (`uf_id`) REFERENCES `uf` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `convidado`
 --
 ALTER TABLE `convidado`
-ADD CONSTRAINT `fk_convidado_usuario1` FOREIGN KEY (`usuario_check_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_pessoa_has_evento_evento1` FOREIGN KEY (`evento_id`) REFERENCES `evento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_pessoa_has_evento_pessoa1` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_convidado_usuario1` FOREIGN KEY (`usuario_check_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pessoa_has_evento_evento1` FOREIGN KEY (`evento_id`) REFERENCES `evento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pessoa_has_evento_pessoa1` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `evento`
 --
 ALTER TABLE `evento`
-ADD CONSTRAINT `fk_evento_local1` FOREIGN KEY (`local_id`) REFERENCES `local` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_evento_usuario1` FOREIGN KEY (`usuario_cadastro_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_evento_local1` FOREIGN KEY (`local_id`) REFERENCES `local` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_evento_usuario1` FOREIGN KEY (`usuario_cadastro_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `funcao`
 --
 ALTER TABLE `funcao`
-ADD CONSTRAINT `fk_funcao_poder1` FOREIGN KEY (`poder_id`) REFERENCES `poder` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_funcao_poder1` FOREIGN KEY (`poder_id`) REFERENCES `poder` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `historico_acesso`
 --
 ALTER TABLE `historico_acesso`
-ADD CONSTRAINT `fk_historico_acesso_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_historico_acesso_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `local`
 --
 ALTER TABLE `local`
-ADD CONSTRAINT `fk_local_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_local_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `pessoa`
 --
 ALTER TABLE `pessoa`
-ADD CONSTRAINT `fk_pessoa_funcao1` FOREIGN KEY (`funcao_id`) REFERENCES `funcao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_pessoa_posto_graduacao1` FOREIGN KEY (`posto_graduacao_id`) REFERENCES `posto_graduacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_pessoa_usuario1` FOREIGN KEY (`usuario_cadastro_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_pessoa_funcao1` FOREIGN KEY (`funcao_id`) REFERENCES `funcao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pessoa_posto_graduacao1` FOREIGN KEY (`posto_graduacao_id`) REFERENCES `posto_graduacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pessoa_usuario1` FOREIGN KEY (`usuario_cadastro_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
