@@ -1,5 +1,7 @@
 <?php
 /* Carrega a classe DOMPdf */
+//setando para 5 minutos
+set_time_limit(300);
 require_once("../libs/dompdf/dompdf_config.inc.php");
 include '../conexao/conn.php';
 

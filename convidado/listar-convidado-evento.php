@@ -42,7 +42,7 @@
 					
 					$sql .= "order by data_inicio desc";
 					#echo $sql;
-					
+					#exit;
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 

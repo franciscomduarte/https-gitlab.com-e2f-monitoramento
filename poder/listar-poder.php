@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=23'">
+			<button type="button" style="margin-left: 10px" class="btn btn-info" onclick="location.href='index.php?pg=23'">
 				Nova Poder
 			</button>
 

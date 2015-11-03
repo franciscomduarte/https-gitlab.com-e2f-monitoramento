@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=14'">
+			<button type="button" class="btn btn-info" style="margin-left: 10px" onclick="location.href='index.php?pg=14'">
 				Novo Evento
 			</button>
 
@@ -52,10 +52,7 @@
 						<td><?php echo $linha['descricao']?></td>
 						<td style="font-size: 11px"><?php echo $linha['nome_local']?></td>
 						<td style="font-size: 11px"><?php echo $linha['nome_usuario']?></td>
-						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">
-									<span class="glyphicon glyphicon-trash" title="Excluir"></span>
-							</button>
+						<td width="20%">
 							<button onclick="location.href='index.php?pg=14&acao=a&id=<?php echo $linha['id']?>'">
 								<span class="glyphicon glyphicon-edit" title="Editar"></span>
 							</button>
@@ -68,11 +65,12 @@
 							<button onclick="location.href='index.php?pg=19&acao=a&id=<?php echo $linha['id']?>'">
 								<span class="glyphicon glyphicon-user" title="Convidados"></span>
 							</button>
-							
-							<button type="button" class="btn btn-info" onclick="location.href='relatorios/lista-de-convidados.php?id=<?php echo $linha['id']?>'">
-								PDF
+							<button onclick="chamaRelatorio(<?php echo $linha['id']?>);">
+								<span class="glyphicon glyphicon-save-file" title="Exportar para PDF"></span>
 							</button>
-							
+							<button onclick="excluir(<?php echo $linha['id']?>)">
+									<span class="glyphicon glyphicon-trash" title="Excluir"></span>
+							</button>
 						</td>
 					</tr>
 
@@ -90,6 +88,10 @@
 		if (confirm("Tem certeza que deseja excluir este evento?")){
 			location.href = pag;
 		}
+	}
+	function chamaRelatorio(id){
+		pagina = '/scc_cerimonial/relatorios/encaminha.php?id='+id;
+		window.open(pagina,'_blank');
 	}
 </script>
 

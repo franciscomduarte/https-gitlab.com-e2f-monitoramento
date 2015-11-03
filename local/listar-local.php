@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="table-responsive">
 
-			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=12'">
+			<button type="button" class="btn btn-info" style="margin-left: 10px" onclick="location.href='index.php?pg=12'">
 				Novo Local
 			</button>
 
@@ -40,8 +40,12 @@
 						<td><?php echo $linha['endereco']?></td>
 						<td><?php echo $linha['nome_cidade']?></td>
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)">Excluir</button>
-							<button onclick="location.href='index.php?pg=12&acao=a&id=<?php echo $linha['id']?>'">Alterar</button>
+							<button onclick="location.href='index.php?pg=12&acao=a&id=<?php echo $linha['id']?>'">
+								<span class="glyphicon glyphicon-edit" title="Editar"></span>
+							</button>
+							<button onclick="excluir(<?php echo $linha['id']?>)">
+								<span class="glyphicon glyphicon-trash" title="Excluir"></span>
+							</button>
 						</td>
 					</tr>
 

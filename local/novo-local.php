@@ -25,9 +25,8 @@
 ?>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
-		<div class="table-responsive">
 			<form method="post" action="index.php?pg=2">
-				<div class="row">
+				<div class="row" style="margin-left: 10px">
 					<div class="col-lg-6">
 
 							<button class="btn btn-info" type="button"
@@ -37,7 +36,6 @@
 				</div>
 				<!-- /.row -->
 			</form>
-		</div>
 		<p>
 		
 		<form action="local/gravar-local.php?acao=<?php echo $acao?>" method="post">
@@ -53,11 +51,11 @@
 					<input type="text" name="endereco" value="<?php echo $endereco?>" class="form-control" placeholder="Digite o endereço" required>
 				</div>
 				
-				<div class="input-group" style="margin: 5px">
+				<div class="input-group col-lg-6" style="margin: 5px">
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">Cidade:</span>
-                               <select name="cidade_id" class="form-control" style="width:400px" required>
+                               <select name="cidade_id" class="form-control" required>
                                   	<option value='' selected>-- Escolha uma cidade --</option>
                                   	<?php 
                                   		

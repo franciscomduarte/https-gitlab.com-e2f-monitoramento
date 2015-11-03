@@ -1,12 +1,10 @@
-
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 		<div class="table-responsive">
 		
-			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=11'">
+			<button type="button" style="margin-left: 5px" class="btn btn-info" onclick="location.href='index.php?pg=11'">
 				Nova Pessoa
 			</button>
-		
 		
 			<table class="table table-hover" id="example">
 				<thead>

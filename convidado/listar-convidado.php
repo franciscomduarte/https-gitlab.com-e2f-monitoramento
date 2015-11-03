@@ -90,12 +90,11 @@ while ($linha = mysqli_fetch_array($rs)) {
 			<table class="table table-hover" id="example">
 				<thead>
 					<tr>
-						<th>Selecionar</th>
-						<th>Foto</th>
-						<th>Ordem</th>
-						<th width="25%">Nome</th>
-						<th width="25%">Poder</th>
-						<th width="5%">E-mail</th>
+						<th width="10%">Foto</th>
+						<th width="10%">Ordem</th>
+						<th width="20%">Nome</th>
+						<th width="10%">Poder</th>
+						<th width="10%">E-mail</th>
 						<th width="10%">Telefone(s)</th>
 						<th width="35%">Op&ccedil;&otilde;es</th>
 					</tr>
@@ -147,8 +146,9 @@ while ($linha = mysqli_fetch_array($rs)) {
 			                        $num++;
 			                        ?>
 					<tr>
-						<td align="center"><input type="checkbox" id="<?php echo $linha['id']?>" <?php echo $linha['total'] > 0 ? "disabled":""?>></td>
-						<td>
+						<td align="center">
+						<input type="checkbox" id="<?php echo $linha['id']?>" <?php echo $linha['total'] > 0 ? "disabled":""?>>
+						<span style="padding-right: 5px"></span>
 							<?php 
 								if ($linha['foto']){
 									$arrayFoto 	  = explode(".",$linha['foto']);
@@ -212,7 +212,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 	}
 
 	function teste() {
-		var data = new Array()
+		var data = new Array();
 		$(':checkbox').each(function( index ) {
 			if( $( this ).is(":checked")) {
 				var id = $( this ).attr('id');

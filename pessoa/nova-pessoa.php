@@ -44,7 +44,7 @@
 			<fieldset legend="Pesquisar">
 				<form method="post" action="index.php?pg=2">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-6" style="margin-left: 10px">
 
 								<button class="btn btn-info" type="button"
 									onclick="history.go(-1);">Voltar</button>
@@ -90,7 +90,7 @@
 					<span class="input-group-btn"> 
 							<div class="input-group">
                                <span class="input-group-addon">&nbsp;&nbsp;&nbsp;Posto / Função&nbsp;&nbsp; </span>
-                               <select name="funcao_id" class="form-control" style="width:400px" required>
+                               <select name="funcao_id" class="form-control" style="width:100%" required>
                                   	<option value='' selected>-- Escolha uma função --</option>
                                   	<?php 
                                   		

@@ -2,11 +2,11 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 		<div class="table-responsive">
-			<button type="button" class="btn btn-info" onclick="location.href='index.php?pg=4'">
+			<button type="button" class="btn btn-info" style="margin-left: 10px" onclick="location.href='index.php?pg=4'">
 				Nova Função
 			</button>
 			
-			<button type="button" class="btn btn-info" onclick="location.href='relatorios/lista-de-funcoes.php'">
+			<button type="button" class="btn btn-info" onclick="chamaRelatorio();">
 				PDF
 			</button>
 			
@@ -61,6 +61,10 @@
 		if (confirm("Tem certeza que deseja excluir esta função?")){
 			location.href = pag;
 		}
+	}
+	function chamaRelatorio(){
+		pagina = '/scc_cerimonial/relatorios/encaminha.php';
+		window.open(pagina,'_blank');
 	}
 </script>
 
