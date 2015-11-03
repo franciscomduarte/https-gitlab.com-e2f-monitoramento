@@ -31,7 +31,8 @@
 					        concat(l.nome,'<br>' ,l.endereco,' - ',c.nome,' - ',u.sigla) as nome_local,
 					        us.nome as nome_usuario
 							from evento e, local l, cidade c, uf u, usuario us
-							where e.local_id = l.id
+							where e.ativo = 1 
+				            and   e.local_id = l.id
 							and   l.cidade_id = c.id
 							and   u.id = c.uf_id
 							and   us.id = e.usuario_cadastro_id
@@ -52,8 +53,7 @@
 						<td style="font-size: 11px"><?php echo $linha['nome_local']?></td>
 						<td style="font-size: 11px"><?php echo $linha['nome_usuario']?></td>
 						<td>
-							<button onclick="excluir(<?php echo $linha['id']?>)" 
-									<?php echo $linha['total'] > 0 ? "disabled title='Evento possui convidados.'" : ""?>>
+							<button onclick="excluir(<?php echo $linha['id']?>)">
 									<span class="glyphicon glyphicon-trash" title="Excluir"></span>
 							</button>
 							<button onclick="location.href='index.php?pg=14&acao=a&id=<?php echo $linha['id']?>'">
@@ -67,6 +67,10 @@
 							</button>
 							<button onclick="location.href='index.php?pg=19&acao=a&id=<?php echo $linha['id']?>'">
 								<span class="glyphicon glyphicon-user" title="Convidados"></span>
+							</button>
+							
+							<button type="button" class="btn btn-info" onclick="location.href='relatorios/lista-de-convidados.php?id=<?php echo $linha['id']?>'">
+								PDF
 							</button>
 							
 						</td>

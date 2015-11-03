@@ -12,6 +12,11 @@
     <script type="text/javascript" src="js/tableExport.js"></script>
 	<script type="text/javascript" src="js/jquery.base64.js"></script>
 	
+	<script type="text/javascript" src="js/html2canvas.js"></script>
+	<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
+	<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
+	<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
+    
     <script src="js/table.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     

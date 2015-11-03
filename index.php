@@ -77,6 +77,12 @@ if(isset($_REQUEST['pg'])) {
 		case 23:
 			include 'poder/novo-poder.php';
 			break;
+		case 30:
+			include 'relatorios/principal.php';
+			break;
+		case 31:
+			include 'relatorios/lista-de-funcoes.php';
+			break;
 		case 80:
 			include 'colecao/sucesso.php';
 			break;
@@ -91,4 +97,5 @@ if(isset($_REQUEST['pg'])) {
 
 ?>
 
-<?php include_once 'footer.php'; ?>
+<?php include_once 'footer.php'; 
+?>

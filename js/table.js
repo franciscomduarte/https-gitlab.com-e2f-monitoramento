@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('#example').DataTable({
+    
+	var table = $('#example').DataTable({
     	responsive: true,
     	
     	paging: false,
@@ -31,5 +32,25 @@ $(document).ready(function() {
     	
     	
     });
+	
+    //var table = $('#example').DataTable();
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#poderSelecionado').change( function() {
+    	table.draw();
+    } );
+    
+    $.fn.dataTable.ext.search.push(
+	    function( settings, data, dataIndex ) {
+	        var poderSelecionado = $('#poderSelecionado').val();
+	        var poder = data[4]; // use data for the age column
+	        console.log(poderSelecionado);
+	        if ( poderSelecionado == poder ) {
+	            return true;
+	        }
+	        return false;
+	    }
+	);
     
 });
+
+

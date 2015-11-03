@@ -26,20 +26,7 @@
 			}
 		}elseif ($acao == "e"){
 			//Esta a nÃ£o exclui apenas inativa.
-			$sqlTotal="select count(*) as total 
-					   from convidado where evento_id=$id";			
-			$rsTotal = mysqli_query($conexao, $sqlTotal);
-
-			$linha = mysqli_fetch_assoc($rsTotal);
-			
-			$total = $linha['total'];
-			if ($total > 0){
-				echo "<script>alert('Não é possível exclir Evento que possuí Convidados.');history.go(-1);</script>";
-				exit();
-			}else{
-				$sql = "DELETE from evento where id = $id";
-			}
-			
+			$sql = "UPDATE evento set ativo = 0 where id = $id";
 		}elseif ($acao == "a"){
 			if ($data_fim){
 				$sql = "UPDATE evento set 

@@ -6,12 +6,15 @@
 				Nova Função
 			</button>
 			
-			<a href="#" onclick="$('#example').tableExport({type:'csv',escape:'false'});">CSV</a>
+			<button type="button" class="btn btn-info" onclick="location.href='relatorios/lista-de-funcoes.php'">
+				PDF
+			</button>
+			
+			<a href="#" class="btn btn-info" onclick="$('#example').tableExport({type:'csv',escape:'false'});">CSV</a>
 			
 				<table class="table table-hover" id="example">
 					<thead>
 						<tr>
-							<th>#</th>
 							<th>Ordem</th>
 							<th>Nome</th>
 							<th>Poder</th>
@@ -34,7 +37,6 @@
 				           	 $num++;
 				           	 ?>
 						<tr>
-							<td><?php echo $num?></td>
 							<td><?php echo $linha['ordem']?></td>
 							<td><?php echo $linha['nome']?></td>
 							<td><?php echo $linha['nome_poder']?></td>

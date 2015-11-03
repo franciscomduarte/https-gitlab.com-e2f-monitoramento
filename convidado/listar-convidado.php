@@ -61,27 +61,40 @@ while ($linha = mysqli_fetch_array($rs)) {
 </div>
 <div class="row row-offcanvas row-offcanvas-right">
 
+			<button type="button" class="btn btn-info" onclick="teste()">
+				Inserir selecionados
+			</button>
+
 			<button type="button" class="btn btn-info" onclick="$('#example').tableExport({type:'csv',escape:'false'});">
 				Exportar para excel
 			</button>
 			
-			<button type="button" class="btn btn-info">
-				Importar lista do excel
-			</button>
+			<div class="input-group" style="margin: 5px">
+							<div class="input-group">
+                               <span class="input-group-addon">Poder:</span>
+                               <select id="poderSelecionado" class="form-control" style="width:400px">
+                                  	<option value=''>-- Escolha um poder --</option>
+                                  	<?php 
+                                  		$sqlPoder = "select * from poder order by id";
+                                  		$rsPoder = mysqli_query($conexao, $sqlPoder);
+                                  		while($linha=mysqli_fetch_array($rsPoder)){
+											echo "<option value='".$linha['nome']."'>".$linha['nome']."</option>";
+                                  		}	
+                                  	?>
+                                </select>
+                            </div>
+				</div>
 			
-			<button type="button" class="btn btn-info">
-				Enviar convite eletrônico
-			</button>
-
 	<div class="row">
 		<div class="table-responsive">
 			<table class="table table-hover" id="example">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>Selecionar</th>
 						<th>Foto</th>
 						<th>Ordem</th>
 						<th width="25%">Nome</th>
+						<th width="25%">Poder</th>
 						<th width="5%">E-mail</th>
 						<th width="10%">Telefone(s)</th>
 						<th width="35%">Op&ccedil;&otilde;es</th>
@@ -92,8 +105,8 @@ while ($linha = mysqli_fetch_array($rs)) {
 					
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
-								p.funcao_id, 
-								f.nome as nome_funcao, pp.nome as nome_poder,
+								p.funcao_id,
+								f.nome as nome_funcao, pp.nome as poder,
 								(select count(*) from convidado c 
 								 where c.evento_id='".$evento_id."'
 								 and c.pessoa_id = p.id) as total,
@@ -134,7 +147,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 			                        $num++;
 			                        ?>
 					<tr>
-						<td><?php echo $num ?></td>
+						<td align="center"><input type="checkbox" id="<?php echo $linha['id']?>" <?php echo $linha['total'] > 0 ? "disabled":""?>></td>
 						<td>
 							<?php 
 								if ($linha['foto']){
@@ -159,6 +172,10 @@ while ($linha = mysqli_fetch_array($rs)) {
 								echo $linha['nome_pessoa']."<br />(".$linha['nome_funcao'].")"; 
 							?>
 						</td>
+						<td><?php 
+								echo $linha['poder']; 
+							?>
+						</td>
 						<td><?php echo $linha['email'] ?></td>
 						<td><?php 
 								echo $linha['telefone_1'];
@@ -172,9 +189,7 @@ while ($linha = mysqli_fetch_array($rs)) {
 							<button class="btn btn-info btn-sm" onclick="location.href='convidado/gravar-convidado.php?acao=prenominata&id=<?php echo $linha['id']?>&evento_id=<?php echo $evento_id ?>'" <?php echo $linha['total_prenominata'] > 0 ? "disabled":""?>>Pre-Nominata</button>
 							<button class="btn btn-primary btn-sm" onclick="location.href='convidado/gravar-convidado.php?acao=nominata&id=<?php echo $linha['id']?>&evento_id=<?php echo  $evento_id ?>'" <?php echo $linha['total_nominata'] > 0 ? "disabled":""?>>Nominata</button>
 							<button class="btn btn-danger btn-sm" onclick="location.href='convidado/gravar-convidado.php?acao=remover&id=<?php echo $linha['id']?>&evento_id=<?php echo  $evento_id ?>'" <?php 
-									if (($linha['total_nominata']+$linha['total_prenominata']+$linha['total']<=0))
-										echo "disabled"?>
-									>Remover</button>
+									if (($linha['total_nominata']+$linha['total_prenominata']+$linha['total']<=0)) echo "disabled"?>>Remover</button>
 						</td>
 			
 					</tr>
@@ -190,15 +205,27 @@ while ($linha = mysqli_fetch_array($rs)) {
 
 <script>
 	function excluir(id){
-		var pag = "pessoa/gravar-pessoa.php?acao=e&id="+id;
+		var pag = "pessoa/gravar-convidado.php?acao=e&id="+id;
 		if (confirm("Tem certeza que deseja excluir esta pessoa?")){
 			location.href = pag;
 		}
 	}
 
+	function teste() {
+		var data = new Array()
+		$(':checkbox').each(function( index ) {
+			if( $( this ).is(":checked")) {
+				var id = $( this ).attr('id');
+				data[index] = id;
+			}
+			//console.log( index + ": " + $( this ).is(":checked") );
+		});
+		var pag = "convidado/gravar-convidado.php?acao=e&id="+data.join(",")+"&evento_id="+<?php echo $evento_id ?>+"&acao=convidarVarios";
+		location.href = pag;
+	}
+
 	function chamaPesquisa(tipo){
 		document.getElementById('tipo').value = tipo;
-		
 		$('#formulario_busca').submit();
 		//formulario.submit();
 	}

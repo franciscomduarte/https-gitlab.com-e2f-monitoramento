@@ -14,6 +14,7 @@ switch ($acao) {
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '0', '0');";
+		mysqli_query($conexao, $sql);
 		break;
 
 	case "nominata":
@@ -21,6 +22,7 @@ switch ($acao) {
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '1', '0');";
+		mysqli_query($conexao, $sql);
 		break;
 
 	case "prenominata":
@@ -28,15 +30,24 @@ switch ($acao) {
 		usuario_check_id, nominata, pre_nominata)
 		VALUES (null, '$id', '$evento', NULL,
 		NULL, '0', '1');";
+		mysqli_query($conexao, $sql);
 		break;
 	case "remover":
-		$sql = "DELETE FROM convidado where evento_id=$evento and pessoa_id = $id;";		
+		$sql = "DELETE FROM convidado where evento_id=$evento and pessoa_id = $id;";	
+		mysqli_query($conexao, $sql);
 		break;
-}
-#echo $sql;
-#exit();
-if ($sql){
-	mysqli_query($conexao, $sql);
+	
+	case "convidarVarios":
+		$ids = explode(",", $id);
+		foreach ($ids as $id) {
+			$sql = "REPLACE INTO convidado (id, pessoa_id, evento_id, data_hora_chegada,
+			usuario_check_id, nominata, pre_nominata)
+			VALUES (null, '$id', '$evento', NULL,
+			NULL, '0', '0');";
+			mysqli_query($conexao, $sql);
+		}
+
+		break;
 }
 
 ob_clean();

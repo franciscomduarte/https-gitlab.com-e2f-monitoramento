@@ -30,6 +30,7 @@
 			<li><a href="index.php?pg=10">Pessoas</a></li>
 			<li><a href="index.php?pg=15">Convidados</a></li>
 			<li><a href="index.php?pg=20">Recep&ccedil;&atilde;o</a></li>
+			<li><a href="index.php?pg=30">Relatórios</a></li>
 			<li><a href="sair.php">Sair</a></li>
 			</ul>
 		</div><!-- /.nav-collapse -->
@@ -42,6 +43,7 @@
 				<li><a href="index.php?pg=10">Pessoas</a></li>
 				<li><a href="index.php?pg=15">Convidados</a></li>
 				<li><a href="index.php?pg=20">Recep&ccedil;&atilde;o</a></li>
+				<li><a href="index.php?pg=31">Relatórios</a></li>
 				<li><a href="sair.php">Sair</a></li>
 				</ul>
 				</div><!-- /.nav-collapse -->
