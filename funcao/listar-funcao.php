@@ -28,7 +28,9 @@
 	                    
 						$sql = "select f.id, f.ordem, f.nome, p.nome as nome_poder
 								from funcao f, poder p
-								where f.poder_id = p.id
+								where 1=1 
+									  and f.ativo = 1 
+									  and f.poder_id = p.id
 								order by ordem";
 						$rs = mysqli_query($conexao, $sql);
 						$num = 0;
@@ -44,6 +46,10 @@
 								<button onclick="location.href='index.php?pg=4&acao=a&id=<?php echo $linha['id']?>'">
 									<span class="glyphicon glyphicon-edit" title="Editar"></span>
 								</button>
+								<button onclick="excluir(<?php echo $linha['id']?>)">
+									<span class="glyphicon glyphicon-trash" title="Excluir"></span>
+								</button>
+								
 							</td>
 						</tr>
 	

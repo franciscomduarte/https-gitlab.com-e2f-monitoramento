@@ -16,9 +16,7 @@
 		if ($acao == "n"){
 			$sql = "INSERT INTO funcao VALUES(null, '$nome', '$ordem','$poder_id')";
 		}elseif ($acao == "e"){
-
 			$sql = "UPDATE funcao set ativo = 0 where id = $id";
-			
 		}elseif ($acao == "a"){
 			$sql = "UPDATE funcao set 
 					 ordem = '$ordem',

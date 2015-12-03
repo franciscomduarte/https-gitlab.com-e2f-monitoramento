@@ -18,11 +18,13 @@
 		if ($acao == "n"){
 			
 			if ($data_fim){
-				$sql = "INSERT INTO evento VALUES
+				$sql = "INSERT INTO evento (id, nome, data_inicio, data_fim, descricao, local_id, usuario_cadastro_id )
+						VALUES
 						(null, '$nome', '$data_inicio','$data_fim','$descricao','$local_id','$id_usuario')";
 			}else{
-				$sql = "INSERT INTO evento VALUES
-					   (null, '$nome', '$data_inicio',null,'$descricao','$local_id','$id_usuario')";
+				$sql = "INSERT INTO evento (id, nome, data_inicio, data_fim, descricao, local_id, usuario_cadastro_id )
+						VALUES
+					   (null, '$nome', '$data_inicio',null ,'$descricao','$local_id','$id_usuario')";
 			}
 		}elseif ($acao == "e"){
 			//Esta a não exclui apenas inativa.

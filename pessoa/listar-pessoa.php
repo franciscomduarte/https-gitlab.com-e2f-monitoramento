@@ -11,7 +11,6 @@
 					<tr>
 						<th>#</th>
 						<th>Foto</th>
-						<th>Ordem</th>
 						<th>Nome</th>
 						<th>Inclus&atilde;o</th>
 						<th>E-mail</th>
@@ -55,7 +54,6 @@
 			
 							?>
 						</td>
-						<td><?php echo $linha['ordem'] ?></td>
 						<td><?php 
 								if ($linha['funcao_id']){
 									$sqlFuncao = "select * from funcao where id = ".$linha['funcao_id'];

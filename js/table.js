@@ -42,8 +42,9 @@ $(document).ready(function() {
     $.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
 	        var poderSelecionado = $('#poderSelecionado').val();
-	        var poder = data[4]; // use data for the age column
-	        console.log(poderSelecionado);
+	        // Se remover alguma coluna da tabela, verificar o indice abaixo
+	        var poder = data[3]; // use data for the age column
+	        //console.log(poder);
 	        if ( poderSelecionado == poder ) {
 	            return true;
 	        }

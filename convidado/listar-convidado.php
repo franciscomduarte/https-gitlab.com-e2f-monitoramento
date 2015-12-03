@@ -120,8 +120,6 @@ while ($linha = mysqli_fetch_array($rs)) {
 						        and p.funcao_id = f.id
 								and pp.id = f.poder_id ";
 					
-					if (isset($_REQUEST['busca']))
-						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
 					if(isset($_REQUEST['tipo'])){
 						if ($_REQUEST['tipo'] == 2) {
 							$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$evento_id."') > 0 ";

@@ -31,12 +31,13 @@
 					        concat(l.nome,'<br>' ,l.endereco,' - ',c.nome,' - ',u.sigla) as nome_local,
 					        us.nome as nome_usuario
 							from evento e, local l, cidade c, uf u, usuario us
-							where e.ativo = 1 
-				            and   e.local_id = l.id
-							and   l.cidade_id = c.id
-							and   u.id = c.uf_id
-							and   us.id = e.usuario_cadastro_id
-							order by data_inicio desc";
+							where 1 = 1 
+								and   e.ativo = 1 
+					            and   e.local_id = l.id
+								and   l.cidade_id = c.id
+								and   u.id = c.uf_id
+								and   us.id = e.usuario_cadastro_id
+								order by data_inicio desc";
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 

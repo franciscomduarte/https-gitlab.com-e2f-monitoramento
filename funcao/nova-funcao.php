@@ -43,7 +43,7 @@
 				
 				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">Ordem</span> 
-					<input type="text" name="ordem" value="<?php echo $ordem?>" class="form-control" placeholder="Digite a ordem" required size='5' maxlength='5'>
+					<input type="text" name="ordem" value="<?php echo $ordem?>" class="form-control" placeholder="Digite a ordem" required size='10' maxlength='10'>
 				</div>
 				
 				<div class="input-group" style="margin: 5px">
