@@ -68,23 +68,23 @@ while ($linha = mysqli_fetch_array($rs)) {
 			<button type="button" class="btn btn-info" onclick="$('#example').tableExport({type:'csv',escape:'false'});">
 				Exportar para excel
 			</button>
-			
+			<!-- 
 			<div class="input-group" style="margin: 5px">
 							<div class="input-group">
                                <span class="input-group-addon">Poder:</span>
                                <select id="poderSelecionado" class="form-control" style="width:400px">
                                   	<option value=''>-- Escolha um poder --</option>
                                   	<?php 
-                                  		$sqlPoder = "select * from poder order by id";
-                                  		$rsPoder = mysqli_query($conexao, $sqlPoder);
-                                  		while($linha=mysqli_fetch_array($rsPoder)){
-											echo "<option value='".$linha['nome']."'>".$linha['nome']."</option>";
-                                  		}	
+                                  		#$sqlPoder = "select * from poder order by id";
+                                  		#$rsPoder = mysqli_query($conexao, $sqlPoder);
+                                  		#while($linha=mysqli_fetch_array($rsPoder)){
+										#	echo "<option value='".$linha['nome']."'>".$linha['nome']."</option>";
+                                  		#}	
                                   	?>
                                 </select>
                             </div>
 				</div>
-			
+			 -->
 	<div class="row">
 		<div class="table-responsive">
 			<table class="table table-hover" id="example">
@@ -170,7 +170,8 @@ while ($linha = mysqli_fetch_array($rs)) {
 								echo $linha['nome_pessoa']."<br />(".$linha['nome_funcao'].")"; 
 							?>
 						</td>
-						<td><?php 
+						<td id="dataPoder">
+							<?php 
 								echo $linha['poder']; 
 							?>
 						</td>

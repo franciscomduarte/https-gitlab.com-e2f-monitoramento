@@ -33,24 +33,24 @@ $(document).ready(function() {
     	
     });
 	
-    //var table = $('#example').DataTable();
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#poderSelecionado').change( function() {
-    	table.draw();
-    } );
+//    //var table = $('#example').DataTable();
+//    // Event listener to the two range filtering inputs to redraw on input
+//    $('#poderSelecionado').change( function() {
+//    	var poderSelecionado = $('#poderSelecionado').val();
+//    	var dataPoder = $('#dataPoder').val();
+//    	// Se remover alguma coluna da tabela, verificar o indice abaixo
+//        var poder = data[4]; // use data for the age column
+//        //console.log(poder);
+//        if ( poderSelecionado == poder ) {
+//            return true;
+//        }
+//        table.draw();
+//        return false;
+//    	
+//    } );
     
-    $.fn.dataTable.ext.search.push(
-	    function( settings, data, dataIndex ) {
-	        var poderSelecionado = $('#poderSelecionado').val();
-	        // Se remover alguma coluna da tabela, verificar o indice abaixo
-	        var poder = data[3]; // use data for the age column
-	        //console.log(poder);
-	        if ( poderSelecionado == poder ) {
-	            return true;
-	        }
-	        return false;
-	    }
-	);
+    
+    
     
 });
 
