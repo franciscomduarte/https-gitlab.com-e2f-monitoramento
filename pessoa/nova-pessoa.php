@@ -57,9 +57,35 @@
 		</div>
 		<p>
 		
-		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post" enctype="multipart/form-data">
+		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post" enctype="multipart/form-data" name="exemplo">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
+			
+				<div class="row" style="margin:5px;">
+					<span class="input-group-btn"> 
+							<div class="input-group">
+                               <span class="input-group-addon">&nbsp;&nbsp;&nbsp;Posto / Função&nbsp;&nbsp; </span>
+                               <select id="funcao_id" name="funcao_id" onchange="javascript:mudarOrdem()" class="form-control" style="width:100%" required>
+                                  	<option value='' selected>-- Escolha uma função --</option>
+                                  	<?php 
+                                  		
+                                  		$sqlFuncao = " select * from funcao ";
+                                  		$rsFuncao = mysqli_query($conexao, $sqlFuncao);
+                                  		while($linha=mysqli_fetch_array($rsFuncao)){
+                                  			if ($linha['id'] == $funcao_id){
+                                  				$escolhido = "selected";
+                                  			}else{
+                                  				$escolhido = "";
+                                  			}
+											$opcao = "<option value='".$linha['id']."' ".$escolhido.">".$linha['nome']."</option>";
+                                  			echo $opcao;
+                                  		}	
+                                  	
+                                  	?>
+                                </select>
+                            </div>
+					</span>
+				</div>
 				
 				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
@@ -86,31 +112,7 @@
 					<input type="text" name="telefone_2" value="<?php echo $telefone_2?>" class="form-control" placeholder="Digite o Telefone 2">
 				</div>
 								
-				<div class="row" style="margin:5px;">
-					<span class="input-group-btn"> 
-							<div class="input-group">
-                               <span class="input-group-addon">&nbsp;&nbsp;&nbsp;Posto / Função&nbsp;&nbsp; </span>
-                               <select name="funcao_id" class="form-control" style="width:100%" required>
-                                  	<option value='' selected>-- Escolha uma função --</option>
-                                  	<?php 
-                                  		
-                                  		$sqlFuncao = " select * from funcao ";
-                                  		$rsFuncao = mysqli_query($conexao, $sqlFuncao);
-                                  		while($linha=mysqli_fetch_array($rsFuncao)){
-                                  			if ($linha['id'] == $funcao_id){
-                                  				$escolhido = "selected";
-                                  			}else{
-                                  				$escolhido = "";
-                                  			}
-											$opcao = "<option value='".$linha['id']."' ".$escolhido.">".$linha['nome']."</option>";
-                                  			echo $opcao;
-                                  		}	
-                                  	
-                                  	?>
-                                </select>
-                            </div>
-					</span>
-				</div>
+
 				
 				<div class="form-group">
 				    <?php 
@@ -134,3 +136,41 @@
 
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	function mudarOrdem(){
+		var id = document.getElementById('funcao_id').value;		
+		Exemplo1(id);		
+	}
+
+	function Exemplo1(id) {
+		   var ajaxObj;
+
+		   try {
+		      // Firefox, Opera 8.0+, Safari...
+		      ajaxObj=new XMLHttpRequest();
+		   } catch (e) {
+		      // Internet Explorer
+		      try {
+		         ajaxObj=new ActiveXObject("Msxml2.XMLHTTP");
+		      } catch (e) {
+		         try {
+		            ajaxObj=new ActiveXObject("Microsoft.XMLHTTP");
+		         } catch (e) {
+		            alert("Seu navegador não possui suporte ao AJAX!");
+		            return false;
+		         }
+		      }
+		   }
+		   ajaxObj.onreadystatechange=function() {
+		      if(ajaxObj.readyState==4) {
+		         document.exemplo.ordem.value=ajaxObj.responseText;
+		      }
+		   }
+		   ajaxObj.open("GET","pessoa/consultaOrdem.php?id="+id,true);
+		   ajaxObj.send(null);
+		}
+
+					
+</script>
