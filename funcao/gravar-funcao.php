@@ -14,7 +14,7 @@
 	#condi磯 que verifica se uma das a絥s foram passadas
 	if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		if ($acao == "n"){
-			$sql = "INSERT INTO funcao VALUES(null, '$nome', '$ordem','$poder_id')";
+			$sql = "INSERT INTO funcao (id, nome, ordem, poder_id) VALUES (null, '$nome', '$ordem','$poder_id')";
 		}elseif ($acao == "e"){
 			$sql = "UPDATE funcao set ativo = 0 where id = $id";
 		}elseif ($acao == "a"){

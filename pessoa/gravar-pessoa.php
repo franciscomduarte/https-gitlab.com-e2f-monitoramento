@@ -20,6 +20,7 @@ $nome                = $_REQUEST['nome'];
 $email        		 = $_REQUEST['email'];
 $telefone_1   		 = $_REQUEST['telefone_1'];
 $telefone_2   		 = $_REQUEST['telefone_2'];
+$cargo  	 		 = $_REQUEST['cargo'];
 
 
 $funcao_id           = $_REQUEST['funcao_id'];
@@ -48,13 +49,14 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 				
 				$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
 						data_criacao,funcao_id,
-						usuario_cadastro_id)
+						usuario_cadastro_id, cargo)
 						VALUES
 						(null,'$nome_foto','$ordem','$nome',
 						'$email', '$telefone_1',
 						'$telefone_2',now(), 
 						'$funcao_id',
-						'$usuario_cadastro_id');";
+						'$usuario_cadastro_id',
+						'$cargo');";
 					
 			} catch (Exception $e) {
 				echo "<script>alert('Erro ao incluir Pessoa');history.go(-1);</script>";
@@ -63,13 +65,14 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		}else{
 			$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
 					data_criacao,funcao_id,
-					usuario_cadastro_id)
+					usuario_cadastro_id, cargo)
 					VALUES
 					(null,null,'$ordem','$nome',
 					'$email', '$telefone_1',
 					'$telefone_2',now(),
 					'$funcao_id',
-					'$usuario_cadastro_id');";
+					'$usuario_cadastro_id', 
+					'$cargo');";
 		}
 			
 		
@@ -101,7 +104,8 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		telefone_1 = '$telefone_1',
 		telefone_2 = '$telefone_2',
 		funcao_id = '$funcao_id',
-		usuario_cadastro_id = '$usuario_cadastro_id'
+		usuario_cadastro_id = '$usuario_cadastro_id',
+		cargo = '$cargo'
 		WHERE id = '$id'";
 		
 	}

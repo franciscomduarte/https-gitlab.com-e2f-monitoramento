@@ -22,7 +22,7 @@
 					<?php
 					require_once 'conexao/conn.php';
 				
-					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2,
+					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2, p.cargo,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
 								p.funcao_id, 
 								f.nome as nome_funcao, pp.nome as nome_poder
@@ -62,7 +62,11 @@
 										echo "<i><b>".$linha_funcao['nome']."&nbsp;</b></i>";
 									}
 								}
-								echo $linha['nome_pessoa']."<br />(".$linha['nome_funcao'].")"; 
+								if ($linha['cargo']) {
+									echo $linha['nome_pessoa']."<br />(".$linha['cargo'].")"; 
+								} else {
+									echo $linha['nome_pessoa'];
+								}
 							?>
 						</td>
 						<td><?php echo $linha['data_cadastro_formatada']?></td>

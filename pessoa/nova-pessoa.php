@@ -13,6 +13,7 @@
 	$posto_graduacao_id  = "";
 	$funcao_id           = "";
 	$usuario_cadastro_id = "";
+	$cargo = "";
 	
 	if ($acao == "a"){
 		
@@ -31,6 +32,7 @@
 			$posto_graduacao_id  = $linha['posto_graduacao_id'];
 			$funcao_id           = $linha['funcao_id'];
 			$usuario_cadastro_id = $linha['usuario_cadastro_id'];
+			$cargo = $linha['cargo'];
 		}
 	}else{
 		$acao = "n";
@@ -90,6 +92,11 @@
 				<div class="input-group" style="margin: 5px">
 					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
 					<input type="text" name="ordem" value="<?php echo $ordem ?>" class="form-control" placeholder="Digite a Ordem" required>
+				</div>
+			
+				<div class="input-group" style="margin: 5px">
+					<span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Função&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+					<input type="text" name="cargo" value="<?php echo $cargo?>" class="form-control" placeholder="Digite a Função" required>
 				</div>
 			
 				<div class="input-group" style="margin: 5px">
