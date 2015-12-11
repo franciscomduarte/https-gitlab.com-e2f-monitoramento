@@ -7,10 +7,21 @@ include '../conexao/conn.php';
 
 session_start();
 
-$sql = "select f.id, f.ordem, f.nome, p.nome as nome_poder
-								from funcao f, poder p
-								where f.poder_id = p.id
-								order by ordem";
+$idPoder = isset($_REQUEST['idPoder']) ? $_REQUEST['idPoder'] : "";
+$condicao = "";
+if($idPoder) {
+	$condicao = " and p.id = ".$idPoder;
+}
+
+$sql = "select f.id, 
+			   f.ordem, 
+		       f.nome, 
+			   p.nome as nome_poder
+								
+		from funcao f, poder p
+		where 1 = 1 ". $condicao . " 
+			  and f.poder_id = p.id
+	    order by ordem";
 $rs = mysqli_query($conexao, $sql);
 
 $linhas = "";

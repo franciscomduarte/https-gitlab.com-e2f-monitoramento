@@ -1,9 +1,11 @@
 <?php 
 include_once '../header_exportar.php';
 
-if ($_GET['id']){
+if (isset($_GET['id'])){
 	$pagina = "lista-de-convidados.php?id=".$_GET['id'];
-}else{ 
+}else if (isset($_GET['idPoder'])){ 
+	$pagina = "lista-de-funcoes.php?idPoder=".$_GET['idPoder'];
+} else {
 	$pagina = "lista-de-funcoes.php";
 }
 
