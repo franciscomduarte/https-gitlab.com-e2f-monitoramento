@@ -7,19 +7,19 @@
 	$id	   = $_REQUEST['id'];
 	
 	#dados do formulario
-	$nome       = $_REQUEST['nome'];
+	$descricao       = $_REQUEST['descricao'];
 	
 	#condi磯 que verifica se uma das a絥s foram passadas
 	if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		if ($acao == "n"){
-			$sql = "INSERT INTO poder VALUES(null, '$nome')";
+			$sql = "INSERT INTO vocativo VALUES(null, '$descricao')";
 		}elseif ($acao == "e"){
 
-			$sql = "UPDATE poder set ativo = 0 where id = $id";
+			$sql = "UPDATE vocativo set ativo = 0 where id = $id";
 			
 		}elseif ($acao == "a"){
-			$sql = "UPDATE poder set 
-					 nome = '$nome'
+			$sql = "UPDATE vocativo set 
+					 descricao = '$descricao'
 					where id = $id";
 		}
 		
@@ -27,7 +27,7 @@
 	}else{
 		#colocar um erro... 
 	}
-	header("Location: ../index.php?pg=22");
+	header("Location: ../index.php?pg=40");
 	
 
 ?>

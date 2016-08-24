@@ -7,11 +7,11 @@
 	
 	if ($acao == "a"){
 		
-		$sql = "select * from poder where id = $id";		
+		$sql = "select * from vocativo where id = $id";		
 		$rs = mysqli_query($conexao, $sql);
 		
 		while ($linha = mysqli_fetch_array($rs)) {
-			$nome     = $linha['nome'];
+			$nome     = $linha['descricao'];
 		}
 	}else{
 		$acao = "n";
@@ -21,7 +21,7 @@
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="row">
 			<fieldset legend="Pesquisar">
-				<form method="post" action="index.php?pg=22">
+				<form method="post" action="index.php?pg=40">
 					<div class="row">
 						<div class="col-lg-6" style="margin-left: 10px">
 
@@ -35,13 +35,13 @@
 			</fieldset>
 		<p>
 		
-		<form action="poder/gravar-poder.php?acao=<?php echo $acao?>" method="post">
+		<form action="vocativo/gravar-vocativo.php?acao=<?php echo $acao?>" method="post">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
 				
 				<div class="input-group" style="margin: 5px">
-					<span class="input-group-addon">Nome</span> 
-					<input type="text" name="nome" value="<?php echo $nome?>" class="form-control" placeholder="Digite o Nome da Função" required>
+					<span class="input-group-addon">Descrição</span> 
+					<input type="text" name="descricao" value="<?php echo $nome?>" class="form-control" placeholder="Digite o Nome da Vocativo" required>
 				</div>
 				
 				<button class="btn btn-info" type="submit">Cadastrar</button>
