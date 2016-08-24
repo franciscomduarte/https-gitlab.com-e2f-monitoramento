@@ -26,6 +26,7 @@
 			<li><a href="index.php?pg=2">Posto ou Fun&ccedil;&atilde;o</a></li>
 			<li><a href="index.php?pg=7">Local</a></li>
 			<li><a href="index.php?pg=22">Poder</a></li>
+			<li><a href="index.php?pg=40">Vocativos</a></li>
 			<li><a href="index.php?pg=13">Eventos</a></li>
 			<li><a href="index.php?pg=10">Pessoas</a></li>
 			<li><a href="index.php?pg=15">Convidados</a></li>

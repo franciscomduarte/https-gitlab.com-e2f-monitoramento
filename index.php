@@ -83,6 +83,14 @@ if(isset($_REQUEST['pg'])) {
 		case 31:
 			include 'relatorios/lista-de-funcoes.php';
 			break;
+
+		case 40:
+			include 'vocativo/listar-vocativos.php';
+			break;
+		case 41:
+			include 'vocativo/novo-vocativo.php';
+			break;
+
 		case 80:
 			include 'colecao/sucesso.php';
 			break;
