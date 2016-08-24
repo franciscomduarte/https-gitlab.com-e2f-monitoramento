@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 	include 'conexao/conn.php';
 	
 	$id 	= isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
