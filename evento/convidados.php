@@ -32,7 +32,7 @@ $id	   = $_REQUEST['id'];
 		  <div class="panel-heading"><b>Evento: <?php echo $nome ?></b></div>
 		  <div class="panel-body">
 		  	Local: <?php echo $local ?><br>
-		 	Descri��o: <?php echo $descricao ?><br>
+		 	Descrição: <?php echo $descricao ?><br>
 		    Data Inicio: <?php echo $data_inicio ?><br>
 		    Data Fim: <?php echo $data_fim ?>
 		  </div>
