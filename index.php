@@ -38,6 +38,9 @@ if(isset($_REQUEST['pg'])) {
 		case 10:
 			include 'pessoa/listar-pessoa.php';
 			break;
+		case 99:
+			include 'pessoa/carregar-lista-pessoa.php';
+			break;
 		case 11:
 			include 'pessoa/nova-pessoa.php';
 			break;

@@ -27,12 +27,15 @@
 								p.funcao_id, 
 								f.nome as nome_funcao, pp.nome as nome_poder
 								from pessoa p, funcao f, poder pp
-								where 1 = 1
-			                          and p.funcao_id = f.id
+								where p.funcao_id = f.id
 								      and pp.id = f.poder_id 
 									  and p.ativo = '1' ";
-			
-					$sql.= "order by CAST(p.ordem as SIGNED)";
+					$order = "order by CAST(p.ordem as SIGNED) ";
+					
+					$sql .= $order;
+
+					#$limit = "limit 0, 100 ";
+					#$sql .= $order . $limit;
 					
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
