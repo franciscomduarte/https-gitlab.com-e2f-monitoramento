@@ -3,9 +3,10 @@ $(document).ready(function() {
 	var table = $('#example').DataTable({
     	responsive: true,
     	
-    	paging: false,
+    	paging: true,
     	//scrollY: 400,
     	//bFilter: false,
+    	pagingType: "full_numbers",
     	
     	language : {
     	    "sEmptyTable": "Nenhum registro encontrado",
@@ -40,9 +41,10 @@ $(document).ready(function() {
 	var table1 = $('#example1').DataTable({
     	responsive: true,
     	
-    	paging: false,
+    	paging: true,
     	//scrollY: 400,
-    	bFilter: false,
+    	//bFilter: false,
+    	pagingType: "full_numbers",
     	
     	language : {
     	    "sEmptyTable": "Nenhum registro encontrado",
