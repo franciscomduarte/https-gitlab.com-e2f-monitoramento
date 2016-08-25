@@ -24,6 +24,7 @@ $cargo  	 		 = $_REQUEST['cargo'];
 
 
 $funcao_id           = $_REQUEST['funcao_id'];
+$vocativo_id           = $_REQUEST['vocativo_id'];
 $usuario_cadastro_id = $_SESSION["id_usuario"];
 $tipo_arquivo		 = isset($foto['type']) ? $foto['type'] : "";
 if($tipo_arquivo) {
@@ -49,13 +50,16 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 				
 				$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
 						data_criacao,funcao_id,
-						usuario_cadastro_id, cargo)
+						usuario_cadastro_id, 
+						vocativo_id,
+						cargo)
 						VALUES
 						(null,'$nome_foto','$ordem','$nome',
 						'$email', '$telefone_1',
 						'$telefone_2',now(), 
 						'$funcao_id',
 						'$usuario_cadastro_id',
+						'$vocativo_id',
 						'$cargo');";
 					
 			} catch (Exception $e) {
@@ -65,13 +69,16 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		}else{
 			$sql = "INSERT INTO pessoa(id,foto,ordem,nome,email,telefone_1,telefone_2,
 					data_criacao,funcao_id,
-					usuario_cadastro_id, cargo)
+					usuario_cadastro_id,
+					vocativo_id,
+					cargo)
 					VALUES
 					(null,null,'$ordem','$nome',
 					'$email', '$telefone_1',
 					'$telefone_2',now(),
 					'$funcao_id',
 					'$usuario_cadastro_id', 
+					'$vocativo_id',
 					'$cargo');";
 		}
 			
@@ -105,6 +112,7 @@ if ($acao == "n" || $acao == "e" || $acao == "a" ){
 		telefone_2 = '$telefone_2',
 		funcao_id = '$funcao_id',
 		usuario_cadastro_id = '$usuario_cadastro_id',
+		vocativo_id = '$vocativo_id',
 		cargo = '$cargo'
 		WHERE id = '$id'";
 		

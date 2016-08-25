@@ -25,10 +25,11 @@
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2, p.cargo,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
 								p.funcao_id, 
-								f.nome as nome_funcao, pp.nome as nome_poder
-								from pessoa p, funcao f, poder pp
+								f.nome as nome_funcao, pp.nome as nome_poder, v.descricao as vocativo
+								from pessoa p, funcao f, poder pp, vocativo v
 								where p.funcao_id = f.id
 								      and pp.id = f.poder_id 
+									  and p.vocativo_id = v.id
 									  and p.ativo = '1' ";
 					$order = "order by CAST(p.ordem as SIGNED) ";
 					
@@ -66,9 +67,9 @@
 									}
 								}
 								if ($linha['cargo']) {
-									echo $linha['nome_pessoa']."<br />(".$linha['cargo'].")"; 
+									echo $linha['vocativo']." ".$linha['nome_pessoa']."<br />(".$linha['cargo'].")"; 
 								} else {
-									echo $linha['nome_pessoa'];
+									echo $linha['vocativo']." ".$linha['nome_pessoa'];
 								}
 							?>
 						</td>

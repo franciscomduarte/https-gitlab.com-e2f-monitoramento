@@ -12,6 +12,7 @@
 	$data_criacao 		 = "";
 	$posto_graduacao_id  = "";
 	$funcao_id           = "";
+	$vocativo_id         = "";  
 	$usuario_cadastro_id = "";
 	$cargo = "";
 	
@@ -31,6 +32,7 @@
 			$data_criacao 		 = $linha['data_criacao'];
 			$posto_graduacao_id  = $linha['posto_graduacao_id'];
 			$funcao_id           = $linha['funcao_id'];
+			$vocativo_id         = $linha['vocativo_id'];
 			$usuario_cadastro_id = $linha['usuario_cadastro_id'];
 			$cargo = $linha['cargo'];
 		}
@@ -62,6 +64,31 @@
 		<form action="pessoa/gravar-pessoa.php?acao=<?php echo $acao?>" method="post" enctype="multipart/form-data" name="exemplo">
 			<input type="hidden" name="id" value="<?php echo $id?>">
 			<div class="col-lg-6">
+			
+				<div class="row" style="margin:5px;">
+					<span class="input-group-btn"> 
+							<div class="input-group">
+                               <span class="input-group-addon">&nbsp;&nbsp;&nbsp;Vocativo&nbsp;&nbsp; </span>
+                               <select id="vocativo_id" name="vocativo_id" class="form-control" style="width:100%" required>
+                                  	<?php 
+                                  		
+                                  		$sqlVocativo = " select * from vocativo ";
+                                  		$rsVocativo = mysqli_query($conexao, $sqlVocativo);
+                                  		while($linha=mysqli_fetch_array($rsVocativo)){
+                                  			if ($linha['id'] == $vocativo_id){
+                                  				$escolhido = "selected";
+                                  			}else{
+                                  				$escolhido = "";
+                                  			}
+											$opcao = "<option value='".$linha['id']."' ".$escolhido.">".$linha['descricao']."</option>";
+                                  			echo $opcao;
+                                  		}	
+                                  	
+                                  	?>
+                                </select>
+                            </div>
+					</span>
+				</div>
 			
 				<div class="row" style="margin:5px;">
 					<span class="input-group-btn"> 
