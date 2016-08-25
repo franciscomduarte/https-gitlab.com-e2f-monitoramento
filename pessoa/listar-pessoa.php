@@ -6,7 +6,7 @@
 				Nova Pessoa
 			</button>
 		
-			<table class="table table-hover" id="example">
+			<table class="table table-hover" id="example1">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -31,7 +31,8 @@
 								      and pp.id = f.poder_id 
 									  and p.vocativo_id = v.id
 									  and p.ativo = '1' ";
-					$order = "order by CAST(p.ordem as SIGNED) ";
+					//$order = "order by CAST(p.ordem as SIGNED) ";
+					$order = "order by p.ordem ";
 					
 					$sql .= $order;
 

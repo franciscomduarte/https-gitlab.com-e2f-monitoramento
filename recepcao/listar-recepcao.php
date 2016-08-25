@@ -112,20 +112,23 @@ while ($linha = mysqli_fetch_array($rs)) {
 						$sql .= "and p.id in (select pessoa_id from convidado where evento_id = '".$evento_id."') ";
 					}
 					
-					if (isset($_REQUEST['busca']))
+					if (isset($_REQUEST['busca'])) {
 						$sql .= "and p.nome like '%".$_REQUEST['busca']."%' ";
+					}
 					if(isset($_REQUEST['tipo'])){
-					if ($_REQUEST['tipo'] == 2)
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$evento_id."') > 0 ";
-					elseif($_REQUEST['tipo'] == 3)
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.pre_nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
-					elseif($_REQUEST['tipo'] == 4){
-						$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
-					}
+						if ($_REQUEST['tipo'] == 2) {
+							$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.evento_id='".$evento_id."') > 0 ";
+						}
+						elseif($_REQUEST['tipo'] == 3) {
+							$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.pre_nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
+						}
+						elseif($_REQUEST['tipo'] == 4) {
+							$sql .= "and (select count(*) from convidado c where c.pessoa_id = p.id and c.nominata = 1 and c.evento_id='".$evento_id."') > 0 ";
+						}
 					
 					}
 					
-					$sql.= "order by CAST(p.ordem as SIGNED)";
+					$sql .= "order by p.ordem";
 					
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;

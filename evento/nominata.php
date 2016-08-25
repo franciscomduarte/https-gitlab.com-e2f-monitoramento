@@ -65,6 +65,9 @@ $id	   = $_REQUEST['id'];
 							p.funcao_id = f.id and
 							c.nominata = 1 and
 		                    c.evento_id = '".$id."'";
+					
+					$sql .= " order by p.ordem ";
+					
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 

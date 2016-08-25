@@ -64,6 +64,9 @@ $id	   = $_REQUEST['id'];
 							c.pessoa_id = p.id and
 							p.funcao_id = f.id and
 		                    c.evento_id = '".$id."'";
+					
+					$sql .= " order by p.ordem ";
+					
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
 

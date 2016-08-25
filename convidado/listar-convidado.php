@@ -135,7 +135,8 @@ while ($linha = mysqli_fetch_array($rs)) {
 						}
 					}
 					
-					$sql.= "order by CAST(p.ordem as SIGNED)";
+					//$sql.= "order by CAST(p.ordem as SIGNED)";
+					$sql .= "order by p.ordem ";
 					#echo $sql;
 					$rs = mysqli_query($conexao, $sql);
 					$num = 0;
