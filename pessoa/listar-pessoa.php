@@ -5,7 +5,14 @@
 			<button type="button" style="margin-left: 5px" class="btn btn-info" onclick="location.href='index.php?pg=11'">
 				Nova Pessoa
 			</button>
-		
+			
+			<form name="form_pesquisa" method="post" action="index.php?pg=10">
+				<div id="example_filter" class="dataTables_filter" align="right">
+					<label>Pesquisar <input type="search" class="" name="nome" id="nome" placeholder="Digite algo para pesquisar"></label>
+					<button type="submit" style="margin-left: 5px" class="btn btn-info">OK</button>
+				</div>
+			</form>
+			
 			<table class="table table-hover" id="example1">
 				<thead>
 					<tr>
@@ -22,6 +29,8 @@
 					<?php
 					require_once 'conexao/conn.php';
 				
+					$nome = $_REQUEST['nome'];
+					
 					$sql = "select p.id, p.nome as nome_pessoa, p.foto, p.ordem, p.email, p.telefone_1, p.telefone_2, p.cargo,
 								date_format(data_criacao,'%d/%m/%Y %T') as data_cadastro_formatada,
 								p.funcao_id, 
@@ -31,12 +40,17 @@
 								      and pp.id = f.poder_id 
 									  and p.vocativo_id = v.id
 									  and p.ativo = '1' ";
-					//$order = "order by CAST(p.ordem as SIGNED) ";
-					$order = "order by p.ordem ";
+					$order = "order by CAST(p.ordem as SIGNED) ";
+
+					if ($nome){
+						$sql .= "and p.nome like '%$nome%' ";
+					}else{
+						$sql .= "and p.id < 0 ";
+					}
 					
 					$sql .= $order;
 
-					#$limit = "limit 0, 100 ";
+					$limit = "limit 0, 100 ";
 					#$sql .= $order . $limit;
 					
 					$rs = mysqli_query($conexao, $sql);
@@ -105,6 +119,10 @@
 </div>
 
 <script>
+	function pesquisar(){
+		var nome = $('#nome').val();
+		location.href="index.php?pg=10&nome="+nome;
+	}
 	function excluir(id){
 		var pag = "pessoa/gravar-pessoa.php?acao=e&id="+id;
 		if (confirm("Tem certeza que deseja excluir esta pessoa?")){
